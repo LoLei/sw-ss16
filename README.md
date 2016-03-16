@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/LoLei/sw-ss16.png?label=ready&title=Ready)](https://waffle.io/LoLei/sw-ss16)
 # sw-ss16
 
 ## Software Engineering & Knowledge Management
