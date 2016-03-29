@@ -3,6 +3,7 @@ package com.sw_ss16.studyroompopulationpredicter.ui.quote;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
+import com.sw_ss16.studyroompopulationpredicter.R;
 
 import junit.framework.TestCase;
 
@@ -10,7 +11,7 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
 
     private Solo mySolo;
 
-    public ListActivityTest(){
+    public ListActivityTest() {
         super(ListActivity.class);
     }
 
@@ -24,4 +25,12 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
         super.tearDown();
     }
 
+    public void testNavigationDrawerOpen() {
+        mySolo.sleep(3000);
+        mySolo.clickOnImageButton(0);
+
+        // Other way to target images
+        // mySolo.clickOnButton(R.drawable.ic_menu);
+        mySolo.sleep(3000);
+    }
 }
