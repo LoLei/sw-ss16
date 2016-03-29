@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.dummy.DummyContent;
+import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRooms;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
 import com.sw_ss16.studyroompopulationpredicter.util.LogUtil;
 
@@ -67,7 +67,7 @@ public class ListActivity extends BaseActivity implements ArticleListFragment.Ca
     }
 
     private void setupDetailFragment() {
-        ArticleDetailFragment fragment =  ArticleDetailFragment.newInstance(DummyContent.ITEMS.get(0).id);
+        ArticleDetailFragment fragment =  ArticleDetailFragment.newInstance(FavoriteStudyRooms.ITEMS.get(0).id);
         getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
     }
 

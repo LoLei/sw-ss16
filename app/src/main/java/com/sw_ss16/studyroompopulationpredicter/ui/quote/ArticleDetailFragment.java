@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.Bind;
 import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.dummy.DummyContent;
+import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRooms;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseFragment;
 
@@ -35,7 +35,7 @@ public class ArticleDetailFragment extends BaseFragment {
     /**
      * The dummy content of this fragment.
      */
-    private DummyContent.DummyItem dummyItem;
+    private FavoriteStudyRooms.DummyItem dummyItem;
 
     @Bind(R.id.quote)
     TextView quote;
@@ -55,7 +55,7 @@ public class ArticleDetailFragment extends BaseFragment {
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // load dummy item by using the passed item ID.
-            dummyItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            dummyItem = FavoriteStudyRooms.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
 
         setHasOptionsMenu(true);

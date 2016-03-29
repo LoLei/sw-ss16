@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.dummy.DummyContent;
+import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRooms;
 
 /**
  * Shows a list of all available quotes.
@@ -59,7 +59,7 @@ public class ArticleListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         // notify callback about the selected list item
-        callback.onItemSelected(DummyContent.ITEMS.get(position).id);
+        callback.onItemSelected(FavoriteStudyRooms.ITEMS.get(position).id);
     }
 
     /**
@@ -100,17 +100,17 @@ public class ArticleListFragment extends ListFragment {
 
         @Override
         public int getCount() {
-            return DummyContent.ITEMS.size();
+            return FavoriteStudyRooms.ITEMS.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return DummyContent.ITEMS.get(position);
+            return FavoriteStudyRooms.ITEMS.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return DummyContent.ITEMS.get(position).id.hashCode();
+            return FavoriteStudyRooms.ITEMS.get(position).id.hashCode();
         }
 
         @Override
@@ -119,7 +119,7 @@ public class ArticleListFragment extends ListFragment {
                 convertView = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_article, container, false);
             }
 
-            final DummyContent.DummyItem item = (DummyContent.DummyItem) getItem(position);
+            final FavoriteStudyRooms.DummyItem item = (FavoriteStudyRooms.DummyItem) getItem(position);
             ((TextView) convertView.findViewById(R.id.article_title)).setText(item.title);
             ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.author);
             final ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);

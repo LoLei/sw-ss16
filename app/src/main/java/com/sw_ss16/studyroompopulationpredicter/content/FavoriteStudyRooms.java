@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.dummy;
+package com.sw_ss16.studyroompopulationpredicter.content;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import com.sw_ss16.studyroompopulationpredicter.R;
  *
  * Created by Andreas Schrade on 14.12.2015.
  */
-public class DummyContent {
+public class FavoriteStudyRooms {
 
     /**
      * An array of sample items.
