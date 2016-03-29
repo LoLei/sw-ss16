@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.ui.quote;
+package com.sw_ss16.studyroompopulationpredicter.ui.studyroom;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRooms;
+import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
 import com.sw_ss16.studyroompopulationpredicter.util.LogUtil;
 
@@ -17,7 +17,7 @@ import com.sw_ss16.studyroompopulationpredicter.util.LogUtil;
  *
  * Created by Andreas Schrade on 14.12.2015.
  */
-public class ListActivity extends BaseActivity implements ArticleListFragment.Callback {
+public class ListActivity extends BaseActivity implements StudyRoomListFragment.Callback {
     /**
      * Whether or not the activity is running on a device with a large screen
      */
@@ -50,12 +50,12 @@ public class ListActivity extends BaseActivity implements ArticleListFragment.Ca
     public void onItemSelected(String id) {
         if (twoPaneMode) {
             // Show the quote detail information by replacing the DetailFragment via transaction.
-            ArticleDetailFragment fragment = ArticleDetailFragment.newInstance(id);
+            StudyRoomDetailFragment fragment = StudyRoomDetailFragment.newInstance(id);
             getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
         } else {
             // Start the detail activity in single pane mode.
-            Intent detailIntent = new Intent(this, ArticleDetailActivity.class);
-            detailIntent.putExtra(ArticleDetailFragment.ARG_ITEM_ID, id);
+            Intent detailIntent = new Intent(this, StudyRoomDetailActivity.class);
+            detailIntent.putExtra(StudyRoomDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
     }
@@ -67,7 +67,7 @@ public class ListActivity extends BaseActivity implements ArticleListFragment.Ca
     }
 
     private void setupDetailFragment() {
-        ArticleDetailFragment fragment =  ArticleDetailFragment.newInstance(FavoriteStudyRooms.ITEMS.get(0).id);
+        StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(FavoriteStudyRoomsContent.ITEMS.get(0).id);
         getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
     }
 
@@ -75,7 +75,7 @@ public class ListActivity extends BaseActivity implements ArticleListFragment.Ca
      * Enables the functionality that selected items are automatically highlighted.
      */
     private void enableActiveItemState() {
-        ArticleListFragment fragmentById = (ArticleListFragment) getFragmentManager().findFragmentById(R.id.article_list);
+        StudyRoomListFragment fragmentById = (StudyRoomListFragment) getFragmentManager().findFragmentById(R.id.article_list);
         fragmentById.getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 

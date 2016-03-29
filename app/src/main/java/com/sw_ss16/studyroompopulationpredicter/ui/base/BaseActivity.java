@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import com.sw_ss16.studyroompopulationpredicter.R;
 import com.sw_ss16.studyroompopulationpredicter.ui.SettingsActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.ViewSamplesActivity;
-import com.sw_ss16.studyroompopulationpredicter.ui.quote.ListActivity;
+import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
 
 import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.logD;
 import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.makeLogTag;

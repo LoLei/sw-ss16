@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.ui.quote;
+package com.sw_ss16.studyroompopulationpredicter.ui.studyroom;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -21,14 +21,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRooms;
+import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
 
 /**
  * Shows a list of all available quotes.
  * <p/>
  * Created by Andreas Schrade on 14.12.2015.
  */
-public class ArticleListFragment extends ListFragment {
+public class StudyRoomListFragment extends ListFragment {
 
     private Callback callback = dummyCallback;
 
@@ -59,7 +59,7 @@ public class ArticleListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         // notify callback about the selected list item
-        callback.onItemSelected(FavoriteStudyRooms.ITEMS.get(position).id);
+        callback.onItemSelected(FavoriteStudyRoomsContent.ITEMS.get(position).id);
     }
 
     /**
@@ -100,17 +100,17 @@ public class ArticleListFragment extends ListFragment {
 
         @Override
         public int getCount() {
-            return FavoriteStudyRooms.ITEMS.size();
+            return FavoriteStudyRoomsContent.ITEMS.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return FavoriteStudyRooms.ITEMS.get(position);
+            return FavoriteStudyRoomsContent.ITEMS.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return FavoriteStudyRooms.ITEMS.get(position).id.hashCode();
+            return FavoriteStudyRoomsContent.ITEMS.get(position).id.hashCode();
         }
 
         @Override
@@ -119,7 +119,7 @@ public class ArticleListFragment extends ListFragment {
                 convertView = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_article, container, false);
             }
 
-            final FavoriteStudyRooms.DummyItem item = (FavoriteStudyRooms.DummyItem) getItem(position);
+            final FavoriteStudyRoomsContent.DummyItem item = (FavoriteStudyRoomsContent.DummyItem) getItem(position);
             ((TextView) convertView.findViewById(R.id.article_title)).setText(item.title);
             ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.author);
             final ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
@@ -136,6 +136,6 @@ public class ArticleListFragment extends ListFragment {
         }
     }
 
-    public ArticleListFragment() {
+    public StudyRoomListFragment() {
     }
 }

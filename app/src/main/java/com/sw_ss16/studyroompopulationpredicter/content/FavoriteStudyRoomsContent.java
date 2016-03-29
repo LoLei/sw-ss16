@@ -12,7 +12,7 @@ import com.sw_ss16.studyroompopulationpredicter.R;
  *
  * Created by Andreas Schrade on 14.12.2015.
  */
-public class FavoriteStudyRooms {
+public class FavoriteStudyRoomsContent {
 
     /**
      * An array of sample items.

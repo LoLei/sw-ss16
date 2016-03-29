@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.ui.quote;
+package com.sw_ss16.studyroompopulationpredicter.ui.studyroom;
 
 import android.os.Bundle;
 
@@ -6,11 +6,11 @@ import com.sw_ss16.studyroompopulationpredicter.R;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
 
 /**
- * Simple wrapper for {@link ArticleDetailFragment}
+ * Simple wrapper for {@link StudyRoomDetailFragment}
  * This wrapper is only used in single pan mode (= on smartphones)
  * Created by Andreas Schrade on 14.12.2015.
  */
-public class ArticleDetailActivity extends BaseActivity {
+public class StudyRoomDetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class ArticleDetailActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        ArticleDetailFragment fragment =  ArticleDetailFragment.newInstance(getIntent().getStringExtra(ArticleDetailFragment.ARG_ITEM_ID));
+        StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(getIntent().getStringExtra(StudyRoomDetailFragment.ARG_ITEM_ID));
         getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
     }
 

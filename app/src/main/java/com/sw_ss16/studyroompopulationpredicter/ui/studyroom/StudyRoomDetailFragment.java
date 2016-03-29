@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.ui.quote;
+package com.sw_ss16.studyroompopulationpredicter.ui.studyroom;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.Bind;
 import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRooms;
+import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseFragment;
 
@@ -25,7 +25,7 @@ import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseFragment;
  *
  * Created by Andreas Schrade on 14.12.2015.
  */
-public class ArticleDetailFragment extends BaseFragment {
+public class StudyRoomDetailFragment extends BaseFragment {
 
     /**
      * The argument represents the dummy item ID of this fragment.
@@ -35,7 +35,7 @@ public class ArticleDetailFragment extends BaseFragment {
     /**
      * The dummy content of this fragment.
      */
-    private FavoriteStudyRooms.DummyItem dummyItem;
+    private FavoriteStudyRoomsContent.DummyItem dummyItem;
 
     @Bind(R.id.quote)
     TextView quote;
@@ -55,7 +55,7 @@ public class ArticleDetailFragment extends BaseFragment {
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // load dummy item by using the passed item ID.
-            dummyItem = FavoriteStudyRooms.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            dummyItem = FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
 
         setHasOptionsMenu(true);
@@ -100,13 +100,13 @@ public class ArticleDetailFragment extends BaseFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public static ArticleDetailFragment newInstance(String itemID) {
-        ArticleDetailFragment fragment = new ArticleDetailFragment();
+    public static StudyRoomDetailFragment newInstance(String itemID) {
+        StudyRoomDetailFragment fragment = new StudyRoomDetailFragment();
         Bundle args = new Bundle();
-        args.putString(ArticleDetailFragment.ARG_ITEM_ID, itemID);
+        args.putString(StudyRoomDetailFragment.ARG_ITEM_ID, itemID);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public ArticleDetailFragment() {}
+    public StudyRoomDetailFragment() {}
 }
