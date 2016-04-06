@@ -70,4 +70,6 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(query);
         db.close();
     }
+
+
 }

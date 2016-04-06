@@ -1,6 +1,8 @@
 package com.sw_ss16.studyroompopulationpredicter.ui.studyroom;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
@@ -8,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.sw_ss16.studyroompopulationpredicter.R;
+import com.sw_ss16.studyroompopulationpredicter.backend.Database;
 import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
 import com.sw_ss16.studyroompopulationpredicter.util.LogUtil;
@@ -27,6 +30,25 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        Database db = new Database(getApplicationContext());
+        SQLiteDatabase sqldb = db.getReadableDatabase();
+
+        String[] columns = new String[]  {"ID", "NAME", "DESCRIPTION", "ADDRESS", "IMAGE_IN", "IMAGE_OUT", "CAPACITY"};
+
+
+        Cursor c = sqldb.query("studyrooms", columns, null, null, null, null, null);
+
+        //c.getCount();
+        c.moveToFirst();
+        for(int i = 1; i <= c.getCount(); i++){
+            FavoriteStudyRoomsContent.addItem(new FavoriteStudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")), R.drawable.p1,
+                    c.getString(c.getColumnIndex("NAME")),
+                    c.getString(c.getColumnIndex("DESCRIPTION")),
+                    c.getString(c.getColumnIndex("ADDRESS"))));
+            c.moveToNext();
+
+        }
 
         setupToolbar();
 

@@ -1,6 +1,7 @@
 package com.sw_ss16.studyroompopulationpredicter.ui.base;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -18,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.sw_ss16.studyroompopulationpredicter.R;
+import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.ui.SettingsActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
 import com.sw_ss16.studyroompopulationpredicter.backend.Database;
@@ -25,6 +27,8 @@ import com.sw_ss16.studyroompopulationpredicter.backend.Database;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.sql.Array;
 
 import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.logD;
 import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.makeLogTag;
@@ -108,6 +112,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
         // Add the request to the RequestQueue.
         queue.add(jsonArrayRequest);
+
+
+
+
+
+
+
+
     }
 
     /**
