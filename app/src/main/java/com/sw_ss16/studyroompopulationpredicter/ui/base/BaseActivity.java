@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.backend.Database;
 import com.sw_ss16.studyroompopulationpredicter.ui.SettingsActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
 
@@ -38,10 +37,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         setupNavDrawer();
         // Test database insertion
-        Database db = new Database(getApplicationContext());
-        db.insertInDatabase("INSERT INTO studyrooms VALUES (" +
-            "1, 'i7', 'test', 'inffeld 25d', 'asdf', 50 );");
-
     }
 
     /**

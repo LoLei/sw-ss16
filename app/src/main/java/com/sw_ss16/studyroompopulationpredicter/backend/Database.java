@@ -48,6 +48,10 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(STUDYROOM_TABLE_CREATE);
         db.execSQL(STATISTICS_TABLE_CREATE);
         db.execSQL(CURRENTDATA_TABLE_CREATE);
+        // Populate local database with data from remote db
+        /* db.execSQL("INSERT INTO studyrooms VALUES (" +
+                "1, 'i7', 'test', 'inffeld 25d', 'asdf', 50 );");*/
+
     }
 
     @Override
