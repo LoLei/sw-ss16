@@ -16,7 +16,7 @@ public class Database extends SQLiteOpenHelper {
                     "DESCRIPTION" + " TEXT, " +
                     "ADDRESS" + " TEXT, " +
                     "IMAGE" + " BLOB, " +
-                    "CAPACITY" + " INT, " +
+                    "CAPACITY" + " INT " +
                     ");";
 
 
@@ -27,7 +27,7 @@ public class Database extends SQLiteOpenHelper {
                     "LC_ID" + " INT, " +
                     "WEEKDAY" + " INT, " +
                     "HOUR" + " INT, " +
-                    "FULLNESS" + " INT, " +
+                    "FULLNESS" + " INT " +
                     ");";
 
     private static final String CURRENTDATA_TABLE_NAME = "current_data";
@@ -36,10 +36,10 @@ public class Database extends SQLiteOpenHelper {
                     "ID" + " INT, " +
                     "LC_ID" + " INT, " +
                     "HOUR" + " INT, " +
-                    "FULLNESS" + " INT, " +
+                    "FULLNESS" + " INT " +
                     ");";
 
-    Database(Context context) {
+    public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -53,5 +53,12 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public void insertInDatabase(String query)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
+        db.close();
     }
 }
