@@ -6,6 +6,8 @@
 /build
 /captures
 
+# DB credentials
+db_credentials.php
 
 
 #built application files
@@ -51,3 +53,6 @@ obj/
 .idea/tasks.xml
 .idea/datasources.xml
 .idea/dataSources.ids
+
+# Vim
+*.swp
