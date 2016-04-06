@@ -3,8 +3,6 @@ package com.sw_ss16.studyroompopulationpredicter.backend;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.Toast;
 
 public class Database extends SQLiteOpenHelper {
 
@@ -31,6 +29,7 @@ public class Database extends SQLiteOpenHelper {
                     "WEEKDAY" + " INT, " +
                     "HOUR" + " INT, " +
                     "FULLNESS" + " INT " +
+                    "DATE" + " DATE" +
                     ");";
 
     private static final String CURRENTDATA_TABLE_NAME = "current_data";
