@@ -26,29 +26,37 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
      */
     private boolean twoPaneMode;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        Database db = new Database(getApplicationContext());
-        SQLiteDatabase sqldb = db.getReadableDatabase();
+        if(FavoriteStudyRoomsContent.ITEM_MAP.isEmpty()) {
+            System.out.println("Fill List");
+            Database db = new Database(getApplicationContext());
+            SQLiteDatabase sqldb = db.getReadableDatabase();
 
-        String[] columns = new String[]  {"ID", "NAME", "DESCRIPTION", "ADDRESS", "IMAGE_IN", "IMAGE_OUT", "CAPACITY"};
+            String[] columns = new String[]{"ID", "NAME", "DESCRIPTION", "ADDRESS", "IMAGE_IN", "IMAGE_OUT", "CAPACITY"};
 
 
-        Cursor c = sqldb.query("studyrooms", columns, null, null, null, null, null);
+            Cursor c = sqldb.query("studyrooms", columns, null, null, null, null, null);
 
-        //c.getCount();
-        c.moveToFirst();
-        for(int i = 1; i <= c.getCount(); i++){
-            FavoriteStudyRoomsContent.addItem(new FavoriteStudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")), R.drawable.p1,
-                    c.getString(c.getColumnIndex("NAME")),
-                    c.getString(c.getColumnIndex("DESCRIPTION")),
-                    c.getString(c.getColumnIndex("ADDRESS"))));
-            c.moveToNext();
+            //c.getCount();
+            c.moveToFirst();
+            for (int i = 1; i <= c.getCount(); i++) {
 
+                FavoriteStudyRoomsContent.addItem(new FavoriteStudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")), R.drawable.p1,
+                        c.getString(c.getColumnIndex("NAME")),
+                        c.getString(c.getColumnIndex("DESCRIPTION")),
+                        c.getString(c.getColumnIndex("ADDRESS"))));
+                c.moveToNext();
+
+
+            }
         }
+
 
         setupToolbar();
 

@@ -50,6 +50,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Toolbar actionBarToolbar;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setupNavDrawer();
