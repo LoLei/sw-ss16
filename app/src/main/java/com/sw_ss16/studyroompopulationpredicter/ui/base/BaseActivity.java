@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.sw_ss16.studyroompopulationpredicter.R;
+import com.sw_ss16.studyroompopulationpredicter.backend.Database;
 import com.sw_ss16.studyroompopulationpredicter.ui.SettingsActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
 
@@ -36,7 +37,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setupNavDrawer();
-        // Test database insertion
     }
 
     /**
