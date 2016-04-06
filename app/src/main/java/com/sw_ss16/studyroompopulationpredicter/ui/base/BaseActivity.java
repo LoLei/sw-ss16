@@ -60,17 +60,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         setupNavDrawer();
         final Database db = new Database(getApplicationContext());
 
-
-
-
-        // final TextView mTextView = (TextView) findViewById(R.id.description);
-
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        // String url = "http://studserv.bplaced.net/predict/predict.php?what=lc&how_much=all";
-        // String url = "http://studserv.bplaced.net/predict/predict.php?what=lc";
-        // String url = "http://www.google.com";
-        // String url = "http://httpbin.org/get?param1=hello";
+        // TODO: Use http://danielgpoint.at/predict.php?what=all
         String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
 
         // Request a string response from the provided URL.
@@ -117,14 +109,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
         // Add the request to the RequestQueue.
         queue.add(jsonArrayRequest);
-
-
-
-
-
-
-
-
     }
 
     /**

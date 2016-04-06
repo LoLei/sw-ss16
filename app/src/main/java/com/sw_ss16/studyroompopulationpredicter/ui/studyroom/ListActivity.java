@@ -26,8 +26,6 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
      */
     private boolean twoPaneMode;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +38,6 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
 
             String[] columns = new String[]{"ID", "NAME", "DESCRIPTION", "ADDRESS", "IMAGE_IN", "IMAGE_OUT", "CAPACITY"};
 
-
             Cursor c = sqldb.query("studyrooms", columns, null, null, null, null, null);
 
             //c.getCount();
@@ -52,11 +49,8 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
                         c.getString(c.getColumnIndex("DESCRIPTION")),
                         c.getString(c.getColumnIndex("ADDRESS"))));
                 c.moveToNext();
-
-
             }
         }
-
 
         setupToolbar();
 
