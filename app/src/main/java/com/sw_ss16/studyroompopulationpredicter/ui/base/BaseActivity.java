@@ -9,11 +9,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.backend.Database;
 import com.sw_ss16.studyroompopulationpredicter.ui.SettingsActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.logD;
 import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.makeLogTag;
@@ -37,6 +46,41 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setupNavDrawer();
+
+        // final TextView mTextView = (TextView) findViewById(R.id.description);
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // String url = "http://studserv.bplaced.net/predict/predict.php?what=lc&how_much=all";
+        // String url = "http://studserv.bplaced.net/predict/predict.php?what=lc";
+        // String url = "http://www.google.com";
+        String url = "http://httpbin.org/get?param1=hello";
+
+        // Request a string response from the provided URL.
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Display the first 500 characters of the response string.
+                        // mTextView.setText();
+                        try {
+                            System.out.println("Response is: "+ response.getString("args"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(),
+                                    "Error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // mTextView.setText("That didn't work!");
+                System.out.println("That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
     }
 
     /**
