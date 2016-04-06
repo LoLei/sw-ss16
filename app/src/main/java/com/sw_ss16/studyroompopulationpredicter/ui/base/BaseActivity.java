@@ -9,18 +9,18 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.sw_ss16.studyroompopulationpredicter.R;
 import com.sw_ss16.studyroompopulationpredicter.ui.SettingsActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,22 +54,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         // String url = "http://studserv.bplaced.net/predict/predict.php?what=lc&how_much=all";
         // String url = "http://studserv.bplaced.net/predict/predict.php?what=lc";
         // String url = "http://www.google.com";
-        String url = "http://httpbin.org/get?param1=hello";
+        // String url = "http://httpbin.org/get?param1=hello";
+        String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
 
         // Request a string response from the provided URL.
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
+        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         // Display the first 500 characters of the response string.
                         // mTextView.setText();
-                        try {
-                            System.out.println("Response is: "+ response.getString("args"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(),
-                                    "Error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject jsonObject = response.getJSONObject(i);
+                                String id = jsonObject.getString("id");
+                                String name = jsonObject.getString("name");
+                                String address = jsonObject.getString("address");
+                                System.out.println(id + " " + name + " " + address);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -80,7 +84,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        queue.add(jsonArrayRequest);
     }
 
     /**
