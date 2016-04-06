@@ -3,6 +3,8 @@ package com.sw_ss16.studyroompopulationpredicter.backend;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 public class Database extends SQLiteOpenHelper {
 
@@ -15,7 +17,8 @@ public class Database extends SQLiteOpenHelper {
                     "NAME" + " TEXT, " +
                     "DESCRIPTION" + " TEXT, " +
                     "ADDRESS" + " TEXT, " +
-                    "IMAGE" + " BLOB, " +
+                    "IMAGE_IN" + " BLOB, " +
+                    "IMAGE_OUT" + " BLOB, " +
                     "CAPACITY" + " INT " +
                     ");";
 
@@ -49,8 +52,10 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(STATISTICS_TABLE_CREATE);
         db.execSQL(CURRENTDATA_TABLE_CREATE);
         // Populate local database with data from remote db
-        /* db.execSQL("INSERT INTO studyrooms VALUES (" +
-                "1, 'i7', 'test', 'inffeld 25d', 'asdf', 50 );");*/
+        /*db.execSQL("INSERT INTO studyrooms VALUES (" +
+                "1, 'i7', 'test', 'inffeld 25d', 'asdf', 50 );");
+        */
+        System.out.println("STUFF DOING EHRE");
 
     }
 

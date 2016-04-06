@@ -1,6 +1,7 @@
 package com.sw_ss16.studyroompopulationpredicter.ui.base;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.sw_ss16.studyroompopulationpredicter.R;
 import com.sw_ss16.studyroompopulationpredicter.ui.SettingsActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
+import com.sw_ss16.studyroompopulationpredicter.backend.Database;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +28,7 @@ import org.json.JSONObject;
 
 import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.logD;
 import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.makeLogTag;
+
 
 /**
  * The base class for all Activity classes.
@@ -46,6 +49,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setupNavDrawer();
+        final Database db = new Database(getApplicationContext());
+
+
+
 
         // final TextView mTextView = (TextView) findViewById(R.id.description);
 
@@ -69,8 +76,24 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 JSONObject jsonObject = response.getJSONObject(i);
                                 String id = jsonObject.getString("id");
                                 String name = jsonObject.getString("name");
+                                String description = jsonObject.getString("description");
                                 String address = jsonObject.getString("address");
+                                String capacity = jsonObject.getString("capacity");
+                                //TODO: Image IN
+                                //TODO: Image OUT
                                 System.out.println(id + " " + name + " " + address);
+                                db.insertInDatabase("INSERT INTO studyrooms (ID, NAME, DESCRIPTION, ADDRESS, IMAGE_IN, IMAGE_OUT, CAPACITY) " +
+                                        "SELECT " +
+                                                id + "," +
+                                                "'" + name + "'," +
+                                                "'" + description + "'," +
+                                                "'" + address + "'," +
+                                                "null," + // TODO: image
+                                                "null," + // TODO: image
+                                                capacity + " " +
+                                        "WHERE NOT EXISTS (SELECT 1 FROM studyrooms WHERE ID = " + id +");");
+
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
