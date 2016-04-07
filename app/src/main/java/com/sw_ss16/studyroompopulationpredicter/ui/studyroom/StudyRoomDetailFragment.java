@@ -13,12 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
-import butterknife.Bind;
 import com.sw_ss16.studyroompopulationpredicter.R;
 import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseFragment;
+
+import butterknife.Bind;
 
 /**
  * Shows the quote detail page.
@@ -81,7 +81,8 @@ public class StudyRoomDetailFragment extends BaseFragment {
     }
 
     private void loadBackdrop() {
-        Glide.with(this).load(dummyItem.photoId).centerCrop().into(backdropImg);
+        // Glide.with(this).load(dummyItem.photoId).centerCrop().into(backdropImg);
+        Glide.with(this).load("http://danielgpoint.at/images/test_out.jpg").centerCrop().into(backdropImg);
     }
 
     @Override

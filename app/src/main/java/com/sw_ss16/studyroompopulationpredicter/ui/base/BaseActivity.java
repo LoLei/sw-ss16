@@ -93,8 +93,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 String image_out = jsonObject.getString("image_out");
                                 System.out.println(id + " " + name + " " + address + " " + image_in + " " + image_out);
 
-                                byte[] image_in_jpg = getLogoImage(image_in);
-                                byte[] image_out_jpg = getLogoImage(image_out);
+                                byte[] image_in_jpg = getImage(image_in);
+                                byte[] image_out_jpg = getImage(image_out);
 
                                 db.insertInDatabase("INSERT INTO studyrooms (ID, NAME, DESCRIPTION, ADDRESS, IMAGE_IN, IMAGE_OUT, CAPACITY) " +
                                         "SELECT " +
@@ -127,7 +127,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param url the location of the image on the server
      * @return the byte array generated from the URL
      */
-    private byte[] getLogoImage(String url){
+    private byte[] getImage(String url){
         try {
             URL imageUrl = new URL(url);
             URLConnection ucon = imageUrl.openConnection();
