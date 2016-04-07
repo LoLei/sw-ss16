@@ -9,7 +9,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -250,6 +252,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (navigationView != null) {
             setupDrawerSelectListener(navigationView);
             setSelectedItem(navigationView);
+
+            // Test add items programmatically to the navdrawer
+            Menu m = navigationView.getMenu();
+            SubMenu topChannelMenu = m.addSubMenu("Top Channels");
+            topChannelMenu.add("Foo");
+            topChannelMenu.add("Bar");
+            topChannelMenu.add("Baz");
         }
 
         logD(TAG, "navigation drawer setup finished");
