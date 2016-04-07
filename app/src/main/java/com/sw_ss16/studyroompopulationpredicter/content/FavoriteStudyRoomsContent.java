@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sw_ss16.studyroompopulationpredicter.R;
-
 /**
  * Just dummy content. Nothing special.
  *
@@ -32,14 +30,16 @@ public class FavoriteStudyRoomsContent {
 
     public static class DummyItem {
         public final String id;
-        public final int photoId;
+        public final String imageInUrl;
+        public final String imageOutUrl;
         public final String title;
         public final String author;
         public final String content;
 
-        public DummyItem(String id, int photoId, String title, String author, String content) {
+        public DummyItem(String id, String imageInUrl, String imageOutUrl, String title, String author, String content) {
             this.id = id;
-            this.photoId = photoId;
+            this.imageInUrl = imageInUrl;
+            this.imageOutUrl = imageOutUrl;
             this.title = title;
             this.author = author;
             this.content = content;

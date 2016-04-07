@@ -93,17 +93,14 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 String image_out = jsonObject.getString("image_out");
                                 System.out.println(id + " " + name + " " + address + " " + image_in + " " + image_out);
 
-                                byte[] image_in_jpg = getImage(image_in);
-                                byte[] image_out_jpg = getImage(image_out);
-
                                 db.insertInDatabase("INSERT INTO studyrooms (ID, NAME, DESCRIPTION, ADDRESS, IMAGE_IN, IMAGE_OUT, CAPACITY) " +
                                         "SELECT " +
                                         id + "," +
                                         "'" + name + "', " +
                                         "'" + description + "', " +
                                         "'" + address + "', " +
-                                        "" + image_in_jpg + ", " +
-                                        "null," + // TODO: image
+                                        "'" + image_in + "', " +
+                                        "'" + image_out + "', " +
                                         capacity + " " +
                                         "WHERE NOT EXISTS (SELECT 1 FROM studyrooms WHERE ID = " + id +");");
 

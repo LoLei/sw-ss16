@@ -15,8 +15,8 @@ public class Database extends SQLiteOpenHelper {
                     "NAME" + " TEXT, " +
                     "DESCRIPTION" + " TEXT, " +
                     "ADDRESS" + " TEXT, " +
-                    "IMAGE_IN" + " BLOB, " +
-                    "IMAGE_OUT" + " BLOB, " +
+                    "IMAGE_IN" + " TEXT, " +
+                    "IMAGE_OUT" + " TEXT, " +
                     "CAPACITY" + " INT " +
                     ");";
 

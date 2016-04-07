@@ -82,7 +82,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
     private void loadBackdrop() {
         // Glide.with(this).load(dummyItem.photoId).centerCrop().into(backdropImg);
-        Glide.with(this).load("http://danielgpoint.at/images/test_out.jpg").centerCrop().into(backdropImg);
+        Glide.with(this).load(dummyItem.imageOutUrl).centerCrop().into(backdropImg);
     }
 
     @Override

@@ -44,7 +44,9 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
             c.moveToFirst();
             for (int i = 1; i <= c.getCount(); i++) {
 
-                FavoriteStudyRoomsContent.addItem(new FavoriteStudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")), R.drawable.p1,
+                FavoriteStudyRoomsContent.addItem(new FavoriteStudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")),
+                        c.getString(c.getColumnIndex("IMAGE_IN")),
+                        c.getString(c.getColumnIndex("IMAGE_OUT")),
                         c.getString(c.getColumnIndex("NAME")),
                         c.getString(c.getColumnIndex("DESCRIPTION")),
                         c.getString(c.getColumnIndex("ADDRESS"))));
