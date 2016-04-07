@@ -70,7 +70,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void insertStudyRoomsIntoSQLiteDB(RequestQueue queue, final Database db) {
         String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
 
-        // Request a string response from the provided URL.
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -97,7 +96,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                                         capacity + " " +
                                         "WHERE NOT EXISTS (SELECT 1 FROM studyrooms WHERE ID = " + id +");");
 
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -116,7 +114,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void insertStatisticsIntoSQLiteDB(RequestQueue queue, final Database db) {
         String url = "http://danielgpoint.at/predict.php?what=stat&how_much=all";
 
-        // Request a string response from the provided URL.
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -139,7 +136,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                                         "" + fullness + " " +
                                         "WHERE NOT EXISTS (SELECT 1 FROM statistics WHERE ID = " + id +");");
 
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -156,7 +152,44 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    private void insertCurrentDataIntoSQLiteDB(RequestQueue queue, Database db) {
+    private void insertCurrentDataIntoSQLiteDB(RequestQueue queue, final Database db) {
+        String url = "http://danielgpoint.at/predict.php?what=curr&how_much=all";
+
+        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject jsonObject = response.getJSONObject(i);
+                                String id = jsonObject.getString("id");
+                                String lc_id = jsonObject.getString("lc_id");
+                                String date = jsonObject.getString("date");
+                                String hour = jsonObject.getString("hour");
+                                String fullness = jsonObject.getString("fullness");
+                                System.out.println(id + " " + lc_id + " " + date);
+                                db.insertInDatabase("INSERT INTO current_data (ID, LC_ID, HOUR, FULLNESS, DATE) " +
+                                        "SELECT " +
+                                        id + "," +
+                                        "" + lc_id + ", " +
+                                        "" + hour + ", " +
+                                        "" + fullness + ", " +
+                                        "'" + date + "' " +
+                                        "WHERE NOT EXISTS (SELECT 1 FROM current_data WHERE ID = " + id +");");
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(jsonArrayRequest);
 
     }
 

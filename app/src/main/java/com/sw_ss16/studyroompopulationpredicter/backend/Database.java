@@ -37,8 +37,8 @@ public class Database extends SQLiteOpenHelper {
                     "ID" + " INT, " +
                     "LC_ID" + " INT, " +
                     "HOUR" + " INT, " +
-                    "FULLNESS" + " INT " +
-                    "DATE" + " DATE" +
+                    "FULLNESS" + " INT, " +
+                    "DATE" + " DATE " +
                     ");";
 
     public Database(Context context) {
