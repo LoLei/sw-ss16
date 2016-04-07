@@ -33,6 +33,7 @@ public class FavoriteStudyRoomsContent {
         public final String imageInUrl;
         public final String imageOutUrl;
         public final String title;
+        // TODO: Rename member variables
         public final String author;
         public final String content;
 

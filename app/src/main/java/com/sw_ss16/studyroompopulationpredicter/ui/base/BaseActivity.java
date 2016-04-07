@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.sw_ss16.studyroompopulationpredicter.R;
 import com.sw_ss16.studyroompopulationpredicter.backend.Database;
+import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.ui.SettingsActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
 
@@ -253,16 +254,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             setupDrawerSelectListener(navigationView);
             setSelectedItem(navigationView);
 
-            // Test add items programmatically to the navdrawer
+            // Add all study rooms to navdrawer
             Menu m = navigationView.getMenu();
-            SubMenu topChannelMenu = m.addSubMenu("Top Channels");
-            topChannelMenu.add("Foo");
-            topChannelMenu.add("Bar");
-            topChannelMenu.add("Baz");
-
-            MenuItem mi = topChannelMenu.getItem(0);
-            mi.setIcon(R.drawable.ic_school_white_24dp);
-            mi.setTitle("Test");
+            SubMenu all_study_rooms = m.getItem(2).getSubMenu();
+            for (int i = 0; i < FavoriteStudyRoomsContent.ITEMS.size(); i++)
+            {
+                all_study_rooms.add(FavoriteStudyRoomsContent.ITEMS.get(i).title);
+                all_study_rooms.getItem(i).setIcon(R.drawable.ic_school_white_24dp);
+            }
         }
 
         logD(TAG, "navigation drawer setup finished");
