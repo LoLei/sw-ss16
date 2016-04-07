@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.android.volley.Request;
@@ -24,6 +25,12 @@ import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.logD;
 import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.makeLogTag;
@@ -85,6 +92,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 String image_in = jsonObject.getString("image_in");
                                 String image_out = jsonObject.getString("image_out");
                                 System.out.println(id + " " + name + " " + address + " " + image_in + " " + image_out);
+
+                                byte[] logoImage = getLogoImage(image_in);
+
                                 db.insertInDatabase("INSERT INTO studyrooms (ID, NAME, DESCRIPTION, ADDRESS, IMAGE_IN, IMAGE_OUT, CAPACITY) " +
                                         "SELECT " +
                                         id + "," +
@@ -110,6 +120,36 @@ public abstract class BaseActivity extends AppCompatActivity {
         // Add the request to the RequestQueue.
         queue.add(jsonArrayRequest);
     }
+
+    /**
+     * http://stackoverflow.com/a/7331698/4129221
+     * @param url
+     * @return
+     */
+    private byte[] getLogoImage(String url){
+        try {
+            URL imageUrl = new URL(url);
+            URLConnection ucon = imageUrl.openConnection();
+
+            InputStream is = ucon.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+
+            // ByteArrayBuffer deprecated, use ByteArrayOutputStream instead
+            // ByteArrayBuffer baf = new ByteArrayBuffer(500);
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            byte[] data = new byte[500];
+            int current = 0;
+            while ((current = bis.read()) != -1) {
+                buffer.write((byte) current);
+            }
+
+            return buffer.toByteArray();
+        } catch (Exception e) {
+            Log.d("ImageManager", "Error: " + e.toString());
+        }
+        return null;
+    }
+
 
     private void insertStatisticsIntoSQLiteDB(RequestQueue queue, final Database db) {
         String url = "http://danielgpoint.at/predict.php?what=stat&how_much=all";
