@@ -41,6 +41,18 @@ public class Database extends SQLiteOpenHelper {
                     "DATE" + " DATE " +
                     ");";
 
+    private static final String FAVSTUDYROOM_TABLE_NAME = "favstudyrooms";
+    private static final String FAVSTUDYROOM_TABLE_CREATE =
+            "CREATE TABLE " + FAVSTUDYROOM_TABLE_NAME + " (" +
+                    "ID" + " INT" +
+                    ");";
+
+    private static final String LAST_UPDATED_TABLE_NAME = "lastupdated";
+    private static final String LAST_UPDATED_TABLE_CREATE =
+            "CREATE TABLE " + LAST_UPDATED_TABLE_NAME + " (" +
+                    "DATETIME" + " DATETIME " +
+                    ");";
+
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -50,6 +62,9 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(STUDYROOM_TABLE_CREATE);
         db.execSQL(STATISTICS_TABLE_CREATE);
         db.execSQL(CURRENTDATA_TABLE_CREATE);
+        db.execSQL(FAVSTUDYROOM_TABLE_CREATE);
+        db.execSQL(LAST_UPDATED_TABLE_CREATE);
+
         // Populate local database with data from remote db
         /*db.execSQL("INSERT INTO studyrooms VALUES (" +
                 "1, 'i7', 'test', 'inffeld 25d', 'asdf', 50 );");
