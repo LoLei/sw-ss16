@@ -123,7 +123,7 @@ public class StudyRoomListFragment extends ListFragment {
             ((TextView) convertView.findViewById(R.id.article_title)).setText(item.title);
             ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.author);
             final ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
-            Glide.with(getActivity()).load(item.imageInUrl).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
+            Glide.with(getActivity()).load(item.imageOutUrl).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
                 @Override
                 protected void setResource(Bitmap resource) {
                     RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getActivity().getResources(), resource);
