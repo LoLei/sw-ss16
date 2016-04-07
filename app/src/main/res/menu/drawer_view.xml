@@ -3,7 +3,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_quotes"
-            android:icon="@drawable/ic_school_white_24dp"
+            android:icon="@drawable/ic_grade_white_24dp"
             android:title="@string/navigation_favorite_study_rooms" />
         <!--<item
             android:id="@+id/nav_samples"
