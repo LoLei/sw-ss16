@@ -9,13 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Main">
 
-        <activity android:name=".ui.studyroom.ListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.studyroom.ListActivity"/>
 
         <activity android:name=".ui.studyroom.StudyRoomDetailActivity"
             android:label=""
@@ -26,6 +20,15 @@
         <activity android:name=".ui.SettingsActivity"
             android:label="Settings"
             android:parentActivityName=".ui.studyroom.ListActivity"/>
+
+        <activity android:name=".Startup.Startup"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 
