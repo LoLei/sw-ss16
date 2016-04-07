@@ -123,8 +123,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * http://stackoverflow.com/a/7331698/4129221
-     * @param url
-     * @return
+     * @param url the location of the image on the server
+     * @return the byte array generated from the URL
      */
     private byte[] getLogoImage(String url){
         try {
