@@ -127,7 +127,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param url the location of the image on the server
      * @return the byte array generated from the URL
      */
-    private byte[] getImage(String url){
+    private byte[] getImage(String url) {
         try {
             URL imageUrl = new URL(url);
             URLConnection ucon = imageUrl.openConnection();
@@ -140,8 +140,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             byte[] data = new byte[500];
             int current = 0;
-            while ((current = bis.read()) != -1) {
-                buffer.write((byte) current);
+            while ((current = bis.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, current);
             }
 
             return buffer.toByteArray();
@@ -150,6 +150,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return null;
     }
+
 
 
     private void insertStatisticsIntoSQLiteDB(RequestQueue queue, final Database db) {
