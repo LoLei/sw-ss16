@@ -16,10 +16,10 @@ require_once("db_credentials.php");
 // Make DB connection
 // ++++++++++++++++++++++++++++++++++++++++++++++++
 function connectDb(){
-
+  
   // Import settings
   global $db_name; global $db_user; global $db_password; global $db_host;
-
+  
   // Make connection
   $link = mysqli_connect($db_host, $db_user, $db_password, $db_name);
 
@@ -45,6 +45,9 @@ function getLc($how_much){
     if ($result = mysqli_query($link, $query)) {
       $rows = array();
       while($r = mysqli_fetch_assoc($result)) {
+        
+          $r["image_in"] = 'http://'.$_SERVER['HTTP_HOST']."/images/".$r["image_in"];
+          $r["image_out"] = 'http://'.$_SERVER['HTTP_HOST']."/images/".$r["image_out"];
           $rows[] = $r;
       }
 
@@ -53,10 +56,10 @@ function getLc($how_much){
 
       mysqli_free_result($result);
     }
-
+    
      mysqli_close($link);
   }
-
+  
   // Get only one row by id
   else{
     echo "TODO: lc id" . $how_much;
@@ -68,13 +71,13 @@ function getLc($how_much){
 // Handle requests for Statistics
 // ++++++++++++++++++++++++++++++++++++++++++++++++
 function getStat($how_much){
-
+  
   // Get array of whole DB Table
   if($how_much == "all") {
-
+    
     $link = connectDb();
     $query = "SELECT * FROM `t_statistics` WHERE 1;";
-
+    
     if ($result = mysqli_query($link, $query)) {
       $rows = array();
       while($r = mysqli_fetch_assoc($result)) {
@@ -86,7 +89,7 @@ function getStat($how_much){
 
       mysqli_free_result($result);
     }
-
+    
      mysqli_close($link);
   }
 
@@ -100,7 +103,7 @@ function getStat($how_much){
 // Handle requests for current Data
 // ++++++++++++++++++++++++++++++++++++++++++++++++
 function getCurrent($how_much){
-
+  
   // Get array of whole DB Table
   if($how_much == "all") {
     $link = connectDb();
@@ -117,7 +120,7 @@ function getCurrent($how_much){
 
       mysqli_free_result($result);
     }
-
+    
      mysqli_close($link);
   }
 
@@ -131,13 +134,13 @@ function getCurrent($how_much){
 // Handle requests for all
 // ++++++++++++++++++++++++++++++++++++++++++++++++
 function getAll(){
-
+  
   // Get array of whole DB
   $link = connectDb();
   $query = "SELECT * FROM `t_learning_center` WHERE 1;";
   $query1 = "SELECT * FROM `t_statistics` WHERE 1;";
   $query2 = "SELECT * FROM `t_current_data` WHERE 1;";
-
+  
   if ($result = mysqli_query($link, $query)) {
     $rows = array();
     while($r = mysqli_fetch_assoc($result)) {
@@ -146,8 +149,8 @@ function getAll(){
 
     mysqli_free_result($result);
   }
-
-
+  
+  
   if ($result = mysqli_query($link, $query1)) {
     $rows1 = array();
     while($r1 = mysqli_fetch_assoc($result)) {
@@ -156,8 +159,8 @@ function getAll(){
 
     mysqli_free_result($result);
   }
-
-
+  
+  
   if ($result = mysqli_query($link, $query2)) {
     $rows2 = array();
     while($r2 = mysqli_fetch_assoc($result)) {
@@ -166,9 +169,9 @@ function getAll(){
 
     mysqli_free_result($result);
   }
-
+  
   mysqli_close($link);
-
+  
   $returnthis = array();
   $returnthis[0] = $rows;
   $returnthis[1] = $rows1;
@@ -176,7 +179,7 @@ function getAll(){
 
   // Encode and send results
   echo json_encode($returnthis);
-
+  
 }
 
 // ################################################
@@ -200,7 +203,7 @@ switch ($what) {
     case "stat":
       getStat($how_much);
       break;
-
+      
     case "all":
       getAll();
       break;
