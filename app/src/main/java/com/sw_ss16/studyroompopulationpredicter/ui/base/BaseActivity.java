@@ -259,6 +259,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             topChannelMenu.add("Foo");
             topChannelMenu.add("Bar");
             topChannelMenu.add("Baz");
+
+            MenuItem mi = topChannelMenu.getItem(0);
+            mi.setIcon(R.drawable.ic_school_white_24dp);
+            mi.setTitle("Test");
         }
 
         logD(TAG, "navigation drawer setup finished");
