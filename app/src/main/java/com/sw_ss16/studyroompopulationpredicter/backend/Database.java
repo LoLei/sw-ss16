@@ -69,7 +69,7 @@ public class Database extends SQLiteOpenHelper {
         /*db.execSQL("INSERT INTO studyrooms VALUES (" +
                 "1, 'i7', 'test', 'inffeld 25d', 'asdf', 50 );");
         */
-        System.out.println("STUFF DOING EHRE");
+        System.out.println("DB created");
 
     }
 
