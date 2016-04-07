@@ -82,9 +82,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 String description = jsonObject.getString("description");
                                 String address = jsonObject.getString("address");
                                 String capacity = jsonObject.getString("capacity");
-                                //TODO: Image IN
-                                //TODO: Image OUT
-                                System.out.println(id + " " + name + " " + address);
+                                String image_in = jsonObject.getString("image_in");
+                                String image_out = jsonObject.getString("image_out");
+                                System.out.println(id + " " + name + " " + address + " " + image_in + " " + image_out);
                                 db.insertInDatabase("INSERT INTO studyrooms (ID, NAME, DESCRIPTION, ADDRESS, IMAGE_IN, IMAGE_OUT, CAPACITY) " +
                                         "SELECT " +
                                         id + "," +
