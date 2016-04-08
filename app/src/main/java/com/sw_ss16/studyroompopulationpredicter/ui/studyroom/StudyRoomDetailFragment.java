@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
+import com.sw_ss16.studyroompopulationpredicter.content.StudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseFragment;
 
@@ -35,7 +35,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
     /**
      * The dummy content of this fragment.
      */
-    private FavoriteStudyRoomsContent.DummyItem dummyItem;
+    private StudyRoomsContent.DummyItem dummyItem;
 
     @Bind(R.id.quote)
     TextView quote;
@@ -55,7 +55,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // load dummy item by using the passed item ID.
-            dummyItem = FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            dummyItem = StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
 
         setHasOptionsMenu(true);

@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,10 +23,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.sw_ss16.studyroompopulationpredicter.R;
 import com.sw_ss16.studyroompopulationpredicter.backend.Database;
-import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.content.StudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.ui.SettingsActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
+import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.StudyRoomDetailActivity;
+import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.StudyRoomDetailFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -258,9 +261,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
-            setupDrawerSelectListener(navigationView);
-            setSelectedItem(navigationView);
-
             // Add all study rooms to navdrawer
             Menu m = navigationView.getMenu();
             SubMenu all_study_rooms = m.getItem(2).getSubMenu();
@@ -268,8 +268,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             {
                 all_study_rooms.add(StudyRoomsContent.ITEMS.get(i).title);
                 all_study_rooms.getItem(i).setIcon(R.drawable.ic_school_white_24dp);
+                all_study_rooms.getItem(i).setNumericShortcut((char) i);
             }
         }
+
+        setupDrawerSelectListener(navigationView);
+        setSelectedItem(navigationView);
 
         logD(TAG, "navigation drawer setup finished");
     }
@@ -294,7 +298,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         drawerLayout.closeDrawers();
-                        onNavigationItemClicked(menuItem.getItemId());
+                        onNavigationItemClicked(menuItem);
                         return true;
                     }
                 });
@@ -304,22 +308,22 @@ public abstract class BaseActivity extends AppCompatActivity {
      * Handles the navigation item click.
      * @param itemId the clicked item
      */
-    private void onNavigationItemClicked(final int itemId) {
-        if(itemId == getSelfNavDrawerItem()) {
+    private void onNavigationItemClicked(final MenuItem menuItem) {
+        if(menuItem.getItemId() == getSelfNavDrawerItem()) {
             // Already selected
             closeDrawer();
             return;
         }
 
-        goToNavDrawerItem(itemId);
+        goToNavDrawerItem(menuItem);
     }
 
     /**
      * Handles the navigation item click and starts the corresponding activity.
      * @param item the selected navigation item
      */
-    private void goToNavDrawerItem(int item) {
-        switch (item) {
+    private void goToNavDrawerItem(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_quotes:
                 startActivity(new Intent(this, ListActivity.class));
                 finish();
@@ -330,6 +334,17 @@ public abstract class BaseActivity extends AppCompatActivity {
             case R.id.nav_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
+        }
+        // TODO: Check for twopane mode
+        if (false) {
+            // Show the quote detail information by replacing the DetailFragment via transaction.
+            StudyRoomDetailFragment fragment = StudyRoomDetailFragment.newInstance(Character.toString(menuItem.getNumericShortcut()));
+            getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
+        } else {
+            // Start the detail activity in single pane mode.
+            Intent detailIntent = new Intent(this, StudyRoomDetailActivity.class);
+            detailIntent.putExtra(StudyRoomDetailFragment.ARG_ITEM_ID, Integer.toString(((int) menuItem.getNumericShortcut()) + 1));
+            startActivity(detailIntent);
         }
     }
 

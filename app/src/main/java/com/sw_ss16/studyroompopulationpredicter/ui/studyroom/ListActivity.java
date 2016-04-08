@@ -57,7 +57,8 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
                         c.getString(c.getColumnIndex("ADDRESS")),
                         (isfav.getInt(isfav.getColumnIndex("IS_FAV")) == 1)));
 
-                if(isfav.getInt(isfav.getColumnIndex("IS_FAV")) == 1) {
+                // TODO: Remove i == 1
+                if(isfav.getInt(isfav.getColumnIndex("IS_FAV")) == 1 || i == 1) {
                     FavoriteStudyRoomsContent.addItem(new FavoriteStudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")),
                             c.getString(c.getColumnIndex("IMAGE_IN")),
                             c.getString(c.getColumnIndex("IMAGE_OUT")),
