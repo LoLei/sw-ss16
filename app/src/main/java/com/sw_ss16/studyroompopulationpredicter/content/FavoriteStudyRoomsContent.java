@@ -36,14 +36,17 @@ public class FavoriteStudyRoomsContent {
         // TODO: Rename member variables
         public final String author;
         public final String content;
+        public final boolean isFavLc;
 
-        public DummyItem(String id, String imageInUrl, String imageOutUrl, String title, String author, String content) {
+        public DummyItem(String id, String imageInUrl, String imageOutUrl, String title,
+                         String author, String content, boolean isFavLc) {
             this.id = id;
             this.imageInUrl = imageInUrl;
             this.imageOutUrl = imageOutUrl;
             this.title = title;
             this.author = author;
             this.content = content;
+            this.isFavLc = isFavLc;
         }
     }
 }

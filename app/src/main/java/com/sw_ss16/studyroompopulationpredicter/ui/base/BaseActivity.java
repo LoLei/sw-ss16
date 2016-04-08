@@ -105,7 +105,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                                         "'" + image_in + "', " +
                                         "'" + image_out + "', " +
                                         capacity + " " +
-                                        "WHERE NOT EXISTS (SELECT 1 FROM studyrooms WHERE ID = " + id +");");
+                                        "WHERE NOT EXISTS (SELECT 1 FROM studyrooms WHERE ID = " + id + ");");
+
+                                db.insertInDatabase("INSERT INTO favstudyrooms (ID, IS_FAV) " +
+                                        "SELECT " +
+                                        id + "," +
+                                        "0 " +
+                                        "WHERE NOT EXISTS (SELECT 1 FROM favstudyrooms WHERE ID = " + id +");");
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

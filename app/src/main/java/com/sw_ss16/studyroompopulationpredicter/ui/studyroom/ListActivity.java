@@ -39,9 +39,11 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
             String[] columns = new String[]{"ID", "NAME", "DESCRIPTION", "ADDRESS", "IMAGE_IN", "IMAGE_OUT", "CAPACITY"};
 
             Cursor c = sqldb.query("studyrooms", columns, null, null, null, null, null);
+            Cursor isfav = sqldb.query("favstudyrooms", columns, null, null, null, null, null);
 
             //c.getCount();
             c.moveToFirst();
+            isfav.moveToFirst();
             for (int i = 1; i <= c.getCount(); i++) {
 
                 FavoriteStudyRoomsContent.addItem(new FavoriteStudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")),
@@ -49,8 +51,10 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
                         c.getString(c.getColumnIndex("IMAGE_OUT")),
                         c.getString(c.getColumnIndex("NAME")),
                         c.getString(c.getColumnIndex("DESCRIPTION")),
-                        c.getString(c.getColumnIndex("ADDRESS"))));
+                        c.getString(c.getColumnIndex("ADDRESS")),
+                        (isfav.getInt(isfav.getColumnIndex("IS_FAV")) == 1)));
                 c.moveToNext();
+                isfav.moveToNext();
             }
         }
 
