@@ -18,6 +18,8 @@ import com.android.volley.toolbox.Volley;
 import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.backend.Database;
 import com.sw_ss16.lc_app.backend.DatabaseSyncer;
+import com.sw_ss16.lc_app.content.LearningCenter;
+import com.sw_ss16.lc_app.content.LearningCenterContent;
 import com.sw_ss16.lc_app.content.StudyRoomsContent;
 import com.sw_ss16.lc_app.ui.other.SettingsActivity;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
@@ -29,6 +31,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 
 import static com.sw_ss16.lc_app.util.LogUtil.logD;
 import static com.sw_ss16.lc_app.util.LogUtil.makeLogTag;
@@ -54,6 +57,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Toolbar actionBarToolbar;
 
     private DatabaseSyncer database_syncer = new DatabaseSyncer();
+
+    private LearningCenterContent lc_contentmanager = new LearningCenterContent();
 
 
     // -------------------------------
@@ -96,12 +101,25 @@ public abstract class BaseActivity extends AppCompatActivity {
             // Add all study rooms to navdrawer
             Menu m = navigationView.getMenu();
             SubMenu all_study_rooms = m.getItem(2).getSubMenu();
+
+            List<String> lc_ids = lc_contentmanager.getListOfLcIds(getApplicationContext());
+
+            for (int i = 0; i < lc_ids.size(); i++)
+            {
+                LearningCenter curr_lc = lc_contentmanager.getLcObject(lc_ids.get(i), getApplicationContext());
+                all_study_rooms.add(curr_lc.title);
+                all_study_rooms.getItem(i).setIcon(R.drawable.ic_school_white_24dp);
+                all_study_rooms.getItem(i).setNumericShortcut((char) i);
+            }
+
+            /*
             for (int i = 0; i < StudyRoomsContent.ITEMS.size(); i++)
             {
                 all_study_rooms.add(StudyRoomsContent.ITEMS.get(i).title);
                 all_study_rooms.getItem(i).setIcon(R.drawable.ic_school_white_24dp);
                 all_study_rooms.getItem(i).setNumericShortcut((char) i);
             }
+            */
         }
 
         setupDrawerSelectListener(navigationView);

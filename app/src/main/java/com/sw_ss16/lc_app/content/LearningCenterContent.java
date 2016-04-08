@@ -133,10 +133,13 @@ public class LearningCenterContent {
         String[] columns = new String[]{"ID", "NAME", "DESCRIPTION", "ADDRESS", "IMAGE_IN", "IMAGE_OUT", "CAPACITY"};
         String[] favcolumns = new String[]{"ID", "IS_FAV"};
 
-        String query_string = "ID equals " + id;
+        String query_string = "ID = " + id;
 
         Cursor c = sqldb.query("studyrooms", columns, query_string, null, null, null, "ID", "1");
-        Cursor isfav = sqldb.query("favstudyrooms", favcolumns, query_string, null, null, "ID", "1");
+        Cursor isfav = sqldb.query("favstudyrooms", favcolumns, query_string, null, null, null, "ID", "1");
+
+        c.moveToFirst();
+        isfav.moveToFirst();
 
         return new LearningCenter(c.getString(c.getColumnIndex("ID")),
                 c.getString(c.getColumnIndex("IMAGE_IN")),
