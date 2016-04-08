@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Just dummy content. Nothing special.
+ * Just dummy lc_address. Nothing special.
  *
  * Created by Andreas Schrade on 14.12.2015.
  */
@@ -33,19 +33,18 @@ public class FavoriteStudyRoomsContent {
         public final String imageInUrl;
         public final String imageOutUrl;
         public final String title;
-        // TODO: Rename member variables
-        public final String author;
-        public final String content;
+        public final String lc_description;
+        public final String lc_address;
         public boolean isFavLc;
 
         public DummyItem(String id, String imageInUrl, String imageOutUrl, String title,
-                         String author, String content, boolean isFavLc) {
+                         String lc_description, String lc_address, boolean isFavLc) {
             this.id = id;
             this.imageInUrl = imageInUrl;
             this.imageOutUrl = imageOutUrl;
             this.title = title;
-            this.author = author;
-            this.content = content;
+            this.lc_description = lc_description;
+            this.lc_address = lc_address;
             this.isFavLc = isFavLc;
         }
     }

@@ -35,7 +35,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
     public static final String ARG_ITEM_ID = "item_id";
 
     /**
-     * The dummy content of this fragment.
+     * The dummy lc_address of this fragment.
      */
     private StudyRoomsContent.DummyItem dummyItem;
 

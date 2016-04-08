@@ -121,7 +121,7 @@ public class StudyRoomListFragment extends ListFragment {
 
             final FavoriteStudyRoomsContent.DummyItem item = (FavoriteStudyRoomsContent.DummyItem) getItem(position);
             ((TextView) convertView.findViewById(R.id.article_title)).setText(item.title);
-            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.author);
+            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.lc_description);
             final ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
             Glide.with(getActivity()).load(item.imageOutUrl).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
                 @Override

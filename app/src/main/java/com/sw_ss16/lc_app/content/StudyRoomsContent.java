@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Just dummy content. Nothing special.
+ * Just dummy lc_address. Nothing special.
  *
  * Created by Andreas Schrade on 14.12.2015.
  */
