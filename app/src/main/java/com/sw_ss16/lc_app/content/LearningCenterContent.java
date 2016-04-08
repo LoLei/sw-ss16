@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.sw_ss16.lc_app.backend.Database;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,6 +103,26 @@ public class LearningCenterContent {
 
     public void setLearningCeterToNoFavorite(int lc_id){
 
+    }
+
+    public List<String> getListOfLcIds(Context application_context){
+        ArrayList<String> all_lc_ids = new ArrayList<>();
+
+        Database db = new Database(application_context);
+        SQLiteDatabase sqldb = db.getReadableDatabase();
+        String[] columns = new String[]{"ID"};
+
+        Cursor c = sqldb.query("studyrooms", columns, null, null, null, null, null);
+
+        c.moveToFirst();
+
+        for (int i = 1; i <= c.getCount(); i++) {
+
+            all_lc_ids.add(c.getString(c.getColumnIndex("ID")));
+            c.moveToNext();
+        }
+
+        return all_lc_ids;
     }
 
     public LearningCenter getLcObject(String id, Context application_context){
