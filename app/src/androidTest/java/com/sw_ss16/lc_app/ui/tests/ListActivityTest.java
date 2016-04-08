@@ -3,7 +3,7 @@ package com.sw_ss16.lc_app.ui.tests;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
-import com.sw_ss16.lc_app.ui.studyroom.ListActivity;
+import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 
 public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActivity> {
 

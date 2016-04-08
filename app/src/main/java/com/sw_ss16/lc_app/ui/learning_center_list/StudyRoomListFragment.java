@@ -1,4 +1,4 @@
-package com.sw_ss16.lc_app.ui.studyroom;
+package com.sw_ss16.lc_app.ui.learning_center_list;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

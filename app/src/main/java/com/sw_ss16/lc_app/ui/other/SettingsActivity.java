@@ -1,4 +1,4 @@
-package com.sw_ss16.lc_app.ui;
+package com.sw_ss16.lc_app.ui.other;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;

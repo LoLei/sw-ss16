@@ -1,4 +1,4 @@
-package com.sw_ss16.lc_app.ui.studyroom;
+package com.sw_ss16.lc_app.ui.learning_center_list;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,6 +14,8 @@ import com.sw_ss16.lc_app.backend.Database;
 import com.sw_ss16.lc_app.content.FavoriteStudyRoomsContent;
 import com.sw_ss16.lc_app.content.StudyRoomsContent;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
+import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
+import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailFragment;
 import com.sw_ss16.lc_app.util.LogUtil;
 
 /**

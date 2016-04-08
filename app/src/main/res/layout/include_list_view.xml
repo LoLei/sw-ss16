@@ -3,7 +3,7 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/article_list"
-    android:name="com.sw_ss16.lc_app.ui.studyroom.StudyRoomListFragment"
+    android:name="com.sw_ss16.lc_app.ui.learning_center_list.StudyRoomListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ListActivity"

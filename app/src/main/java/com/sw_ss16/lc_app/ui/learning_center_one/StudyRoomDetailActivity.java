@@ -1,4 +1,4 @@
-package com.sw_ss16.lc_app.ui.studyroom;
+package com.sw_ss16.lc_app.ui.learning_center_one;
 
 import android.os.Bundle;
 

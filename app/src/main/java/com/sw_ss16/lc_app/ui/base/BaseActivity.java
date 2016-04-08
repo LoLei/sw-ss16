@@ -19,10 +19,10 @@ import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.backend.Database;
 import com.sw_ss16.lc_app.backend.DatabaseSyncer;
 import com.sw_ss16.lc_app.content.StudyRoomsContent;
-import com.sw_ss16.lc_app.ui.SettingsActivity;
-import com.sw_ss16.lc_app.ui.studyroom.ListActivity;
-import com.sw_ss16.lc_app.ui.studyroom.StudyRoomDetailActivity;
-import com.sw_ss16.lc_app.ui.studyroom.StudyRoomDetailFragment;
+import com.sw_ss16.lc_app.ui.other.SettingsActivity;
+import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
+import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
+import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailFragment;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

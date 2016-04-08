@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Main">
 
-        <activity android:name="com.sw_ss16.lc_app.ui.studyroom.ListActivity">
+        <activity android:name="com.sw_ss16.lc_app.ui.learning_center_list.ListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -17,15 +17,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.sw_ss16.lc_app.ui.studyroom.StudyRoomDetailActivity"
+        <activity android:name=".ui.learning_center_one.StudyRoomDetailActivity"
             android:label=""
-            android:parentActivityName="com.sw_ss16.lc_app.ui.studyroom.ListActivity"/>
-        <activity android:name="com.sw_ss16.lc_app.ui.ViewSamplesActivity"
+            android:parentActivityName="com.sw_ss16.lc_app.ui.learning_center_list.ListActivity"/>
+        <activity android:name=".ui.other.ViewSamplesActivity"
             android:label="Samples"
-            android:parentActivityName="com.sw_ss16.lc_app.ui.studyroom.ListActivity"/>
-        <activity android:name="com.sw_ss16.lc_app.ui.SettingsActivity"
+            android:parentActivityName="com.sw_ss16.lc_app.ui.learning_center_list.ListActivity"/>
+        <activity android:name=".ui.other.SettingsActivity"
             android:label="Settings"
-            android:parentActivityName="com.sw_ss16.lc_app.ui.studyroom.ListActivity"/>
+            android:parentActivityName="com.sw_ss16.lc_app.ui.learning_center_list.ListActivity"/>
 
     </application>
 
