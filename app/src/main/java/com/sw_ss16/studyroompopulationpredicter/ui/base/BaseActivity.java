@@ -61,12 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        setupNavDrawer();
         final Database db = new Database(getApplicationContext());
 
         // Instantiate the RequestQueue.
@@ -79,6 +74,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         insertCurrentDataIntoSQLiteDB(queue, db);
         // Favorite Study Rooms can be stored in the local database only
         insertFavoriteStudyRoomsIntoSQLiteDB(db);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        setupNavDrawer();
+
     }
 
     private void insertStudyRoomsIntoSQLiteDB(RequestQueue queue, final Database db) {
