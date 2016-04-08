@@ -58,7 +58,7 @@ public class Database extends SQLiteOpenHelper {
                     ");";
 
     // -------------------------------
-    // Methods for local DB
+    // Methods
     // -------------------------------
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -91,10 +91,5 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(query);
         db.close();
     }
-
-    // -------------------------------
-    // Methods for syncing DB
-    // -------------------------------
-
 
 }

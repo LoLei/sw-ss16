@@ -42,6 +42,10 @@ import static com.sw_ss16.lc_app.util.LogUtil.makeLogTag;
  * Created by Andreas Schrade on 14.12.2015.
  */
 public abstract class BaseActivity extends AppCompatActivity {
+
+    // -------------------------------
+    // Members
+    // -------------------------------
     private static final String TAG = makeLogTag(BaseActivity.class);
 
     protected static final int NAV_DRAWER_ITEM_INVALID = -1;
@@ -51,14 +55,20 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private DatabaseSyncer database_syncer = new DatabaseSyncer();
 
+
+    // -------------------------------
+    // Methods
+    // -------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         final Database db = new Database(getApplicationContext());
 
-        // Instantiate the RequestQueue.
+        // Volley DB Queue
         RequestQueue queue = Volley.newRequestQueue(this);
+
+
         // Pull updated data from the remote database, put into the local database
         // TODO: Do this not on every BaseActivity onCreate(), but like every two hours,
         // update current data more often than StudyRooms data
@@ -69,39 +79,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setupNavDrawer();
-
     }
 
 
 
-    /**
-     * http://stackoverflow.com/a/7331698/4129221
-     * @param url the location of the image on the server
-     * @return the byte array generated from the URL
-     */
-    private byte[] getImage(String url) {
-        try {
-            URL imageUrl = new URL(url);
-            URLConnection ucon = imageUrl.openConnection();
-
-            InputStream is = ucon.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is);
-
-            // ByteArrayBuffer deprecated, use ByteArrayOutputStream instead
-            // ByteArrayBuffer baf = new ByteArrayBuffer(500);
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            byte[] data = new byte[500];
-            int current = 0;
-            while ((current = bis.read(data, 0, data.length)) != -1) {
-                buffer.write(data, 0, current);
-            }
-
-            return buffer.toByteArray();
-        } catch (Exception e) {
-            Log.d("ImageManager", "Error: " + e.toString());
-        }
-        return null;
-    }
 
     /**
      * Sets up the navigation drawer.
@@ -244,5 +225,39 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setToolbar(Toolbar toolbar) {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+
+    // -------------------------------
+    // Methods that happened to not be used
+    // -------------------------------
+
+    /**
+     * http://stackoverflow.com/a/7331698/4129221
+     * @param url the location of the image on the server
+     * @return the byte array generated from the URL
+     */
+    private byte[] getImage(String url) {
+        try {
+            URL imageUrl = new URL(url);
+            URLConnection ucon = imageUrl.openConnection();
+
+            InputStream is = ucon.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+
+            // ByteArrayBuffer deprecated, use ByteArrayOutputStream instead
+            // ByteArrayBuffer baf = new ByteArrayBuffer(500);
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            byte[] data = new byte[500];
+            int current = 0;
+            while ((current = bis.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, current);
+            }
+
+            return buffer.toByteArray();
+        } catch (Exception e) {
+            Log.d("ImageManager", "Error: " + e.toString());
+        }
+        return null;
     }
 }

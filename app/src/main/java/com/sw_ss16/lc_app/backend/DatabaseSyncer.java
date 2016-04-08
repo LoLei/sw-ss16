@@ -15,6 +15,14 @@ import org.json.JSONObject;
  */
 public class DatabaseSyncer {
 
+    // -------------------------------
+    // Members
+    // -------------------------------
+
+
+    // -------------------------------
+    // Methods
+    // -------------------------------
     public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final Database db){
         syncStudyRoomsIntoSQLiteDB(queue, db);
         syncStatisticsIntoSQLiteDB(queue, db);
