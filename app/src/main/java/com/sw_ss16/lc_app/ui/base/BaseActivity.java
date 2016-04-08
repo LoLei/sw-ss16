@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.ui.base;
+package com.sw_ss16.lc_app.ui.base;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,24 +13,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.backend.Database;
-import com.sw_ss16.studyroompopulationpredicter.backend.DatabaseSyncer;
-import com.sw_ss16.studyroompopulationpredicter.content.StudyRoomsContent;
-import com.sw_ss16.studyroompopulationpredicter.ui.SettingsActivity;
-import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
-import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.StudyRoomDetailActivity;
-import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.StudyRoomDetailFragment;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.sw_ss16.lc_app.R;
+import com.sw_ss16.lc_app.backend.Database;
+import com.sw_ss16.lc_app.backend.DatabaseSyncer;
+import com.sw_ss16.lc_app.content.StudyRoomsContent;
+import com.sw_ss16.lc_app.ui.SettingsActivity;
+import com.sw_ss16.lc_app.ui.studyroom.ListActivity;
+import com.sw_ss16.lc_app.ui.studyroom.StudyRoomDetailActivity;
+import com.sw_ss16.lc_app.ui.studyroom.StudyRoomDetailFragment;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -38,8 +30,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.logD;
-import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.makeLogTag;
+import static com.sw_ss16.lc_app.util.LogUtil.logD;
+import static com.sw_ss16.lc_app.util.LogUtil.makeLogTag;
 
 
 /**

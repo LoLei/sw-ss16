@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.content;
+package com.sw_ss16.lc_app.content;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * Created by Andreas Schrade on 14.12.2015.
  */
-public class FavoriteStudyRoomsContent {
+public class StudyRoomsContent {
 
     /**
      * An array of sample items.

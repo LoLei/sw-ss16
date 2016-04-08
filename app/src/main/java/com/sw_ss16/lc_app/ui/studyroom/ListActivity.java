@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.ui.studyroom;
+package com.sw_ss16.lc_app.ui.studyroom;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,12 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.backend.Database;
-import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
-import com.sw_ss16.studyroompopulationpredicter.content.StudyRoomsContent;
-import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
-import com.sw_ss16.studyroompopulationpredicter.util.LogUtil;
+import com.sw_ss16.lc_app.R;
+import com.sw_ss16.lc_app.backend.Database;
+import com.sw_ss16.lc_app.content.FavoriteStudyRoomsContent;
+import com.sw_ss16.lc_app.content.StudyRoomsContent;
+import com.sw_ss16.lc_app.ui.base.BaseActivity;
+import com.sw_ss16.lc_app.util.LogUtil;
 
 /**
  * Lists all available quotes. This Activity supports a single pane (= smartphones) and a two pane mode (= large screens with >= 600dp width).

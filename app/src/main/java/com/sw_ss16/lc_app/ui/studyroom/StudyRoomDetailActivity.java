@@ -1,9 +1,9 @@
-package com.sw_ss16.studyroompopulationpredicter.ui.studyroom;
+package com.sw_ss16.lc_app.ui.studyroom;
 
 import android.os.Bundle;
 
-import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
+import com.sw_ss16.lc_app.R;
+import com.sw_ss16.lc_app.ui.base.BaseActivity;
 
 /**
  * Simple wrapper for {@link StudyRoomDetailFragment}

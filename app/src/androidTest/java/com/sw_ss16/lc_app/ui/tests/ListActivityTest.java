@@ -1,9 +1,9 @@
-package com.sw_ss16.studyroompopulationpredicter.ui.tests;
+package com.sw_ss16.lc_app.ui.tests;
 
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
-import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
+import com.sw_ss16.lc_app.ui.studyroom.ListActivity;
 
 public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActivity> {
 

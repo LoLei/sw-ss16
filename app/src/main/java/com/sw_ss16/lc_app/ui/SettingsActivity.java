@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.ui;
+package com.sw_ss16.lc_app.ui;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -6,8 +6,8 @@ import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
+import com.sw_ss16.lc_app.R;
+import com.sw_ss16.lc_app.ui.base.BaseActivity;
 
 /**
  * This Activity provides several settings. Activity contains {@link PreferenceFragment} as inner class.

@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter;
+package com.sw_ss16.lc_app;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

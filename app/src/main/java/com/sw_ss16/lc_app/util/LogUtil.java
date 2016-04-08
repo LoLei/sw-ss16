@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.util;
+package com.sw_ss16.lc_app.util;
 
 import android.util.Log;
 

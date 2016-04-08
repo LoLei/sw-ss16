@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.backend;
+package com.sw_ss16.lc_app.backend;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

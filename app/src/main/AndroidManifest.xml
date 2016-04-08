@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sw_ss16.studyroompopulationpredicter">
+    package="com.sw_ss16.lc_app">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Main">
 
-        <activity android:name=".ui.studyroom.ListActivity">
+        <activity android:name="com.sw_ss16.lc_app.ui.studyroom.ListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -17,15 +17,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.studyroom.StudyRoomDetailActivity"
+        <activity android:name="com.sw_ss16.lc_app.ui.studyroom.StudyRoomDetailActivity"
             android:label=""
-            android:parentActivityName=".ui.studyroom.ListActivity"/>
-        <activity android:name=".ui.ViewSamplesActivity"
+            android:parentActivityName="com.sw_ss16.lc_app.ui.studyroom.ListActivity"/>
+        <activity android:name="com.sw_ss16.lc_app.ui.ViewSamplesActivity"
             android:label="Samples"
-            android:parentActivityName=".ui.studyroom.ListActivity"/>
-        <activity android:name=".ui.SettingsActivity"
+            android:parentActivityName="com.sw_ss16.lc_app.ui.studyroom.ListActivity"/>
+        <activity android:name="com.sw_ss16.lc_app.ui.SettingsActivity"
             android:label="Settings"
-            android:parentActivityName=".ui.studyroom.ListActivity"/>
+            android:parentActivityName="com.sw_ss16.lc_app.ui.studyroom.ListActivity"/>
 
     </application>
 

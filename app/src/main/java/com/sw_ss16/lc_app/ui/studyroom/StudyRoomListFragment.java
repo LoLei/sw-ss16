@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.ui.studyroom;
+package com.sw_ss16.lc_app.ui.studyroom;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -20,8 +20,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
-import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
+import com.sw_ss16.lc_app.R;
+import com.sw_ss16.lc_app.content.FavoriteStudyRoomsContent;
 
 /**
  * Shows a list of all available quotes.

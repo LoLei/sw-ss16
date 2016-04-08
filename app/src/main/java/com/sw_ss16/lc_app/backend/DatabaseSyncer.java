@@ -1,4 +1,4 @@
-package com.sw_ss16.studyroompopulationpredicter.backend;
+package com.sw_ss16.lc_app.backend;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;

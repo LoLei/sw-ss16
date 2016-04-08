@@ -1,8 +1,7 @@
-package com.sw_ss16.studyroompopulationpredicter.ui.studyroom;
+package com.sw_ss16.lc_app.ui.studyroom;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,11 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.sw_ss16.studyroompopulationpredicter.R;
-import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
-import com.sw_ss16.studyroompopulationpredicter.content.StudyRoomsContent;
-import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
-import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseFragment;
+import com.sw_ss16.lc_app.R;
+import com.sw_ss16.lc_app.content.FavoriteStudyRoomsContent;
+import com.sw_ss16.lc_app.content.StudyRoomsContent;
+import com.sw_ss16.lc_app.ui.base.BaseActivity;
+import com.sw_ss16.lc_app.ui.base.BaseFragment;
 
 import butterknife.Bind;
 import butterknife.OnClick;
