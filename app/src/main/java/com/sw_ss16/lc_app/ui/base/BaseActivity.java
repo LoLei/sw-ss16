@@ -81,9 +81,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         setupNavDrawer();
     }
 
-
-
-
     /**
      * Sets up the navigation drawer.
      */
