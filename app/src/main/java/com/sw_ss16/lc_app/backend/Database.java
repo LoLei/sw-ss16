@@ -66,6 +66,9 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        //TODO this should only happen if db is not existent and we want to update it. maybe?
+
         db.execSQL(STUDYROOM_TABLE_CREATE);
         db.execSQL(STATISTICS_TABLE_CREATE);
         db.execSQL(CURRENTDATA_TABLE_CREATE);
