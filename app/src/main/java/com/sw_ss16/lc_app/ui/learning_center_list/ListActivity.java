@@ -115,7 +115,7 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
     }
 
     private void setupDetailFragment() {
-        StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(StudyRoomsContent.ITEMS.get(0).id);
+        StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(FavoriteStudyRoomsContent.ITEMS.get(0).id);
         getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
     }
 
