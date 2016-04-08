@@ -36,7 +36,7 @@ public class StudyRoomsContent {
         // TODO: Rename member variables
         public final String author;
         public final String content;
-        public final boolean isFavLc;
+        public boolean isFavLc;
 
         public DummyItem(String id, String imageInUrl, String imageOutUrl, String title,
                          String author, String content, boolean isFavLc) {

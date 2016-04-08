@@ -2,6 +2,7 @@ package com.sw_ss16.studyroompopulationpredicter.ui.studyroom;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,11 +15,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sw_ss16.studyroompopulationpredicter.R;
+import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.content.StudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseFragment;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Shows the quote detail page.
@@ -73,8 +76,8 @@ public class StudyRoomDetailFragment extends BaseFragment {
         if (dummyItem != null) {
             loadBackdrop();
             collapsingToolbar.setTitle(dummyItem.title);
-            author.setText(dummyItem.author);
-            quote.setText(dummyItem.content);
+            author.setText(dummyItem.content);
+            quote.setText(dummyItem.author);
         }
 
         return rootView;
@@ -83,6 +86,24 @@ public class StudyRoomDetailFragment extends BaseFragment {
     private void loadBackdrop() {
         // Glide.with(this).load(dummyItem.photoId).centerCrop().into(backdropImg);
         Glide.with(this).load(dummyItem.imageInUrl).centerCrop().into(backdropImg);
+    }
+
+    @OnClick(R.id.fav_fab_btn)
+    public void onFabClicked(View view) {
+        if(dummyItem.isFavLc)
+        {
+            dummyItem.isFavLc = false;
+            StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = false;
+            FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = false;
+        }
+        else{
+            dummyItem.isFavLc = true;
+            StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = true;
+            FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = true;
+
+        }
+
+        //Snackbar.make(view, "Hello Snackbar!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     @Override
