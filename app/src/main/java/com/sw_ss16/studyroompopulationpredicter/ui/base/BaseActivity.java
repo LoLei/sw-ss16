@@ -70,8 +70,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         syncStudyRoomsIntoSQLiteDB(queue, db);
         syncStatisticsIntoSQLiteDB(queue, db);
         syncCurrentDataIntoSQLiteDB(queue, db);
-        // Favorite Study Rooms can be stored in the local database only
-        insertFavoriteStudyRoomsIntoSQLiteDB(db);
+
     }
 
     @Override
@@ -242,10 +241,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
         // Add the request to the RequestQueue.
         queue.add(jsonArrayRequest);
-
-    }
-
-    private void insertFavoriteStudyRoomsIntoSQLiteDB(Database db) {
 
     }
 
