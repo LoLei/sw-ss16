@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.sw_ss16.studyroompopulationpredicter.R;
 import com.sw_ss16.studyroompopulationpredicter.backend.Database;
 import com.sw_ss16.studyroompopulationpredicter.content.FavoriteStudyRoomsContent;
+import com.sw_ss16.studyroompopulationpredicter.content.StudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.ui.base.BaseActivity;
 import com.sw_ss16.studyroompopulationpredicter.util.LogUtil;
 
@@ -31,7 +32,7 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        if(FavoriteStudyRoomsContent.ITEM_MAP.isEmpty()) {
+        if(StudyRoomsContent.ITEM_MAP.isEmpty()) {
             System.out.println("Fill List");
             Database db = new Database(getApplicationContext());
             SQLiteDatabase sqldb = db.getReadableDatabase();
@@ -48,15 +49,27 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
             isfav.moveToFirst();
             for (int i = 1; i <= c.getCount(); i++) {
 
-                FavoriteStudyRoomsContent.addItem(new FavoriteStudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")),
+                StudyRoomsContent.addItem(new StudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")),
                         c.getString(c.getColumnIndex("IMAGE_IN")),
                         c.getString(c.getColumnIndex("IMAGE_OUT")),
                         c.getString(c.getColumnIndex("NAME")),
                         c.getString(c.getColumnIndex("DESCRIPTION")),
                         c.getString(c.getColumnIndex("ADDRESS")),
                         (isfav.getInt(isfav.getColumnIndex("IS_FAV")) == 1)));
+
+                if(isfav.getInt(isfav.getColumnIndex("IS_FAV")) == 1) {
+                    FavoriteStudyRoomsContent.addItem(new FavoriteStudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")),
+                            c.getString(c.getColumnIndex("IMAGE_IN")),
+                            c.getString(c.getColumnIndex("IMAGE_OUT")),
+                            c.getString(c.getColumnIndex("NAME")),
+                            c.getString(c.getColumnIndex("DESCRIPTION")),
+                            c.getString(c.getColumnIndex("ADDRESS")),
+                            (isfav.getInt(isfav.getColumnIndex("IS_FAV")) == 1)));
+                }
+
                 c.moveToNext();
                 isfav.moveToNext();
+
             }
         }
 
@@ -99,7 +112,7 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
     }
 
     private void setupDetailFragment() {
-        StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(FavoriteStudyRoomsContent.ITEMS.get(0).id);
+        StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(StudyRoomsContent.ITEMS.get(0).id);
         getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
     }
 
