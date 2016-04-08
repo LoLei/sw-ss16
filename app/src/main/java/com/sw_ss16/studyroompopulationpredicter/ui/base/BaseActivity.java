@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.sw_ss16.studyroompopulationpredicter.R;
 import com.sw_ss16.studyroompopulationpredicter.backend.Database;
+import com.sw_ss16.studyroompopulationpredicter.backend.DatabaseSyncer;
 import com.sw_ss16.studyroompopulationpredicter.content.StudyRoomsContent;
 import com.sw_ss16.studyroompopulationpredicter.ui.SettingsActivity;
 import com.sw_ss16.studyroompopulationpredicter.ui.studyroom.ListActivity;
@@ -44,7 +45,7 @@ import static com.sw_ss16.studyroompopulationpredicter.util.LogUtil.makeLogTag;
 /**
  * The base class for all Activity classes.
  * This class creates and provides the navigation drawer and toolbar.
- * The navigation logic is handled in {@link BaseActivity#goToNavDrawerItem(int)}
+ * The navigation logic is handled in {@linkk BaseActivity#goToNavDrawerItem(int)}
  *
  * Created by Andreas Schrade on 14.12.2015.
  */
@@ -55,6 +56,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private Toolbar actionBarToolbar;
+
+    private DatabaseSyncer database_syncer = new DatabaseSyncer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +70,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         // Pull updated data from the remote database, put into the local database
         // TODO: Do this not on every BaseActivity onCreate(), but like every two hours,
         // update current data more often than StudyRooms data
-        syncStudyRoomsIntoSQLiteDB(queue, db);
-        syncStatisticsIntoSQLiteDB(queue, db);
-        syncCurrentDataIntoSQLiteDB(queue, db);
+        database_syncer.syncStudyRoomsIntoSQLiteDB(queue, db);
+        database_syncer.syncStatisticsIntoSQLiteDB(queue, db);
+        database_syncer.syncCurrentDataIntoSQLiteDB(queue, db);
 
     }
 
@@ -80,56 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    private void syncStudyRoomsIntoSQLiteDB(RequestQueue queue, final Database db) {
-        String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
 
-        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject jsonObject = response.getJSONObject(i);
-                                String id = jsonObject.getString("id");
-                                String name = jsonObject.getString("name");
-                                String description = jsonObject.getString("description");
-                                String address = jsonObject.getString("address");
-                                String capacity = jsonObject.getString("capacity");
-                                String image_in = jsonObject.getString("image_in");
-                                String image_out = jsonObject.getString("image_out");
-                                System.out.println(id + " " + name + " " + address + " " + image_in + " " + image_out);
-
-                                db.insertInDatabase("INSERT INTO studyrooms (ID, NAME, DESCRIPTION, ADDRESS, IMAGE_IN, IMAGE_OUT, CAPACITY) " +
-                                        "SELECT " +
-                                        id + "," +
-                                        "'" + name + "', " +
-                                        "'" + description + "', " +
-                                        "'" + address + "', " +
-                                        "'" + image_in + "', " +
-                                        "'" + image_out + "', " +
-                                        capacity + " " +
-                                        "WHERE NOT EXISTS (SELECT 1 FROM studyrooms WHERE ID = " + id + ");");
-
-                                db.insertInDatabase("INSERT INTO favstudyrooms (ID, IS_FAV) " +
-                                        "SELECT " +
-                                        id + "," +
-                                        "0 " +
-                                        "WHERE NOT EXISTS (SELECT 1 FROM favstudyrooms WHERE ID = " + id +");");
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("That didn't work!");
-            }
-        });
-        // Add the request to the RequestQueue.
-        queue.add(jsonArrayRequest);
-    }
 
     /**
      * http://stackoverflow.com/a/7331698/4129221
@@ -158,90 +112,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             Log.d("ImageManager", "Error: " + e.toString());
         }
         return null;
-    }
-
-
-
-    private void syncStatisticsIntoSQLiteDB(RequestQueue queue, final Database db) {
-        String url = "http://danielgpoint.at/predict.php?what=stat&how_much=all";
-
-        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject jsonObject = response.getJSONObject(i);
-                                String id = jsonObject.getString("id");
-                                String lc_id = jsonObject.getString("lc_id");
-                                String weekday = jsonObject.getString("weekday");
-                                String hour = jsonObject.getString("hour");
-                                String fullness = jsonObject.getString("fullness");
-                                System.out.println(id + " " + lc_id + " " + weekday);
-                                db.insertInDatabase("INSERT INTO statistics (ID, LC_ID, WEEKDAY, HOUR, FULLNESS ) " +
-                                        "SELECT " +
-                                        id + "," +
-                                        "" + lc_id + ", " +
-                                        "" + weekday + ", " +
-                                        "" + hour + ", " +
-                                        "" + fullness + " " +
-                                        "WHERE NOT EXISTS (SELECT 1 FROM statistics WHERE ID = " + id +");");
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("That didn't work!");
-            }
-        });
-        // Add the request to the RequestQueue.
-        queue.add(jsonArrayRequest);
-
-    }
-
-    private void syncCurrentDataIntoSQLiteDB(RequestQueue queue, final Database db) {
-        String url = "http://danielgpoint.at/predict.php?what=curr&how_much=all";
-
-        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject jsonObject = response.getJSONObject(i);
-                                String id = jsonObject.getString("id");
-                                String lc_id = jsonObject.getString("lc_id");
-                                String date = jsonObject.getString("date");
-                                String hour = jsonObject.getString("hour");
-                                String fullness = jsonObject.getString("fullness");
-                                System.out.println(id + " " + lc_id + " " + date);
-                                db.insertInDatabase("INSERT INTO current_data (ID, LC_ID, HOUR, FULLNESS, DATE) " +
-                                        "SELECT " +
-                                        id + "," +
-                                        "" + lc_id + ", " +
-                                        "" + hour + ", " +
-                                        "" + fullness + ", " +
-                                        "'" + date + "' " +
-                                        "WHERE NOT EXISTS (SELECT 1 FROM current_data WHERE ID = " + id +");");
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("That didn't work!");
-            }
-        });
-        // Add the request to the RequestQueue.
-        queue.add(jsonArrayRequest);
-
     }
 
     /**
@@ -301,7 +171,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Handles the navigation item click.
-     * @param itemId the clicked item
+     * @paramm itemId the clicked item
      */
     private void onNavigationItemClicked(final MenuItem menuItem) {
         if(menuItem.getItemId() == getSelfNavDrawerItem()) {
@@ -315,7 +185,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Handles the navigation item click and starts the corresponding activity.
-     * @param item the selected navigation item
+     * @paramm item the selected navigation item
      */
     private void goToNavDrawerItem(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
