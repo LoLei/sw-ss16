@@ -12,8 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -69,9 +67,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         // Pull updated data from the remote database, put into the local database
         // TODO: Do this not on every BaseActivity onCreate(), but like every two hours,
         // update current data more often than StudyRooms data
-        insertStudyRoomsIntoSQLiteDB(queue, db);
-        insertStatisticsIntoSQLiteDB(queue, db);
-        insertCurrentDataIntoSQLiteDB(queue, db);
+        syncStudyRoomsIntoSQLiteDB(queue, db);
+        syncStatisticsIntoSQLiteDB(queue, db);
+        syncCurrentDataIntoSQLiteDB(queue, db);
         // Favorite Study Rooms can be stored in the local database only
         insertFavoriteStudyRoomsIntoSQLiteDB(db);
     }
@@ -83,7 +81,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    private void insertStudyRoomsIntoSQLiteDB(RequestQueue queue, final Database db) {
+    private void syncStudyRoomsIntoSQLiteDB(RequestQueue queue, final Database db) {
         String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
 
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
@@ -165,7 +163,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
 
-    private void insertStatisticsIntoSQLiteDB(RequestQueue queue, final Database db) {
+    private void syncStatisticsIntoSQLiteDB(RequestQueue queue, final Database db) {
         String url = "http://danielgpoint.at/predict.php?what=stat&how_much=all";
 
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
@@ -206,7 +204,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    private void insertCurrentDataIntoSQLiteDB(RequestQueue queue, final Database db) {
+    private void syncCurrentDataIntoSQLiteDB(RequestQueue queue, final Database db) {
         String url = "http://danielgpoint.at/predict.php?what=curr&how_much=all";
 
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,

@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Database extends SQLiteOpenHelper {
 
+    // -------------------------------
+    // Members
+    // -------------------------------
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Predictr_Database";
     private static final String STUDYROOM_TABLE_NAME = "studyrooms";
@@ -54,6 +57,9 @@ public class Database extends SQLiteOpenHelper {
                     "DATETIME" + " DATETIME " +
                     ");";
 
+    // -------------------------------
+    // Methods for local DB
+    // -------------------------------
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -85,6 +91,10 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(query);
         db.close();
     }
+
+    // -------------------------------
+    // Methods for syncing DB
+    // -------------------------------
 
 
 }
