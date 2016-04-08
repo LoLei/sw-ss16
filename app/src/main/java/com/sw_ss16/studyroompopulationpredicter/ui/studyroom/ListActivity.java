@@ -37,9 +37,11 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
             SQLiteDatabase sqldb = db.getReadableDatabase();
 
             String[] columns = new String[]{"ID", "NAME", "DESCRIPTION", "ADDRESS", "IMAGE_IN", "IMAGE_OUT", "CAPACITY"};
+            String[] favcolumns = new String[]{"ID", "IS_FAV"};
+
 
             Cursor c = sqldb.query("studyrooms", columns, null, null, null, null, null);
-            Cursor isfav = sqldb.query("favstudyrooms", columns, null, null, null, null, null);
+            Cursor isfav = sqldb.query("favstudyrooms", favcolumns, null, null, null, null, null);
 
             //c.getCount();
             c.moveToFirst();
