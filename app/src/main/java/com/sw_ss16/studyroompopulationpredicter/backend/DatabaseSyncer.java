@@ -15,6 +15,12 @@ import org.json.JSONObject;
  */
 public class DatabaseSyncer {
 
+    public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final Database db){
+        syncStudyRoomsIntoSQLiteDB(queue, db);
+        syncStatisticsIntoSQLiteDB(queue, db);
+        syncCurrentDataIntoSQLiteDB(queue, db);
+    }
+
     public void syncStudyRoomsIntoSQLiteDB(RequestQueue queue, final Database db) {
         String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
 

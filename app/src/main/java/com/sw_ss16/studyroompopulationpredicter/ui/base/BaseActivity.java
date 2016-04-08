@@ -70,10 +70,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         // Pull updated data from the remote database, put into the local database
         // TODO: Do this not on every BaseActivity onCreate(), but like every two hours,
         // update current data more often than StudyRooms data
-        database_syncer.syncStudyRoomsIntoSQLiteDB(queue, db);
-        database_syncer.syncStatisticsIntoSQLiteDB(queue, db);
-        database_syncer.syncCurrentDataIntoSQLiteDB(queue, db);
-
+        database_syncer.syncAllRemoteIntoSQLiteDB(queue, db);
     }
 
     @Override
