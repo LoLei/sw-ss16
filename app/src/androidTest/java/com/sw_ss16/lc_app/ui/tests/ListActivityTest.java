@@ -28,8 +28,8 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
         mySolo.clickOnImageButton(0);
         mySolo.sleep(1000);
 
-        // Other way to target images
-        // mySolo.clickOnButton(R.drawable.ic_menu);
+        boolean actual = mySolo.searchText("Predictr Menu");
+        assertEquals("Required text not found", true, actual);
     }
 
     public void testStudyRoomDetailOpen() {
