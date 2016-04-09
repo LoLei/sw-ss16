@@ -24,11 +24,17 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
     }
 
     public void testNavigationDrawerOpen() {
-        mySolo.sleep(3000);
+        mySolo.sleep(1000);
         mySolo.clickOnImageButton(0);
+        mySolo.sleep(1000);
 
         // Other way to target images
         // mySolo.clickOnButton(R.drawable.ic_menu);
-        mySolo.sleep(3000);
+    }
+
+    public void testStudyRoomDetailOpen() {
+        mySolo.sleep(1000);
+        mySolo.clickInList(1);
+        mySolo.sleep(1000);
     }
 }
