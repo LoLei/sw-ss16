@@ -1,6 +1,0 @@
-test:
-  override:
-    # Clean & build
-    - ./gradlew clean
-    - ./gradlew build
-    - ./gradlew test
