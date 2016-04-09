@@ -178,18 +178,26 @@ public abstract class BaseActivity extends AppCompatActivity {
             case R.id.nav_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
+
+            default:
+                // Start the detail activity in single pane mode.
+                Intent detailIntent = new Intent(this, StudyRoomDetailActivity.class);
+                detailIntent.putExtra(StudyRoomDetailFragment.ARG_ITEM_ID, Integer.toString(((int) menuItem.getNumericShortcut()) + 1));
+                startActivity(detailIntent);
+                break;
         }
-        // TODO: Check for twopane mode
+        /*
+        // TODO: Check for twopane mode -> old unused code, remove if not needed anymore
         if (false) {
             // Show the quote detail information by replacing the DetailFragment via transaction.
             StudyRoomDetailFragment fragment = StudyRoomDetailFragment.newInstance(Character.toString(menuItem.getNumericShortcut()));
             getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
-        } else {
-            // Start the detail activity in single pane mode.
-            Intent detailIntent = new Intent(this, StudyRoomDetailActivity.class);
-            detailIntent.putExtra(StudyRoomDetailFragment.ARG_ITEM_ID, Integer.toString(((int) menuItem.getNumericShortcut()) + 1));
-            startActivity(detailIntent);
         }
+
+         else {
+
+        }
+        */
     }
 
     /**
