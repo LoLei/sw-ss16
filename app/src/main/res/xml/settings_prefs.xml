@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <CheckBoxPreference
-        android:key="@string/pref_settings_1_key"
-        android:title="@string/pref_settings_1_title"
-        android:summary="@string/pref_settings_1_description"
+    <SwitchPreference
+        android:key="@string/pref_settings_auto_update_key"
+        android:title="@string/pref_settings_auto_update_title"
+        android:summary="@string/pref_settings_auto_update_description"
         android:defaultValue="false" />
 
-    <CheckBoxPreference
+    <Preference
+        android:key="@string/pref_settings_update_key"
+        android:title="@string/pref_settings_update_title"
+        android:summary="@string/pref_settings_update_description"
+              />
+
+    <Preference
+        android:key="@string/pref_settings_about_key"
+        android:title="@string/pref_settings_about_title"
+        />
+
+    <Preference
+        android:key="@string/pref_settings_easteregg_key"
+        />
+
+    <!--
+    <SwitchPreference
         android:key="@string/pref_settings_2_key"
         android:title="@string/pref_settings_2_title"
         android:summary="@string/pref_settings_2_description"
         android:defaultValue="true" />
 
-    <CheckBoxPreference
+    <SwitchPreference
         android:key="@string/pref_settings_3_key"
         android:title="@string/pref_settings_3_title"
         android:summary="@string/pref_settings_3_description"
         android:defaultValue="false" />
+        -->
+
 
 </PreferenceScreen>
