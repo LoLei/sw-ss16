@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.content.LearningCenter;
 import com.sw_ss16.lc_app.content.LearningCenterContent;
-import com.sw_ss16.lc_app.content.StudyRoomsContent;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
 import com.sw_ss16.lc_app.ui.base.BaseFragment;
 

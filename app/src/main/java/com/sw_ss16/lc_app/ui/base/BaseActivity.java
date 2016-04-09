@@ -20,7 +20,6 @@ import com.sw_ss16.lc_app.backend.Database;
 import com.sw_ss16.lc_app.backend.DatabaseSyncer;
 import com.sw_ss16.lc_app.content.LearningCenter;
 import com.sw_ss16.lc_app.content.LearningCenterContent;
-import com.sw_ss16.lc_app.content.StudyRoomsContent;
 import com.sw_ss16.lc_app.ui.other.SettingsActivity;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
