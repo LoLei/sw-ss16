@@ -107,7 +107,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             for (int i = 0; i < lc_ids.size(); i++)
             {
                 LearningCenter curr_lc = lc_contentmanager.getLcObject(lc_ids.get(i));
-                all_study_rooms.add(curr_lc.title);
+                all_study_rooms.add(curr_lc.name);
                 all_study_rooms.getItem(i).setIcon(R.drawable.ic_school_white_24dp);
                 all_study_rooms.getItem(i).setNumericShortcut((char) i);
             }

@@ -107,13 +107,15 @@ public class LearningCenterContent {
         c.moveToFirst();
         isfav.moveToFirst();
 
-        return new LearningCenter(c.getString(c.getColumnIndex("ID")),
-                c.getString(c.getColumnIndex("IMAGE_IN")),
-                c.getString(c.getColumnIndex("IMAGE_OUT")),
+        return new LearningCenter(
+                c.getString(c.getColumnIndex("ID")),
                 c.getString(c.getColumnIndex("NAME")),
                 c.getString(c.getColumnIndex("DESCRIPTION")),
                 c.getString(c.getColumnIndex("ADDRESS")),
-                false); //TODO get status of fav from table
+                c.getString(c.getColumnIndex("IMAGE_IN")),
+                c.getString(c.getColumnIndex("IMAGE_OUT")),
+                c.getString(c.getColumnIndex("CAPACITY")),
+                "0"); //TODO get status of fav from table
     }
 
 }

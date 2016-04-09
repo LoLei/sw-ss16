@@ -133,7 +133,7 @@ public class StudyRoomListFragment extends ListFragment {
             }
 
             final LearningCenter item = getItem(position);
-            ((TextView) convertView.findViewById(R.id.article_title)).setText(item.title);
+            ((TextView) convertView.findViewById(R.id.article_title)).setText(item.name);
             ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.description);
             final ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
             Glide.with(getActivity()).load(item.image_out_url).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {

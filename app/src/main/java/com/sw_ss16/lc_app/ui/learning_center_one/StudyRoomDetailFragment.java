@@ -79,7 +79,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
         if (dummyItem != null) {
             loadBackdrop();
-            collapsingToolbar.setTitle(dummyItem.title);
+            collapsingToolbar.setTitle(dummyItem.name);
             author.setText(dummyItem.address);
             quote.setText(dummyItem.description);
         }
@@ -94,7 +94,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
     @OnClick(R.id.fav_fab_btn)
     public void onFabClicked(View view) {
-        if(dummyItem.is_fav_lc)
+        if(dummyItem.is_fav_lc == "1")
         {
             //TODO the fav stuff
         }
