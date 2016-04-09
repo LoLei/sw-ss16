@@ -2,7 +2,9 @@ package com.sw_ss16.lc_app.ui.learning_center_one;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -73,6 +75,18 @@ public class StudyRoomDetailFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflateAndBind(inflater, container, R.layout.fragment_article_detail);
 
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fav_fab_btn);
+
+        if(lc_contentmanager.getLearningCeterFavoriteStatus(Integer.parseInt(current_learning_center.id))){
+            fab.setImageResource(R.drawable.ic_remove_white_24dp);
+        }
+
+        else{
+            fab.setImageResource(R.drawable.ic_add_white_24dp);
+        }
+
+
+
         if (!((BaseActivity) getActivity()).providesActivityToolbar()) {
             // No Toolbar present. Set include_toolbar:
             ((BaseActivity) getActivity()).setToolbar((Toolbar) rootView.findViewById(R.id.toolbar));
@@ -95,13 +109,17 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
     @OnClick(R.id.fav_fab_btn)
     public void onFabClicked(View view) {
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fav_fab_btn);
+
         if(lc_contentmanager.getLearningCeterFavoriteStatus(Integer.parseInt(current_learning_center.id)))
         {
             lc_contentmanager.setLearningCeterFavoriteStatus(Integer.parseInt(current_learning_center.id), false);
+            fab.setImageResource(R.drawable.ic_add_white_24dp);
             Snackbar.make(view, "Removed from favorites", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
         } else {
             lc_contentmanager.setLearningCeterFavoriteStatus(Integer.parseInt(current_learning_center.id), true);
+            fab.setImageResource(R.drawable.ic_remove_white_24dp);
             Snackbar.make(view, "Added to favorites", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
         }
