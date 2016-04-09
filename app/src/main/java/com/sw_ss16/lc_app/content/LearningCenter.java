@@ -16,20 +16,18 @@ public class LearningCenter {
     public final String image_in_url;
     public final String image_out_url;
     public final String capacity;
-    public final String is_fav_lc;
 
     // -------------------------------
     // Methods
     // -------------------------------
     public LearningCenter(String id, String name, String description, String address, String image_in_url,
-                            String image_out_url, String capacity, String is_fav_lc) {
+                            String image_out_url, String capacity) {
         this.id = id;
-        this.image_in_url = image_in_url;
-        this.image_out_url = image_out_url;
         this.name = name;
         this.description = description;
         this.address = address;
-        this.is_fav_lc = is_fav_lc;
+        this.image_in_url = image_in_url;
+        this.image_out_url = image_out_url;
         this.capacity = capacity;
     }
 }
