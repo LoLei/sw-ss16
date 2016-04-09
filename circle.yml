@@ -1,11 +1,14 @@
 test:
   override:
     - ADB_INSTALL_TIMEOUT=8 # minutes (2 minutes by default)
-    # start the emulator
+    # Start the emulator
     - emulator -avd circleci-android22 -no-audio -no-window:
         background: true
         parallel: true
-    # wait for it to have booted
+    # Wait for it to have booted
     - circle-android wait-for-boot
-    # run tests  against the emulator.
+    # Clean & build
+    - ./gradlew clean
+    - ./gradlew build
+    # Run tests  against the emulator.
     - ./gradlew connectedAndroidTest --info
