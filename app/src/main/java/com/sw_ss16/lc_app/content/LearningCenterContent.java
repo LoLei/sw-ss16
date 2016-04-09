@@ -1,17 +1,14 @@
 package com.sw_ss16.lc_app.content;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.sw_ss16.lc_app.backend.Database;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Gets and retrieves Data from Database easily
@@ -35,19 +32,38 @@ public class LearningCenterContent {
         this.app_context = app_context;
     }
 
-    public void setLearningCeterToFavorite(int lc_id){
+    public boolean getLearningCeterFavoriteStatus(int lc_id){
 
-        /*
-                                db.insertInDatabase("INSERT INTO favstudyrooms (ID, IS_FAV) " +
-                                        "SELECT " +
-                                        id + "," +
-                                        "0 " +
-                                        "WHERE NOT EXISTS (SELECT 1 FROM favstudyrooms WHERE ID = " + id +");");
-        */
+        Database db = new Database(app_context);
+        SQLiteDatabase sqldb = db.getReadableDatabase();
+
+        boolean is_fav = false;
+
+        if((DatabaseUtils.queryNumEntries(sqldb, "favstudyrooms", "ID = " + lc_id)) > 0){
+            is_fav = true;
+        }
+
+        return is_fav;
 
     }
 
-    public void setLearningCeterToNoFavorite(int lc_id){
+    public void setLearningCeterFavoriteStatus(int lc_id, boolean set_is_favorite){
+
+        if((getLearningCeterFavoriteStatus(lc_id) && set_is_favorite) || (!getLearningCeterFavoriteStatus(lc_id) && !set_is_favorite)){
+            return;
+        }
+
+        else if(getLearningCeterFavoriteStatus(lc_id)){
+            Database db = new Database(app_context);
+            db.insertInDatabase("DELETE FROM favstudyrooms WHERE ID = " + lc_id + ";");
+        }
+
+        else{
+            Database db = new Database(app_context);
+            db.insertInDatabase("INSERT INTO favstudyrooms VALUES (" + lc_id +");");
+        }
+
+
 
     }
 
