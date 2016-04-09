@@ -108,7 +108,9 @@ public class StudyRoomListFragment extends ListFragment {
         @Override
         public int getCount() {
             lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
+
             return lc_contentmanager.getListOfFavLcIds().size();
+
             //return FavoriteStudyRoomsContent.ITEMS.size();
         }
 

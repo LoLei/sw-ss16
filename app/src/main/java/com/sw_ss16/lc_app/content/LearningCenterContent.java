@@ -32,6 +32,13 @@ public class LearningCenterContent {
         this.app_context = app_context;
     }
 
+    public long getNumberOfFavorites(){
+        Database db = new Database(app_context);
+        SQLiteDatabase sqldb = db.getReadableDatabase();
+
+        return DatabaseUtils.queryNumEntries(sqldb, "favstudyrooms");
+    }
+
     public boolean getLearningCeterFavoriteStatus(int lc_id){
 
         Database db = new Database(app_context);

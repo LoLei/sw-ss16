@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import com.sw_ss16.lc_app.R;
@@ -32,6 +33,12 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        //Check if no favorites
+        lc_contentmanager.setApplicationContext(getApplicationContext());
+        if(lc_contentmanager.getNumberOfFavorites() == 0){
+            findViewById(R.id.textView_no_fav).setVisibility(View.VISIBLE);
+        }
 
         setupToolbar();
 
