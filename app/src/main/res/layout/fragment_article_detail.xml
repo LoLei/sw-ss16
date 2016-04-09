@@ -64,13 +64,13 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/author"
+                        android:id="@+id/lc_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
-                        android:id="@+id/quote"
+                        android:id="@+id/lc_description"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>

@@ -23,7 +23,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
- * Shows the quote detail page.
+ * Shows the description detail page.
  *
  * Created by Andreas Schrade on 14.12.2015.
  */
@@ -37,15 +37,15 @@ public class StudyRoomDetailFragment extends BaseFragment {
     /**
      * The dummy lc_address of this fragment.
      */
-    private LearningCenter dummyItem;
+    private LearningCenter current_learning_center;
 
     private LearningCenterContent lc_contentmanager = new LearningCenterContent();
 
-    @Bind(R.id.quote)
-    TextView quote;
+    @Bind(R.id.lc_description)
+    TextView description;
 
-    @Bind(R.id.author)
-    TextView author;
+    @Bind(R.id.lc_address)
+    TextView address;
 
     @Bind(R.id.backdrop)
     ImageView backdropImg;
@@ -61,8 +61,8 @@ public class StudyRoomDetailFragment extends BaseFragment {
             // load dummy item by using the passed item ID.
 
             lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
-            dummyItem = lc_contentmanager.getLcObject(getArguments().getString(ARG_ITEM_ID));
-            //dummyItem = StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            current_learning_center = lc_contentmanager.getLcObject(getArguments().getString(ARG_ITEM_ID));
+            //current_learning_center = StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
 
         setHasOptionsMenu(true);
@@ -77,24 +77,24 @@ public class StudyRoomDetailFragment extends BaseFragment {
             ((BaseActivity) getActivity()).setToolbar((Toolbar) rootView.findViewById(R.id.toolbar));
         }
 
-        if (dummyItem != null) {
+        if (current_learning_center != null) {
             loadBackdrop();
-            collapsingToolbar.setTitle(dummyItem.name);
-            author.setText(dummyItem.address);
-            quote.setText(dummyItem.description);
+            collapsingToolbar.setTitle(current_learning_center.name);
+            address.setText(current_learning_center.address);
+            description.setText(current_learning_center.description);
         }
 
         return rootView;
     }
 
     private void loadBackdrop() {
-        // Glide.with(this).load(dummyItem.photoId).centerCrop().into(backdropImg);
-        Glide.with(this).load(dummyItem.image_in_url).centerCrop().into(backdropImg);
+        // Glide.with(this).load(current_learning_center.photoId).centerCrop().into(backdropImg);
+        Glide.with(this).load(current_learning_center.image_in_url).centerCrop().into(backdropImg);
     }
 
     @OnClick(R.id.fav_fab_btn)
     public void onFabClicked(View view) {
-        if(dummyItem.is_fav_lc == "1")
+        if(current_learning_center.is_fav_lc == "1")
         {
             //TODO the fav stuff
         }
