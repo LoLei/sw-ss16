@@ -3,6 +3,7 @@ package com.sw_ss16.lc_app.ui.tests;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
+import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 
 public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActivity> {
@@ -34,12 +35,17 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
 
     public void testStudyRoomDetailOpen() {
         mySolo.sleep(1000);
-        // Click on first list item
-        mySolo.clickInList(1);
+        // If there are any items in the list
+        // The second argument of searchText means it searches only for visible text (not hidden)
+        if (!mySolo.searchText(getActivity().getString(R.string.no_fav), true))
+        {
+            // Click on first list item
+            mySolo.clickInList(1);
 
-        // Look for text in study room detail activity
-        mySolo.waitForActivity("StudyRoomDetailActivity");
-        boolean actual = mySolo.searchText("More Info");
-        assertEquals("Required text not found", true, actual);
+            // Look for text in study room detail activity
+            mySolo.waitForActivity("StudyRoomDetailActivity");
+            boolean actual = mySolo.searchText("More Info");
+            assertEquals("Required text not found", true, actual);
+        }
     }
 }
