@@ -93,12 +93,12 @@ public class StudyRoomDetailFragment extends BaseFragment {
         {
             dummyItem.isFavLc = false;
             StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = false;
-            FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = false;
+            //FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = false;
         }
         else{
             dummyItem.isFavLc = true;
             StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = true;
-            FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = true;
+            //FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = true;
 
         }
 

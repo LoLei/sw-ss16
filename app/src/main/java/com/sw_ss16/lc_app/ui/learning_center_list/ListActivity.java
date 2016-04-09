@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.backend.Database;
 import com.sw_ss16.lc_app.content.FavoriteStudyRoomsContent;
+import com.sw_ss16.lc_app.content.LearningCenterContent;
 import com.sw_ss16.lc_app.content.StudyRoomsContent;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
@@ -29,12 +30,15 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
      */
     private boolean twoPaneMode;
 
+    private LearningCenterContent lc_contentmanager = new LearningCenterContent();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        //*
+        /*
         if(StudyRoomsContent.ITEM_MAP.isEmpty()) {
             System.out.println("Fill List");
             Database db = new Database(getApplicationContext());
@@ -77,7 +81,7 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
             }
 
         }
-       // */
+       */
 
         setupToolbar();
 
@@ -118,7 +122,11 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
     }
 
     private void setupDetailFragment() {
-        StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(FavoriteStudyRoomsContent.ITEMS.get(0).id);
+        //StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(FavoriteStudyRoomsContent.ITEMS.get(0).id);
+
+        lc_contentmanager.setApplicationContext(getApplicationContext());
+        StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(lc_contentmanager.getListOfFavLcIds().get(0));
+
         getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
     }
 

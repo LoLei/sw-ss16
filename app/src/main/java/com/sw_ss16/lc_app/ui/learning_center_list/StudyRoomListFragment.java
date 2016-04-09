@@ -22,6 +22,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.content.FavoriteStudyRoomsContent;
+import com.sw_ss16.lc_app.content.LearningCenter;
 import com.sw_ss16.lc_app.content.LearningCenterContent;
 
 /**
@@ -64,8 +65,9 @@ public class StudyRoomListFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
         // notify callback about the selected list item
 
-        //callback.onItemSelected(lc_contentmanager.getLcObject(lc_contentmanager.getListOfFavLcIds(getActivity().getApplicationContext()).get(position),getActivity().getApplicationContext()).id);
-        callback.onItemSelected(FavoriteStudyRoomsContent.ITEMS.get(position).id);
+        lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
+        callback.onItemSelected(lc_contentmanager.getLcObject(lc_contentmanager.getListOfFavLcIds().get(position)).id);
+        //callback.onItemSelected(FavoriteStudyRoomsContent.ITEMS.get(position).id);
     }
 
     /**
@@ -106,17 +108,23 @@ public class StudyRoomListFragment extends ListFragment {
 
         @Override
         public int getCount() {
-            return FavoriteStudyRoomsContent.ITEMS.size();
+            lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
+            return lc_contentmanager.getListOfFavLcIds().size();
+            //return FavoriteStudyRoomsContent.ITEMS.size();
         }
 
         @Override
-        public Object getItem(int position) {
-            return FavoriteStudyRoomsContent.ITEMS.get(position);
+        public LearningCenter getItem(int position) {
+            lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
+            return lc_contentmanager.getLcObject(lc_contentmanager.getListOfFavLcIds().get(position));
+            //return FavoriteStudyRoomsContent.ITEMS.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return FavoriteStudyRoomsContent.ITEMS.get(position).id.hashCode();
+            lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
+            return Long.parseLong(lc_contentmanager.getListOfFavLcIds().get(position));
+            //return FavoriteStudyRoomsContent.ITEMS.get(position).id.hashCode();
         }
 
         @Override
@@ -125,11 +133,11 @@ public class StudyRoomListFragment extends ListFragment {
                 convertView = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_article, container, false);
             }
 
-            final FavoriteStudyRoomsContent.DummyItem item = (FavoriteStudyRoomsContent.DummyItem) getItem(position);
+            final LearningCenter item = getItem(position);
             ((TextView) convertView.findViewById(R.id.article_title)).setText(item.title);
-            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.lc_description);
+            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.description);
             final ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
-            Glide.with(getActivity()).load(item.imageOutUrl).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
+            Glide.with(getActivity()).load(item.image_out_url).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
                 @Override
                 protected void setResource(Bitmap resource) {
                     RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getActivity().getResources(), resource);
