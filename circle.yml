@@ -2,7 +2,7 @@ test:
   override:
     - ADB_INSTALL_TIMEOUT=8 # minutes (2 minutes by default)
     # Start the emulator
-    - emulator -avd circleci-android22 -no-audio:
+    - emulator -avd circleci-android22 -no-audio -no-window:
         background: true
         parallel: true
     # Wait for it to have booted
