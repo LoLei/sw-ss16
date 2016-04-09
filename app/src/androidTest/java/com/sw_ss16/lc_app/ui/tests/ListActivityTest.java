@@ -29,8 +29,8 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
         mySolo.clickOnImageButton(0);
         mySolo.sleep(1000);
 
-        boolean actual = mySolo.searchText("Predictr Menu");
-        assertEquals("Required text not found", true, actual);
+        boolean text_found = mySolo.searchText(getActivity().getString(R.string.navigation_title));
+        assertEquals("Required text not found", true, text_found);
     }
 
     public void testStudyRoomDetailOpen() {
@@ -44,8 +44,8 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
 
             // Look for text in study room detail activity
             mySolo.waitForActivity("StudyRoomDetailActivity");
-            boolean actual = mySolo.searchText("More Info");
-            assertEquals("Required text not found", true, actual);
+            boolean text_found = mySolo.searchText("More Info");
+            assertEquals("Required text not found", true, text_found);
         }
     }
 }
