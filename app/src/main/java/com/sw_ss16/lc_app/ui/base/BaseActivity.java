@@ -68,7 +68,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Check if first startup, if yes
+        // TODO: Check if first startup, if yes
 
         final Database db = new Database(getApplicationContext());
 
