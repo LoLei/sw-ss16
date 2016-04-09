@@ -34,6 +34,7 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        //*
         if(StudyRoomsContent.ITEM_MAP.isEmpty()) {
             System.out.println("Fill List");
             Database db = new Database(getApplicationContext());
@@ -74,7 +75,9 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
                 isfav.moveToNext();
 
             }
+
         }
+       // */
 
         setupToolbar();
 

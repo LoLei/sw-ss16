@@ -22,6 +22,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.content.FavoriteStudyRoomsContent;
+import com.sw_ss16.lc_app.content.LearningCenterContent;
 
 /**
  * Shows a list of all available quotes.
@@ -31,6 +32,9 @@ import com.sw_ss16.lc_app.content.FavoriteStudyRoomsContent;
 public class StudyRoomListFragment extends ListFragment {
 
     private Callback callback = dummyCallback;
+
+    private LearningCenterContent lc_contentmanager = new LearningCenterContent();
+
 
     /**
      * A callback interface. Called whenever a item has been selected.
@@ -59,6 +63,8 @@ public class StudyRoomListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         // notify callback about the selected list item
+
+        //callback.onItemSelected(lc_contentmanager.getLcObject(lc_contentmanager.getListOfFavLcIds(getActivity().getApplicationContext()).get(position),getActivity().getApplicationContext()).id);
         callback.onItemSelected(FavoriteStudyRoomsContent.ITEMS.get(position).id);
     }
 
