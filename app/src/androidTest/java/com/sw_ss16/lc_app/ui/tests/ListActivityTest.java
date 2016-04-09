@@ -34,7 +34,12 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
 
     public void testStudyRoomDetailOpen() {
         mySolo.sleep(1000);
+        // Click on first list item
         mySolo.clickInList(1);
-        mySolo.sleep(1000);
+
+        // Look for text in study room detail activity
+        mySolo.waitForActivity("StudyRoomDetailActivity");
+        boolean actual = mySolo.searchText("More Info");
+        assertEquals("Required text not found", true, actual);
     }
 }
