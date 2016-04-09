@@ -21,7 +21,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import com.sw_ss16.lc_app.R;
-import com.sw_ss16.lc_app.content.FavoriteStudyRoomsContent;
 import com.sw_ss16.lc_app.content.LearningCenter;
 import com.sw_ss16.lc_app.content.LearningCenterContent;
 

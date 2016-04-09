@@ -1,8 +1,6 @@
 package com.sw_ss16.lc_app.ui.learning_center_list;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
@@ -10,10 +8,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.sw_ss16.lc_app.R;
-import com.sw_ss16.lc_app.backend.Database;
-import com.sw_ss16.lc_app.content.FavoriteStudyRoomsContent;
 import com.sw_ss16.lc_app.content.LearningCenterContent;
-import com.sw_ss16.lc_app.content.StudyRoomsContent;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailFragment;
