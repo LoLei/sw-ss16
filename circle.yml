@@ -10,5 +10,6 @@ test:
     # Clean & build
     - ./gradlew clean
     - ./gradlew build
-    # Run tests  against the emulator.
-    - ./gradlew connectedAndroidTest --info
+    - ./gradlew test
+    # Run tests  against the emulator. -- Currently not working
+    # - ./gradlew connectedAndroidTest --info
