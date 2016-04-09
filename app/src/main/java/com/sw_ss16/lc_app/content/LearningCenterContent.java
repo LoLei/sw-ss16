@@ -37,6 +37,14 @@ public class LearningCenterContent {
 
     public void setLearningCeterToFavorite(int lc_id){
 
+        /*
+                                db.insertInDatabase("INSERT INTO favstudyrooms (ID, IS_FAV) " +
+                                        "SELECT " +
+                                        id + "," +
+                                        "0 " +
+                                        "WHERE NOT EXISTS (SELECT 1 FROM favstudyrooms WHERE ID = " + id +");");
+        */
+
     }
 
     public void setLearningCeterToNoFavorite(int lc_id){

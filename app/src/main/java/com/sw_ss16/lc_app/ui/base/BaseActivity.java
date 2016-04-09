@@ -111,15 +111,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 all_study_rooms.getItem(i).setIcon(R.drawable.ic_school_white_24dp);
                 all_study_rooms.getItem(i).setNumericShortcut((char) i);
             }
-
-            /*
-            for (int i = 0; i < StudyRoomsContent.ITEMS.size(); i++)
-            {
-                all_study_rooms.add(StudyRoomsContent.ITEMS.get(i).title);
-                all_study_rooms.getItem(i).setIcon(R.drawable.ic_school_white_24dp);
-                all_study_rooms.getItem(i).setNumericShortcut((char) i);
-            }
-            */
         }
 
         setupDrawerSelectListener(navigationView);

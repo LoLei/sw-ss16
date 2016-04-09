@@ -33,51 +33,6 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        /*
-        if(StudyRoomsContent.ITEM_MAP.isEmpty()) {
-            System.out.println("Fill List");
-            Database db = new Database(getApplicationContext());
-            SQLiteDatabase sqldb = db.getReadableDatabase();
-
-            String[] columns = new String[]{"ID", "NAME", "DESCRIPTION", "ADDRESS", "IMAGE_IN", "IMAGE_OUT", "CAPACITY"};
-            String[] favcolumns = new String[]{"ID", "IS_FAV"};
-
-
-            Cursor c = sqldb.query("studyrooms", columns, null, null, null, null, null);
-            Cursor isfav = sqldb.query("favstudyrooms", favcolumns, null, null, null, null, null);
-
-            //c.getCount();
-            c.moveToFirst();
-            isfav.moveToFirst();
-            for (int i = 1; i <= c.getCount(); i++) {
-
-                StudyRoomsContent.addItem(new StudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")),
-                        c.getString(c.getColumnIndex("IMAGE_IN")),
-                        c.getString(c.getColumnIndex("IMAGE_OUT")),
-                        c.getString(c.getColumnIndex("NAME")),
-                        c.getString(c.getColumnIndex("DESCRIPTION")),
-                        c.getString(c.getColumnIndex("ADDRESS")),
-                        (isfav.getInt(isfav.getColumnIndex("IS_FAV")) == 1)));
-
-                // TODO: Remove i == 1
-                if(isfav.getInt(isfav.getColumnIndex("IS_FAV")) == 1 || i == 1) {
-                    FavoriteStudyRoomsContent.addItem(new FavoriteStudyRoomsContent.DummyItem(c.getString(c.getColumnIndex("ID")),
-                            c.getString(c.getColumnIndex("IMAGE_IN")),
-                            c.getString(c.getColumnIndex("IMAGE_OUT")),
-                            c.getString(c.getColumnIndex("NAME")),
-                            c.getString(c.getColumnIndex("DESCRIPTION")),
-                            c.getString(c.getColumnIndex("ADDRESS")),
-                            (isfav.getInt(isfav.getColumnIndex("IS_FAV")) == 1)));
-                }
-
-                c.moveToNext();
-                isfav.moveToNext();
-
-            }
-
-        }
-       */
-
         setupToolbar();
 
         if (isTwoPaneLayoutUsed()) {

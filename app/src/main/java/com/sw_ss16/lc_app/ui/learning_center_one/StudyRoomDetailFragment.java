@@ -96,15 +96,10 @@ public class StudyRoomDetailFragment extends BaseFragment {
     public void onFabClicked(View view) {
         if(dummyItem.is_fav_lc)
         {
-            //dummyItem.is_fav_lc = false;
-            //StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = false;
-            //FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = false;
+            //TODO the fav stuff
         }
         else{
-            //dummyItem.is_fav_lc = true;
-            //StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = true;
-            //FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = true;
-
+            //TODO the fav stuff
         }
 
         //Snackbar.make(view, "Hello Snackbar!", Snackbar.LENGTH_LONG).setAction("Action", null).show();

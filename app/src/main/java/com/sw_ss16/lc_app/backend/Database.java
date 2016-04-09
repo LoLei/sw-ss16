@@ -74,12 +74,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(FAVSTUDYROOM_TABLE_CREATE);
         db.execSQL(LAST_UPDATED_TABLE_CREATE);
 
-        // Populate local database with data from remote db
-        /*db.execSQL("INSERT INTO studyrooms VALUES (" +
-                "1, 'i7', 'test', 'inffeld 25d', 'asdf', 50 );");
-        */
-        System.out.println("DB created");
-
+        System.out.println("[Database] DB created");
     }
 
     @Override
