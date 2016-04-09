@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sw_ss16.lc_app.R;
+import com.sw_ss16.lc_app.content.LearningCenter;
+import com.sw_ss16.lc_app.content.LearningCenterContent;
 import com.sw_ss16.lc_app.content.StudyRoomsContent;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
 import com.sw_ss16.lc_app.ui.base.BaseFragment;
@@ -36,7 +38,9 @@ public class StudyRoomDetailFragment extends BaseFragment {
     /**
      * The dummy lc_address of this fragment.
      */
-    private StudyRoomsContent.DummyItem dummyItem;
+    private LearningCenter dummyItem;
+
+    private LearningCenterContent lc_contentmanager = new LearningCenterContent();
 
     @Bind(R.id.quote)
     TextView quote;
@@ -56,7 +60,10 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // load dummy item by using the passed item ID.
-            dummyItem = StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+
+            lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
+            dummyItem = lc_contentmanager.getLcObject(getArguments().getString(ARG_ITEM_ID));
+            //dummyItem = StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
 
         setHasOptionsMenu(true);
@@ -74,8 +81,8 @@ public class StudyRoomDetailFragment extends BaseFragment {
         if (dummyItem != null) {
             loadBackdrop();
             collapsingToolbar.setTitle(dummyItem.title);
-            author.setText(dummyItem.content);
-            quote.setText(dummyItem.author);
+            author.setText(dummyItem.address);
+            quote.setText(dummyItem.description);
         }
 
         return rootView;
@@ -83,20 +90,20 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
     private void loadBackdrop() {
         // Glide.with(this).load(dummyItem.photoId).centerCrop().into(backdropImg);
-        Glide.with(this).load(dummyItem.imageInUrl).centerCrop().into(backdropImg);
+        Glide.with(this).load(dummyItem.image_in_url).centerCrop().into(backdropImg);
     }
 
     @OnClick(R.id.fav_fab_btn)
     public void onFabClicked(View view) {
-        if(dummyItem.isFavLc)
+        if(dummyItem.is_fav_lc)
         {
-            dummyItem.isFavLc = false;
-            StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = false;
+            //dummyItem.is_fav_lc = false;
+            //StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = false;
             //FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = false;
         }
         else{
-            dummyItem.isFavLc = true;
-            StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = true;
+            //dummyItem.is_fav_lc = true;
+            //StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = true;
             //FavoriteStudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).isFavLc = true;
 
         }
