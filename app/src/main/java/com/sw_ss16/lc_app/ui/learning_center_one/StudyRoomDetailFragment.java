@@ -2,6 +2,7 @@ package com.sw_ss16.lc_app.ui.learning_center_one;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -97,12 +98,14 @@ public class StudyRoomDetailFragment extends BaseFragment {
         if(lc_contentmanager.getLearningCeterFavoriteStatus(Integer.parseInt(current_learning_center.id)))
         {
             lc_contentmanager.setLearningCeterFavoriteStatus(Integer.parseInt(current_learning_center.id), false);
-        }
-        else{
+            Snackbar.make(view, "Removed from favorites", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+        } else {
             lc_contentmanager.setLearningCeterFavoriteStatus(Integer.parseInt(current_learning_center.id), true);
+            Snackbar.make(view, "Added to favorites", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
         }
 
-        //Snackbar.make(view, "Hello Snackbar!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     @Override
