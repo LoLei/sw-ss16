@@ -30,6 +30,11 @@ public class LearningCenterContent {
     // Methods
     // -------------------------------
 
+    //
+    public void setApplicationContext(Context app_context){
+        this.app_context = app_context;
+    }
+
     public void setLearningCeterToFavorite(int lc_id){
 
     }
@@ -38,10 +43,10 @@ public class LearningCenterContent {
 
     }
 
-    public List<String> getListOfFavLcIds(Context application_context){
+    public List<String> getListOfFavLcIds(){
         ArrayList<String> all_lc_ids = new ArrayList<>();
 
-        Database db = new Database(application_context);
+        Database db = new Database(app_context);
         SQLiteDatabase sqldb = db.getReadableDatabase();
         String[] columns = new String[]{"ID"};
 
@@ -58,10 +63,10 @@ public class LearningCenterContent {
         return all_lc_ids;
     }
 
-    public List<String> getListOfLcIds(Context application_context){
+    public List<String> getListOfLcIds(){
         ArrayList<String> all_lc_ids = new ArrayList<>();
 
-        Database db = new Database(application_context);
+        Database db = new Database(app_context);
         SQLiteDatabase sqldb = db.getReadableDatabase();
         String[] columns = new String[]{"ID"};
 
@@ -78,9 +83,9 @@ public class LearningCenterContent {
         return all_lc_ids;
     }
 
-    public LearningCenter getLcObject(String id, Context application_context){
+    public LearningCenter getLcObject(String id){
 
-        Database db = new Database(application_context);
+        Database db = new Database(app_context);
         SQLiteDatabase sqldb = db.getReadableDatabase();
 
         String[] columns = new String[]{"ID", "NAME", "DESCRIPTION", "ADDRESS", "IMAGE_IN", "IMAGE_OUT", "CAPACITY"};

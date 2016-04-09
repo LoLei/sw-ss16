@@ -102,11 +102,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             Menu m = navigationView.getMenu();
             SubMenu all_study_rooms = m.getItem(2).getSubMenu();
 
-            List<String> lc_ids = lc_contentmanager.getListOfLcIds(getApplicationContext());
+            lc_contentmanager.setApplicationContext(getApplicationContext());
+            List<String> lc_ids = lc_contentmanager.getListOfLcIds();
 
             for (int i = 0; i < lc_ids.size(); i++)
             {
-                LearningCenter curr_lc = lc_contentmanager.getLcObject(lc_ids.get(i), getApplicationContext());
+                LearningCenter curr_lc = lc_contentmanager.getLcObject(lc_ids.get(i));
                 all_study_rooms.add(curr_lc.title);
                 all_study_rooms.getItem(i).setIcon(R.drawable.ic_school_white_24dp);
                 all_study_rooms.getItem(i).setNumericShortcut((char) i);
