@@ -1,3 +1,4 @@
+[![Circle CI](https://circleci.com/gh/LoLei/sw-ss16.svg?style=svg)](https://circleci.com/gh/LoLei/sw-ss16)
 [![Stories in Ready](https://badge.waffle.io/LoLei/sw-ss16.png?label=ready&title=Ready)](http://waffle.io/LoLei/sw-ss16)
 
 # sw-ss16
