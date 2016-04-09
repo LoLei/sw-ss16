@@ -89,7 +89,7 @@ public class LearningCenterContent {
         SQLiteDatabase sqldb = db.getReadableDatabase();
 
         String[] columns = new String[]{"ID", "NAME", "DESCRIPTION", "ADDRESS", "IMAGE_IN", "IMAGE_OUT", "CAPACITY"};
-        String[] favcolumns = new String[]{"ID", "IS_FAV"};
+        String[] favcolumns = new String[]{"ID"};
 
         String query_string = "ID = " + id;
 
@@ -105,7 +105,7 @@ public class LearningCenterContent {
                 c.getString(c.getColumnIndex("NAME")),
                 c.getString(c.getColumnIndex("DESCRIPTION")),
                 c.getString(c.getColumnIndex("ADDRESS")),
-                (isfav.getInt(isfav.getColumnIndex("IS_FAV")) == 1));
+                false); //TODO get status of fav from table
     }
 
 }

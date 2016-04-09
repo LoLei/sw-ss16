@@ -47,8 +47,7 @@ public class Database extends SQLiteOpenHelper {
     private static final String FAVSTUDYROOM_TABLE_NAME = "favstudyrooms";
     private static final String FAVSTUDYROOM_TABLE_CREATE =
             "CREATE TABLE " + FAVSTUDYROOM_TABLE_NAME + " (" +
-                    "ID" + " INT, " +
-                    "IS_FAV" + " INT" +
+                    "ID" + " INT " +
                     ");";
 
     private static final String LAST_UPDATED_TABLE_NAME = "lastupdated";
