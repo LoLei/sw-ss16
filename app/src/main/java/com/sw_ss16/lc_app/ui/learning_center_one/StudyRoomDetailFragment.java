@@ -94,12 +94,12 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
     @OnClick(R.id.fav_fab_btn)
     public void onFabClicked(View view) {
-        if(current_learning_center.is_fav_lc == "1")
+        if(lc_contentmanager.getLearningCeterFavoriteStatus(Integer.parseInt(current_learning_center.id)))
         {
-            //TODO the fav stuff
+            lc_contentmanager.setLearningCeterFavoriteStatus(Integer.parseInt(current_learning_center.id), false);
         }
         else{
-            //TODO the fav stuff
+            lc_contentmanager.setLearningCeterFavoriteStatus(Integer.parseInt(current_learning_center.id), true);
         }
 
         //Snackbar.make(view, "Hello Snackbar!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
