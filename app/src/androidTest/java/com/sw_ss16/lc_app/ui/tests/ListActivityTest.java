@@ -24,6 +24,7 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
     }
 
     public void tearDown() throws Exception {
+        mySolo.finishOpenedActivities();
         super.tearDown();
     }
 
