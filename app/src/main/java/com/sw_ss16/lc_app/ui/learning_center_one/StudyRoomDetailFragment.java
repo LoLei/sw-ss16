@@ -111,13 +111,13 @@ public class StudyRoomDetailFragment extends BaseFragment {
         if (lc_contentmanager.getLearningCenterFavoriteStatus(Integer.parseInt(current_learning_center.id))) {
             lc_contentmanager.setLearningCenterFavoriteStatus(Integer.parseInt(current_learning_center.id), false);
             fab.setImageResource(R.drawable.ic_add_white_24dp);
-            Snackbar.make(view, "Removed from favorites", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(view, R.string.fav_delete, Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
         }
         else {
             lc_contentmanager.setLearningCenterFavoriteStatus(Integer.parseInt(current_learning_center.id), true);
             fab.setImageResource(R.drawable.ic_remove_white_24dp);
-            Snackbar.make(view, "Added to favorites", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(view, R.string.fav_add, Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
         }
 

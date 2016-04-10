@@ -19,4 +19,6 @@
     <string name="navigation_dummy_room_1">Dummy room 1</string>
     <string name="navigation_dummy_room_2">Dummy room 2</string>
     <string name="no_fav">There are no favorites\nChoose some from the menu</string>
+    <string name="fav_add">Added to favorites</string>
+    <string name="fav_delete">Removed from favorites</string>
 </resources>

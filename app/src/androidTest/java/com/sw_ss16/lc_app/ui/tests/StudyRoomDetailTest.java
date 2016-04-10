@@ -7,13 +7,13 @@ import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 
 /**
- * Tests that start from the ListActivity
+ * Starts from the ListActivity, but opens the StudyRoomDetailActivity
  */
-public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActivity> {
+public class StudyRoomDetailTest extends ActivityInstrumentationTestCase2<ListActivity> {
 
     private Solo mySolo;
 
-    public ListActivityTest() {
+    public StudyRoomDetailTest() {
         super(ListActivity.class);
     }
 
@@ -28,16 +28,7 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
         super.tearDown();
     }
 
-    public void testNavigationDrawerOpen() {
-        mySolo.sleep(500);
-        mySolo.clickOnImageButton(0);
-        mySolo.sleep(500);
-
-        boolean text_found = mySolo.searchText(getActivity().getString(R.string.navigation_title));
-        assertEquals("Required text not found", true, text_found);
-    }
-
-    public void testStudyRoomDetailOpen() {
+    public void testStudyRoomDetailFavorite() {
         mySolo.sleep(500);
         // If there are any items in the list
         // The second argument of searchText means it searches only for visible text (not hidden)
@@ -49,6 +40,19 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
             mySolo.waitForActivity("StudyRoomDetailActivity");
             boolean text_found = mySolo.searchText(getActivity().getString(R.string.article_detail_more_info));
             assertEquals("Required text not found", true, text_found);
+
+            boolean already_fav = mySolo.getCurrentActivity().getResources().getDrawable(R.drawable.ic_remove_white_24dp).isVisible();
+            // Click on floating action button
+            mySolo.clickOnView(mySolo.getView(R.id.fav_fab_btn));
+            boolean image_shown = false;
+            if (already_fav) {
+                image_shown = mySolo.getCurrentActivity().getResources().getDrawable(R.drawable.ic_add_white_24dp).isVisible();
+            }
+            else {
+                image_shown = mySolo.getCurrentActivity().getResources().getDrawable(R.drawable.ic_remove_white_24dp).isVisible();
+            }
+
+            assertEquals("Required image not found", true, image_shown);
         }
     }
 }
