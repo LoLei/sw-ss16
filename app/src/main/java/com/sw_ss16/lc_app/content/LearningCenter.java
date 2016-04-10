@@ -21,7 +21,7 @@ public class LearningCenter {
     // Methods
     // -------------------------------
     public LearningCenter(String id, String name, String description, String address, String image_in_url,
-                            String image_out_url, String capacity) {
+                          String image_out_url, String capacity) {
         this.id = id;
         this.name = name;
         this.description = description;

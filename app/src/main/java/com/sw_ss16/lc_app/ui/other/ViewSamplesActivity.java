@@ -7,14 +7,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Activity demonstrates some GUI functionalities from the Android support library.
- *
+ * <p/>
  * Created by Andreas Schrade on 14.12.2015.
  */
 public class ViewSamplesActivity extends BaseActivity {

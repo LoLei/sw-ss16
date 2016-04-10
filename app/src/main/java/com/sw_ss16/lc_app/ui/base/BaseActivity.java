@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.view.View;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -21,10 +20,10 @@ import com.sw_ss16.lc_app.backend.Database;
 import com.sw_ss16.lc_app.backend.DatabaseSyncer;
 import com.sw_ss16.lc_app.content.LearningCenter;
 import com.sw_ss16.lc_app.content.LearningCenterContent;
-import com.sw_ss16.lc_app.ui.other.SettingsActivity;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailFragment;
+import com.sw_ss16.lc_app.ui.other.SettingsActivity;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -41,7 +40,7 @@ import static com.sw_ss16.lc_app.util.LogUtil.makeLogTag;
  * The base class for all Activity classes.
  * This class creates and provides the navigation drawer and toolbar.
  * The navigation logic is handled in {@linkk BaseActivity#goToNavDrawerItem(int)}
- *
+ * <p/>
  * Created by Andreas Schrade on 14.12.2015.
  */
 public abstract class BaseActivity extends AppCompatActivity {
@@ -107,8 +106,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             lc_contentmanager.setApplicationContext(getApplicationContext());
             List<String> lc_ids = lc_contentmanager.getListOfLcIds();
 
-            for (int i = 0; i < lc_ids.size(); i++)
-            {
+            for (int i = 0; i < lc_ids.size(); i++) {
                 LearningCenter curr_lc = lc_contentmanager.getLcObject(lc_ids.get(i));
                 all_study_rooms.add(curr_lc.name);
                 all_study_rooms.getItem(i).setIcon(R.drawable.ic_school_white_24dp);
@@ -124,6 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Updated the checked item in the navigation drawer
+     *
      * @param navigationView the navigation view
      */
     private void setSelectedItem(NavigationView navigationView) {
@@ -134,6 +133,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Creates the item click listener.
+     *
      * @param navigationView the navigation view
      */
     private void setupDrawerSelectListener(NavigationView navigationView) {
@@ -150,10 +150,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Handles the navigation item click.
+     *
      * @paramm itemId the clicked item
      */
     private void onNavigationItemClicked(final MenuItem menuItem) {
-        if(menuItem.getItemId() == getSelfNavDrawerItem()) {
+        if (menuItem.getItemId() == getSelfNavDrawerItem()) {
             // Already selected
             closeDrawer();
             return;
@@ -164,6 +165,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Handles the navigation item click and starts the corresponding activity.
+     *
      * @paramm item the selected navigation item
      */
     private void goToNavDrawerItem(MenuItem menuItem) {
@@ -202,6 +204,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Provides the action bar instance.
+     *
      * @return the action bar.
      */
     protected ActionBar getActionBarToolbar() {
@@ -224,14 +227,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void openDrawer() {
-        if(drawerLayout == null)
+        if (drawerLayout == null)
             return;
 
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
     protected void closeDrawer() {
-        if(drawerLayout == null)
+        if (drawerLayout == null)
             return;
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -251,6 +254,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * http://stackoverflow.com/a/7331698/4129221
+     *
      * @param url the location of the image on the server
      * @return the byte array generated from the URL
      */

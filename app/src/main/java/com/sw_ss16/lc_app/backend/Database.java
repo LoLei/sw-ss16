@@ -82,8 +82,7 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public void insertInDatabase(String query)
-    {
+    public void insertInDatabase(String query) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(query);
         db.close();

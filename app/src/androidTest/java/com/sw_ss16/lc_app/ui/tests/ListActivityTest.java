@@ -37,8 +37,7 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
         mySolo.sleep(1000);
         // If there are any items in the list
         // The second argument of searchText means it searches only for visible text (not hidden)
-        if (!mySolo.searchText(getActivity().getString(R.string.no_fav), true))
-        {
+        if (!mySolo.searchText(getActivity().getString(R.string.no_fav), true)) {
             // Click on first list item
             mySolo.clickInList(1);
 

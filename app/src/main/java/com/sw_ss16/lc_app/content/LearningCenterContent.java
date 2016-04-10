@@ -12,7 +12,6 @@ import java.util.List;
 
 /**
  * Gets and retrieves Data from Database easily
- *
  */
 public class LearningCenterContent {
 
@@ -28,25 +27,25 @@ public class LearningCenterContent {
     // -------------------------------
 
     //
-    public void setApplicationContext(Context app_context){
+    public void setApplicationContext(Context app_context) {
         this.app_context = app_context;
     }
 
-    public long getNumberOfFavorites(){
+    public long getNumberOfFavorites() {
         Database db = new Database(app_context);
         SQLiteDatabase sqldb = db.getReadableDatabase();
 
         return DatabaseUtils.queryNumEntries(sqldb, "favstudyrooms");
     }
 
-    public boolean getLearningCenterFavoriteStatus(int lc_id){
+    public boolean getLearningCenterFavoriteStatus(int lc_id) {
 
         Database db = new Database(app_context);
         SQLiteDatabase sqldb = db.getReadableDatabase();
 
         boolean is_fav = false;
 
-        if((DatabaseUtils.queryNumEntries(sqldb, "favstudyrooms", "ID = " + lc_id)) > 0){
+        if ((DatabaseUtils.queryNumEntries(sqldb, "favstudyrooms", "ID = " + lc_id)) > 0) {
             is_fav = true;
         }
 
@@ -54,27 +53,24 @@ public class LearningCenterContent {
 
     }
 
-    public void setLearningCenterFavoriteStatus(int lc_id, boolean set_is_favorite){
+    public void setLearningCenterFavoriteStatus(int lc_id, boolean set_is_favorite) {
 
-        if((getLearningCenterFavoriteStatus(lc_id) && set_is_favorite) || (!getLearningCenterFavoriteStatus(lc_id) && !set_is_favorite)){
+        if ((getLearningCenterFavoriteStatus(lc_id) && set_is_favorite) || (!getLearningCenterFavoriteStatus(lc_id) && !set_is_favorite)) {
             return;
         }
-
-        else if(getLearningCenterFavoriteStatus(lc_id)){
+        else if (getLearningCenterFavoriteStatus(lc_id)) {
             Database db = new Database(app_context);
             db.insertInDatabase("DELETE FROM favstudyrooms WHERE ID = " + lc_id + ";");
         }
-
-        else{
+        else {
             Database db = new Database(app_context);
-            db.insertInDatabase("INSERT INTO favstudyrooms VALUES (" + lc_id +");");
+            db.insertInDatabase("INSERT INTO favstudyrooms VALUES (" + lc_id + ");");
         }
-
 
 
     }
 
-    public List<String> getListOfFavLcIds(){
+    public List<String> getListOfFavLcIds() {
         ArrayList<String> all_lc_ids = new ArrayList<>();
 
         Database db = new Database(app_context);
@@ -94,7 +90,7 @@ public class LearningCenterContent {
         return all_lc_ids;
     }
 
-    public List<String> getListOfLcIds(){
+    public List<String> getListOfLcIds() {
         ArrayList<String> all_lc_ids = new ArrayList<>();
 
         Database db = new Database(app_context);
@@ -114,7 +110,7 @@ public class LearningCenterContent {
         return all_lc_ids;
     }
 
-    public LearningCenter getLcObject(String id){
+    public LearningCenter getLcObject(String id) {
 
         Database db = new Database(app_context);
         SQLiteDatabase sqldb = db.getReadableDatabase();
@@ -138,7 +134,7 @@ public class LearningCenterContent {
                 c.getString(c.getColumnIndex("IMAGE_IN")),
                 c.getString(c.getColumnIndex("IMAGE_OUT")),
                 c.getString(c.getColumnIndex("CAPACITY"))
-                );
+        );
     }
 
 }

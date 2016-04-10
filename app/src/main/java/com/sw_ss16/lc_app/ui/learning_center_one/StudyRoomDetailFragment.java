@@ -26,7 +26,7 @@ import butterknife.OnClick;
 
 /**
  * Shows the description detail page.
- *
+ * <p/>
  * Created by Andreas Schrade on 14.12.2015.
  */
 public class StudyRoomDetailFragment extends BaseFragment {
@@ -76,14 +76,12 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fav_fab_btn);
 
-        if(lc_contentmanager.getLearningCenterFavoriteStatus(Integer.parseInt(current_learning_center.id))){
+        if (lc_contentmanager.getLearningCenterFavoriteStatus(Integer.parseInt(current_learning_center.id))) {
             fab.setImageResource(R.drawable.ic_remove_white_24dp);
         }
-
-        else{
+        else {
             fab.setImageResource(R.drawable.ic_add_white_24dp);
         }
-
 
 
         if (!((BaseActivity) getActivity()).providesActivityToolbar()) {
@@ -110,13 +108,13 @@ public class StudyRoomDetailFragment extends BaseFragment {
     public void onFabClicked(View view) {
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fav_fab_btn);
 
-        if(lc_contentmanager.getLearningCenterFavoriteStatus(Integer.parseInt(current_learning_center.id)))
-        {
+        if (lc_contentmanager.getLearningCenterFavoriteStatus(Integer.parseInt(current_learning_center.id))) {
             lc_contentmanager.setLearningCenterFavoriteStatus(Integer.parseInt(current_learning_center.id), false);
             fab.setImageResource(R.drawable.ic_add_white_24dp);
             Snackbar.make(view, "Removed from favorites", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-        } else {
+        }
+        else {
             lc_contentmanager.setLearningCenterFavoriteStatus(Integer.parseInt(current_learning_center.id), true);
             fab.setImageResource(R.drawable.ic_remove_white_24dp);
             Snackbar.make(view, "Added to favorites", Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -149,5 +147,6 @@ public class StudyRoomDetailFragment extends BaseFragment {
         return fragment;
     }
 
-    public StudyRoomDetailFragment() {}
+    public StudyRoomDetailFragment() {
+    }
 }

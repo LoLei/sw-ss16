@@ -22,7 +22,7 @@ public class StudyRoomDetailActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(getIntent().getStringExtra(StudyRoomDetailFragment.ARG_ITEM_ID));
+        StudyRoomDetailFragment fragment = StudyRoomDetailFragment.newInstance(getIntent().getStringExtra(StudyRoomDetailFragment.ARG_ITEM_ID));
         getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
     }
 

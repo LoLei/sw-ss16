@@ -23,7 +23,7 @@ public class DatabaseSyncer {
     // -------------------------------
     // Methods
     // -------------------------------
-    public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final Database db){
+    public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final Database db) {
         syncStudyRoomsIntoSQLiteDB(queue, db);
         syncStatisticsIntoSQLiteDB(queue, db);
         syncCurrentDataIntoSQLiteDB(queue, db);
@@ -32,7 +32,7 @@ public class DatabaseSyncer {
     public void syncStudyRoomsIntoSQLiteDB(RequestQueue queue, final Database db) {
         String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
 
-        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
+        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -77,7 +77,7 @@ public class DatabaseSyncer {
     public void syncStatisticsIntoSQLiteDB(RequestQueue queue, final Database db) {
         String url = "http://danielgpoint.at/predict.php?what=stat&how_much=all";
 
-        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
+        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -97,7 +97,7 @@ public class DatabaseSyncer {
                                         "" + weekday + ", " +
                                         "" + hour + ", " +
                                         "" + fullness + " " +
-                                        "WHERE NOT EXISTS (SELECT 1 FROM statistics WHERE ID = " + id +");");
+                                        "WHERE NOT EXISTS (SELECT 1 FROM statistics WHERE ID = " + id + ");");
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -118,7 +118,7 @@ public class DatabaseSyncer {
     public void syncCurrentDataIntoSQLiteDB(RequestQueue queue, final Database db) {
         String url = "http://danielgpoint.at/predict.php?what=curr&how_much=all";
 
-        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url , null,
+        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -138,7 +138,7 @@ public class DatabaseSyncer {
                                         "" + hour + ", " +
                                         "" + fullness + ", " +
                                         "'" + date + "' " +
-                                        "WHERE NOT EXISTS (SELECT 1 FROM current_data WHERE ID = " + id +");");
+                                        "WHERE NOT EXISTS (SELECT 1 FROM current_data WHERE ID = " + id + ");");
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

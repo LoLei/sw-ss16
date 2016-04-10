@@ -5,14 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.ButterKnife;
 import com.sw_ss16.lc_app.util.LogUtil;
+
+import butterknife.ButterKnife;
 
 import static com.sw_ss16.lc_app.util.LogUtil.makeLogTag;
 
 /**
  * The base class for all fragment classes.
- *
+ * <p/>
  * Created by Andreas Schrade on 14.12.2015.
  */
 public class BaseFragment extends Fragment {
@@ -21,9 +22,10 @@ public class BaseFragment extends Fragment {
 
     /**
      * Inflates the layout and binds the view via ButterKnife.
-     * @param inflater the inflater
+     *
+     * @param inflater  the inflater
      * @param container the layout container
-     * @param layout the layout resource
+     * @param layout    the layout resource
      * @return the inflated view
      */
     public View inflateAndBind(LayoutInflater inflater, ViewGroup container, int layout) {

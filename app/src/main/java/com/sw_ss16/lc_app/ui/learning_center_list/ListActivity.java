@@ -17,7 +17,7 @@ import com.sw_ss16.lc_app.util.LogUtil;
 
 /**
  * Lists all available quotes. This Activity supports a single pane (= smartphones) and a two pane mode (= large screens with >= 600dp width).
- *
+ * <p/>
  * Created by Andreas Schrade on 14.12.2015.
  */
 public class ListActivity extends BaseActivity implements StudyRoomListFragment.Callback {
@@ -36,7 +36,7 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
 
         //Check if no favorites
         lc_contentmanager.setApplicationContext(getApplicationContext());
-        if(lc_contentmanager.getNumberOfFavorites() == 0){
+        if (lc_contentmanager.getNumberOfFavorites() == 0) {
             findViewById(R.id.textView_no_fav).setVisibility(View.VISIBLE);
         }
 
@@ -44,7 +44,7 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
 
         if (isTwoPaneLayoutUsed()) {
             twoPaneMode = true;
-            LogUtil.logD("TEST","TWO POANE TASDFES");
+            LogUtil.logD("TEST", "TWO POANE TASDFES");
             enableActiveItemState();
         }
 
@@ -64,7 +64,8 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
             // Show the quote detail information by replacing the DetailFragment via transaction.
             StudyRoomDetailFragment fragment = StudyRoomDetailFragment.newInstance(id);
             getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
-        } else {
+        }
+        else {
             // Start the detail activity in single pane mode.
             Intent detailIntent = new Intent(this, StudyRoomDetailActivity.class);
             detailIntent.putExtra(StudyRoomDetailFragment.ARG_ITEM_ID, id);
@@ -82,7 +83,7 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
         //StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(FavoriteStudyRoomsContent.ITEMS.get(0).id);
 
         lc_contentmanager.setApplicationContext(getApplicationContext());
-        StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(lc_contentmanager.getListOfFavLcIds().get(0));
+        StudyRoomDetailFragment fragment = StudyRoomDetailFragment.newInstance(lc_contentmanager.getListOfFavLcIds().get(0));
 
         getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
     }

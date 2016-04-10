@@ -11,7 +11,7 @@ import com.sw_ss16.lc_app.ui.base.BaseActivity;
 
 /**
  * This Activity provides several settings. Activity contains {@link PreferenceFragment} as inner class.
- *
+ * <p/>
  * Created by Andreas Schrade on 14.12.2015.
  */
 public class SettingsActivity extends BaseActivity {
@@ -56,7 +56,8 @@ public class SettingsActivity extends BaseActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragment {
-        public SettingsFragment() {}
+        public SettingsFragment() {
+        }
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
