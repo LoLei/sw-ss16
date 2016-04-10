@@ -22,11 +22,16 @@ public class AllTests extends ActivityInstrumentationTestCase2<Activity> {
         return t;
     }
 
+    /**
+     * Individual test classes call these methods
+     */
     @Override
     public void setUp() throws Exception {
-
     }
 
+    /**
+     * Individual test classes call these methods
+     */
     @Override
     public void tearDown() throws Exception {
     }
