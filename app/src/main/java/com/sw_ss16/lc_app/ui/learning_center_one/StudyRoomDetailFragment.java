@@ -146,7 +146,4 @@ public class StudyRoomDetailFragment extends BaseFragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-    public StudyRoomDetailFragment() {
-    }
 }
