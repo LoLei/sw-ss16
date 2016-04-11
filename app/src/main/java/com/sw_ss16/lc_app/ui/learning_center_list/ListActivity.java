@@ -2,6 +2,7 @@ package com.sw_ss16.lc_app.ui.learning_center_list;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +34,7 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        PreferenceManager.setDefaultValues(this, R.xml.settings_prefs, false);
 
         //Check if no favorites
         lc_contentmanager.setApplicationContext(getApplicationContext());
