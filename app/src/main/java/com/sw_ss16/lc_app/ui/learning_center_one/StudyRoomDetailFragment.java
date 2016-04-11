@@ -115,7 +115,6 @@ public class StudyRoomDetailFragment extends BaseFragment {
             int current_hour = calendar.get(Calendar.HOUR);
             System.out.println("Day: " + current_day + ", hour: " + current_hour);
 
-            // TODO: Use WHERE query
             String query_string =   "LC_ID = " + current_learning_center.id +
                                     " AND WEEKDAY = " + current_day +
                                     " AND HOUR = " + current_hour;
@@ -124,44 +123,37 @@ public class StudyRoomDetailFragment extends BaseFragment {
             Cursor c = sqldb.query("statistics", columns, query_string, null, null, null, null);
 
             c.moveToFirst();
+            boolean statistic_ok = true;
+            if (current_learning_center.id.equals(c.getString(c.getColumnIndex("LC_ID")))) {
 
-            for (int i = 1; i <= c.getCount(); i++) {
+                String fullness = c.getString(c.getColumnIndex("FULLNESS"));
+                int full = Integer.parseInt(fullness);
 
-                boolean statistic_ok = true;
+                String fullness_description = "";
 
-                if (current_learning_center.id.equals(c.getString(c.getColumnIndex("LC_ID")))) {
-
-                    String fullness = c.getString(c.getColumnIndex("FULLNESS"));
-                    int full = Integer.parseInt(fullness);
-
-                    String fullness_description = "";
-
-                    if (full >= 75)
-                    {
-                        fullness_description = getActivity().getString(R.string.fullness_full);
-                    }
-                    else if (full >= 50)
-                    {
-                        fullness_description = getActivity().getString(R.string.fullness_halffull);
-                    }
-                    // TODO: Add a fourth fullness state
-                    else if (full < 50)
-                    {
-                        fullness_description = getActivity().getString(R.string.fullness_empty);
-                    }
-                    else
-                    {
-                        statistic_ok = false;
-                    }
-
-                    if(statistic_ok)
-                        statistics.setText(fullness_description + "\nPercentage: " + fullness + "%");
-                    else
-                        statistics.setText(R.string.default_fullness_description);
+                if (full >= 75)
+                {
+                    fullness_description = getActivity().getString(R.string.fullness_full);
                 }
-                c.moveToNext();
-            }
+                else if (full >= 50)
+                {
+                    fullness_description = getActivity().getString(R.string.fullness_halffull);
+                }
+                // TODO: Add a fourth fullness state
+                else if (full < 50)
+                {
+                    fullness_description = getActivity().getString(R.string.fullness_empty);
+                }
+                else
+                {
+                    statistic_ok = false;
+                }
 
+                if(statistic_ok)
+                    statistics.setText(fullness_description + "\nPercentage: " + fullness + "%");
+                else
+                    statistics.setText(R.string.default_fullness_description);
+            }
             db.close();
             c.close();
         }
