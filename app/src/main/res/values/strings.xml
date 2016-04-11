@@ -2,7 +2,7 @@
     <string name="app_name">Predictr</string>
     <string name="settings">Settings</string>
     <string name="default_fullness_description">Could not fetch data!</string>
-    <string name="article_detail_more_info">More Info</string>
+    <string name="lc_statistic_title">Day:  Weekday: </string>
 
 
     <string name="samples_title">Hello title</string>

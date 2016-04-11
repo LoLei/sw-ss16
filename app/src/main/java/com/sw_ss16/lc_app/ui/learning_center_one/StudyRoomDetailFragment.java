@@ -1,9 +1,7 @@
 package com.sw_ss16.lc_app.ui.learning_center_one;
 
-import android.annotation.TargetApi;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -26,7 +24,9 @@ import com.sw_ss16.lc_app.content.LearningCenterContent;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
 import com.sw_ss16.lc_app.ui.base.BaseFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -53,6 +53,9 @@ public class StudyRoomDetailFragment extends BaseFragment {
     @Bind(R.id.lc_description)
     TextView description;
 
+    @Bind(R.id.lc_statistics_title)
+    TextView statistics_title;
+
     @Bind(R.id.lc_statistics)
     TextView statistics;
 
@@ -70,17 +73,14 @@ public class StudyRoomDetailFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // load dummy item by using the passed item ID.
-
+            // Load item by using the passed item ID
             lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
             current_learning_center = lc_contentmanager.getLcObject(getArguments().getString(ARG_ITEM_ID));
-            //current_learning_center = StudyRoomsContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
 
         setHasOptionsMenu(true);
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflateAndBind(inflater, container, R.layout.fragment_article_detail);
@@ -112,8 +112,20 @@ public class StudyRoomDetailFragment extends BaseFragment {
             Calendar calendar = Calendar.getInstance();
             int current_day = calendar.get(Calendar.DAY_OF_WEEK);
             current_day--;
-            int current_hour = calendar.get(Calendar.HOUR);
-            System.out.println("Day: " + current_day + ", hour: " + current_hour);
+            int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
+            String meridiem = "";
+            if (current_hour <= 12)
+                meridiem = "AM";
+            else if (current_hour > 12)
+            {
+                meridiem = "PM";
+                current_hour -= 12;
+            }
+
+            String week_day;
+            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
+            week_day = dayFormat.format(calendar.getTime());
+            statistics_title.setText("Statistics for " + week_day + " " + current_hour + " " + meridiem);
 
             String query_string =   "LC_ID = " + current_learning_center.id +
                                     " AND WEEKDAY = " + current_day +
