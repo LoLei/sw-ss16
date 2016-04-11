@@ -5,10 +5,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by mrb on 08/04/16.
@@ -31,6 +37,38 @@ public class DatabaseSyncer {
 
     public void syncStudyRoomsIntoSQLiteDB(RequestQueue queue, final Database db) {
         String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
+        String url2 = "http://danielgpoint.at/predict.php?what=last_updated";
+
+
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                //System.out.println("response" + response.toString());
+                try {
+                    String date = response.getString("datetime");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+                    Date convertedDate = new Date();
+                    try {
+                        convertedDate = dateFormat.parse(date);
+                    } catch (ParseException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    System.out.println(convertedDate);
+                } catch (JSONException err) {
+
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Here was an Error");
+
+            }
+        });
+
 
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -72,6 +110,7 @@ public class DatabaseSyncer {
         });
         // Add the request to the RequestQueue.
         queue.add(jsonArrayRequest);
+        queue.add(jsonObjectRequest);
     }
 
     public void syncStatisticsIntoSQLiteDB(RequestQueue queue, final Database db) {
