@@ -91,10 +91,10 @@ public abstract class BaseActivity extends AppCompatActivity {
          if(firstrun) {
             System.out.println("This App first started");
             getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("firstrun", false).commit();
-            database_syncer.syncAllRemoteIntoSQLiteDB(queue, db);
+            database_syncer.syncAllRemoteIntoSQLiteDB(queue, db, this);
         }
          else if(auto_update) {
-            database_syncer.syncStudyRoomsIntoSQLiteDB(queue, db);
+            database_syncer.syncStudyRoomsIntoSQLiteDB(queue, db, this);
          }
         else {
             System.out.println("This App was started before");
