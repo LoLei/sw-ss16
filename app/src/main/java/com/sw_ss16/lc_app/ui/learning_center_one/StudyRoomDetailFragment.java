@@ -110,10 +110,15 @@ public class StudyRoomDetailFragment extends BaseFragment {
             SQLiteDatabase sqldb = db.getReadableDatabase();
 
             Calendar calendar = Calendar.getInstance();
-            // int current_hour = ;
+            int current_day = calendar.get(Calendar.DAY_OF_WEEK);
+            current_day--;
+            int current_hour = calendar.get(Calendar.HOUR);
+            System.out.println("Day: " + current_day + ", hour: " + current_hour);
 
-            //TODO:Use WHERE-Query
-            String query_string = "ID = " + current_learning_center.id;
+            // TODO: Use WHERE query
+            String query_string =   "LC_ID = " + current_learning_center.id +
+                                    " AND WEEKDAY = " + current_day +
+                                    " AND HOUR = " + current_hour;
             String[] columns = new String[]{"ID", "LC_ID", "WEEKDAY", "HOUR", "FULLNESS"};
 
             Cursor c = sqldb.query("statistics", columns, query_string, null, null, null, null);
@@ -139,6 +144,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
                     {
                         fullness_description = getActivity().getString(R.string.fullness_halffull);
                     }
+                    // TODO: Add a fourth fullness state
                     else if (full < 50)
                     {
                         fullness_description = getActivity().getString(R.string.fullness_empty);
@@ -153,20 +159,16 @@ public class StudyRoomDetailFragment extends BaseFragment {
                     else
                         statistics.setText(R.string.default_fullness_description);
                 }
-
                 c.moveToNext();
-
             }
 
             db.close();
-
+            c.close();
         }
-
         return rootView;
     }
 
     private void loadBackdrop() {
-        // Glide.with(this).load(current_learning_center.photoId).centerCrop().into(backdropImg);
         Glide.with(this).load(current_learning_center.image_in_url).centerCrop().into(backdropImg);
     }
 
