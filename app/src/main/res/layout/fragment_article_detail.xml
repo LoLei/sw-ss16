@@ -95,14 +95,14 @@
                         android:id="@+id/lc_statistics_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/lc_statistic_title"
+                        android:text="@string/lc_statistics_title"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
                         android:id="@+id/lc_statistics"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/default_fullness_description" />
+                        android:text="@string/lc_statistics_description" />
 
                 </LinearLayout>
 

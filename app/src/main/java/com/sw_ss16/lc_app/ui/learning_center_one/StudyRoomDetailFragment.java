@@ -113,19 +113,22 @@ public class StudyRoomDetailFragment extends BaseFragment {
             int current_day = calendar.get(Calendar.DAY_OF_WEEK);
             current_day--;
             int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int display_hour = current_hour;
             String meridiem = "";
             if (current_hour <= 12)
                 meridiem = "AM";
             else if (current_hour > 12)
             {
                 meridiem = "PM";
-                current_hour -= 12;
+                display_hour -= 12;
             }
 
-            String week_day;
+            String display_day;
             SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
-            week_day = dayFormat.format(calendar.getTime());
-            statistics_title.setText("Statistics for " + week_day + " " + current_hour + " " + meridiem);
+            display_day = dayFormat.format(calendar.getTime());
+            String statistics_title_str = String.format(getActivity().getString(R.string.lc_statistics_title),
+                    display_day, display_hour, meridiem);
+            statistics_title.setText(statistics_title_str);
 
             String query_string =   "LC_ID = " + current_learning_center.id +
                                     " AND WEEKDAY = " + current_day +
@@ -162,9 +165,13 @@ public class StudyRoomDetailFragment extends BaseFragment {
                 }
 
                 if(statistic_ok)
-                    statistics.setText(fullness_description + "\nPercentage: " + fullness + "%");
+                {
+                    String statistics_description_str = String.format(getActivity().getString(R.string.lc_statistics_description),
+                            fullness_description, fullness);
+                    statistics.setText(statistics_description_str);
+                }
                 else
-                    statistics.setText(R.string.default_fullness_description);
+                    statistics.setText(R.string.lc_statistics_description_default);
             }
             db.close();
             c.close();
