@@ -1,5 +1,9 @@
 package com.sw_ss16.lc_app.ui.learning_center_one;
 
+import android.annotation.TargetApi;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +20,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sw_ss16.lc_app.R;
+import com.sw_ss16.lc_app.backend.Database;
 import com.sw_ss16.lc_app.content.LearningCenter;
 import com.sw_ss16.lc_app.content.LearningCenterContent;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
@@ -73,6 +78,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
         setHasOptionsMenu(true);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflateAndBind(inflater, container, R.layout.fragment_article_detail);
@@ -97,7 +103,29 @@ public class StudyRoomDetailFragment extends BaseFragment {
             collapsingToolbar.setTitle(current_learning_center.name);
             address.setText(current_learning_center.address);
             description.setText(current_learning_center.description);
-            statistics.setText("TEST!");
+
+            Database db = new Database(getActivity().getApplicationContext());
+            SQLiteDatabase sqldb = db.getReadableDatabase();
+
+            //TODO:Use WHERE-Query
+            String[] columns = new String[]{"ID", "LC_ID", "WEEKDAY", "HOUR", "FULLNESS"};
+
+            Cursor c = sqldb.query("statistics", columns, null, null, null, null, null);
+
+            c.moveToFirst();
+
+            for (int i = 1; i <= c.getCount(); i++) {
+
+                if (current_learning_center.id.equals(c.getString(c.getColumnIndex("LC_ID")))) {
+
+                    statistics.setText("TEST!");
+                }
+
+                c.moveToNext();
+
+            }
+
+            db.close();
 
         }
 
