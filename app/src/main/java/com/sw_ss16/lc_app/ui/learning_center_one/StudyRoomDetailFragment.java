@@ -46,6 +46,9 @@ public class StudyRoomDetailFragment extends BaseFragment {
     @Bind(R.id.lc_description)
     TextView description;
 
+    @Bind(R.id.lc_statistics)
+    TextView statistics;
+
     @Bind(R.id.lc_address)
     TextView address;
 
@@ -94,6 +97,8 @@ public class StudyRoomDetailFragment extends BaseFragment {
             collapsingToolbar.setTitle(current_learning_center.name);
             address.setText(current_learning_center.address);
             description.setText(current_learning_center.description);
+            statistics.setText("TEST!");
+
         }
 
         return rootView;
