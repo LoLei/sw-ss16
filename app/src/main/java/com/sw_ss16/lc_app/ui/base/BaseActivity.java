@@ -1,7 +1,10 @@
 package com.sw_ss16.lc_app.ui.base;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -79,6 +82,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         // TODO: Do this not on every BaseActivity onCreate(), but like every two hours,
         // update current data more often than StudyRooms data
         database_syncer.syncAllRemoteIntoSQLiteDB(queue, db);
+
+        final String eulaKey = "firstStart";
+        boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
+
+
+        if(firstrun) {
+            System.out.println("This App first started");
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("firstrun", false).commit();
+        }
+        else {
+            System.out.println("This App was started before");
+        }
+
+
     }
 
     @Override
