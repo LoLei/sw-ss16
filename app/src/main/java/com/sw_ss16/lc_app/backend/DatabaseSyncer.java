@@ -1,5 +1,10 @@
 package com.sw_ss16.lc_app.backend;
 
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -13,7 +18,45 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.sw_ss16.lc_app.R;
+import com.sw_ss16.lc_app.backend.Database;
+import com.sw_ss16.lc_app.backend.DatabaseSyncer;
+import com.sw_ss16.lc_app.content.LearningCenter;
+import com.sw_ss16.lc_app.content.LearningCenterContent;
+import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
+import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
+import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailFragment;
+import com.sw_ss16.lc_app.ui.other.SettingsActivity;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.List;
+
+import static com.sw_ss16.lc_app.util.LogUtil.logD;
+import static com.sw_ss16.lc_app.util.LogUtil.makeLogTag;
 
 /**
  * Created by mrb on 08/04/16.
@@ -28,45 +71,16 @@ public class DatabaseSyncer {
     // -------------------------------
     // Methods
     // -------------------------------
-    public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final Database db) {
-        syncStudyRoomsIntoSQLiteDB(queue, db);
+    public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final Database db, Context context) {
+        syncStudyRoomsIntoSQLiteDB(queue, db, context);
         syncStatisticsIntoSQLiteDB(queue, db);
         syncCurrentDataIntoSQLiteDB(queue, db);
     }
 
-    public void syncStudyRoomsIntoSQLiteDB(RequestQueue queue, final Database db) {
+    public void syncStudyRoomsIntoSQLiteDB(final RequestQueue queue, final Database db, final Context context) {
         String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
         String url2 = "http://danielgpoint.at/predict.php?what=last_updated";
-
-
-        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                //System.out.println("response" + response.toString());
-                try {
-                    String date = response.getString("datetime");
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
-                    Date convertedDate = new Date();
-                    try {
-                        convertedDate = dateFormat.parse(date);
-                    } catch (ParseException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    System.out.println(convertedDate);
-                } catch (JSONException err) {
-
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Here was an Error");
-
-            }
-        });
+        boolean doupdate = false;
 
 
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -100,6 +114,13 @@ public class DatabaseSyncer {
                                 e.printStackTrace();
                             }
                         }
+                        Calendar c = Calendar.getInstance();
+                        System.out.println("Current time => " + c.getTime());
+
+                        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+                        String formattedDate = df.format(c.getTime());
+                        PreferenceManager.getDefaultSharedPreferences(context).edit().putString("date_last_update", formattedDate).commit();
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -107,8 +128,53 @@ public class DatabaseSyncer {
                 System.out.println("That didn't work!");
             }
         });
+
+
+
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                //System.out.println("response" + response.toString());
+                try {
+                    String date = response.getString("datetime");
+                    String date2 = PreferenceManager.getDefaultSharedPreferences(context).getString("date_last_update", "");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+                    Date convertedDate = new Date();
+                    Date convertedDate2 = new Date();
+                    try {
+                        convertedDate = dateFormat.parse(date);
+                        convertedDate2 = dateFormat.parse(date2);
+
+
+                    } catch (ParseException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                    if(convertedDate.after(convertedDate2)) {
+                        System.out.println("Remote DB after internal db, updating now");
+                        queue.add(jsonArrayRequest);
+                    }
+
+                    
+                } catch (JSONException err) {
+
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Here was an Error");
+
+            }
+        });
+
+
+
         // Add the request to the RequestQueue.
-        queue.add(jsonArrayRequest);
+
         queue.add(jsonObjectRequest);
     }
 
