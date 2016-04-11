@@ -1,11 +1,9 @@
 package com.sw_ss16.lc_app.ui.base;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.preference.SwitchPreference;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -85,7 +83,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         // update current data more often than StudyRooms data
 
 
-        final String eulaKey = "firstStart";
         boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
