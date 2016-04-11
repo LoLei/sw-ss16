@@ -21,43 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.sw_ss16.lc_app.R;
-import com.sw_ss16.lc_app.backend.Database;
-import com.sw_ss16.lc_app.backend.DatabaseSyncer;
-import com.sw_ss16.lc_app.content.LearningCenter;
-import com.sw_ss16.lc_app.content.LearningCenterContent;
-import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
-import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
-import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailFragment;
-import com.sw_ss16.lc_app.ui.other.SettingsActivity;
-
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.List;
-
-import static com.sw_ss16.lc_app.util.LogUtil.logD;
-import static com.sw_ss16.lc_app.util.LogUtil.makeLogTag;
-
 /**
  * Created by mrb on 08/04/16.
  */
@@ -157,7 +120,7 @@ public class DatabaseSyncer {
                         queue.add(jsonArrayRequest);
                     }
 
-                    
+
                 } catch (JSONException err) {
 
                 }
