@@ -38,7 +38,9 @@ public class StatisticsTest extends ActivityInstrumentationTestCase2<ListActivit
 
             // Look for text in study room detail activity
             mySolo.waitForActivity("StudyRoomDetailActivity");
-            boolean text_found = mySolo.searchText("full") || mySolo.searchText("empty");
+            boolean text_found = mySolo.searchText(getActivity().getString(R.string.fullness_full)) ||
+                    mySolo.searchText(getActivity().getString(R.string.fullness_halffull)) ||
+                    mySolo.searchText(getActivity().getString(R.string.fullness_empty));
             assertEquals("Required text not found", true, text_found);
         }
     }
