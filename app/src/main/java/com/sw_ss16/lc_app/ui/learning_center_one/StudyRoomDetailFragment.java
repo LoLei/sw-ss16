@@ -116,26 +116,36 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
             for (int i = 1; i <= c.getCount(); i++) {
 
+                boolean statistic_ok = true;
+
                 if (current_learning_center.id.equals(c.getString(c.getColumnIndex("LC_ID")))) {
 
                     String fullness = c.getString(c.getColumnIndex("FULLNESS"));
                     int full = Integer.parseInt(fullness);
 
-                    String fullness_description;
+                    String fullness_description = "";
 
                     if (full >= 75)
                     {
-                        fullness_description = "Learning center is full!";
+                        fullness_description = getActivity().getString(R.string.fullness_full);
                     }
                     else if (full >= 50)
                     {
-                        fullness_description = "Learning center is half full!";
+                        fullness_description = getActivity().getString(R.string.fullness_halffull);
+                    }
+                    else if (full < 50)
+                    {
+                        fullness_description = getActivity().getString(R.string.fullness_empty);
                     }
                     else
                     {
-                        fullness_description = "Learning center is nearly empty!";
+                        statistic_ok = false;
                     }
-                    statistics.setText(fullness_description + "\nPercentage: " + fullness + "%");
+
+                    if(statistic_ok)
+                        statistics.setText(fullness_description + "\nPercentage: " + fullness + "%");
+                    else
+                        statistics.setText(R.string.default_fullness_description);
                 }
 
                 c.moveToNext();
