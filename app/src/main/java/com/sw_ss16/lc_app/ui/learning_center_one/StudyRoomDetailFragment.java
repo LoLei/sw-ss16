@@ -105,78 +105,76 @@ public class StudyRoomDetailFragment extends BaseFragment {
             collapsingToolbar.setTitle(current_learning_center.name);
             address.setText(current_learning_center.address);
             description.setText(current_learning_center.description);
-
-            Database db = new Database(getActivity().getApplicationContext());
-            SQLiteDatabase sqldb = db.getReadableDatabase();
-
-            Calendar calendar = Calendar.getInstance();
-            int current_day = calendar.get(Calendar.DAY_OF_WEEK);
-            current_day--;
-            int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int display_hour = current_hour;
-            String meridiem = "";
-            if (current_hour <= 12)
-                meridiem = "AM";
-            else if (current_hour > 12)
-            {
-                meridiem = "PM";
-                display_hour -= 12;
-            }
-
-            String display_day;
-            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
-            display_day = dayFormat.format(calendar.getTime());
-            String statistics_title_str = String.format(getActivity().getString(R.string.lc_statistics_title),
-                    display_day, display_hour, meridiem);
-            statistics_title.setText(statistics_title_str);
-
-            String query_string =   "LC_ID = " + current_learning_center.id +
-                                    " AND WEEKDAY = " + current_day +
-                                    " AND HOUR = " + current_hour;
-            String[] columns = new String[]{"ID", "LC_ID", "WEEKDAY", "HOUR", "FULLNESS"};
-
-            Cursor c = sqldb.query("statistics", columns, query_string, null, null, null, null);
-
-            c.moveToFirst();
-            boolean statistic_ok = true;
-            if (current_learning_center.id.equals(c.getString(c.getColumnIndex("LC_ID")))) {
-
-                String fullness = c.getString(c.getColumnIndex("FULLNESS"));
-                int full = Integer.parseInt(fullness);
-
-                String fullness_description = "";
-
-                if (full >= 75)
-                {
-                    fullness_description = getActivity().getString(R.string.fullness_full);
-                }
-                else if (full >= 50)
-                {
-                    fullness_description = getActivity().getString(R.string.fullness_halffull);
-                }
-                // TODO: Add a fourth fullness state
-                else if (full < 50)
-                {
-                    fullness_description = getActivity().getString(R.string.fullness_empty);
-                }
-                else
-                {
-                    statistic_ok = false;
-                }
-
-                if(statistic_ok)
-                {
-                    String statistics_description_str = String.format(getActivity().getString(R.string.lc_statistics_description),
-                            fullness_description, fullness);
-                    statistics.setText(statistics_description_str);
-                }
-                else
-                    statistics.setText(R.string.lc_statistics_description_default);
-            }
-            db.close();
-            c.close();
+            setStatisticsText();
         }
         return rootView;
+    }
+
+    private void setStatisticsText() {
+        Database db = new Database(getActivity().getApplicationContext());
+        SQLiteDatabase sqldb = db.getReadableDatabase();
+
+        Calendar calendar = Calendar.getInstance();
+        int current_day = calendar.get(Calendar.DAY_OF_WEEK);
+        current_day--;
+        int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        int display_hour = current_hour;
+        String meridiem = "";
+        if (current_hour <= 12)
+            meridiem = "AM";
+        else if (current_hour > 12) {
+            meridiem = "PM";
+            display_hour -= 12;
+        }
+
+        String display_day;
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
+        display_day = dayFormat.format(calendar.getTime());
+        String statistics_title_str = String.format(getActivity().getString(R.string.lc_statistics_title),
+                display_day, display_hour, meridiem);
+        statistics_title.setText(statistics_title_str);
+
+        String query_string = "LC_ID = " + current_learning_center.id +
+                " AND WEEKDAY = " + current_day +
+                " AND HOUR = " + current_hour;
+        String[] columns = new String[]{"ID", "LC_ID", "WEEKDAY", "HOUR", "FULLNESS"};
+
+        Cursor c = sqldb.query("statistics", columns, query_string, null, null, null, null);
+
+        c.moveToFirst();
+        boolean statistic_ok = true;
+        if (current_learning_center.id.equals(c.getString(c.getColumnIndex("LC_ID")))) {
+
+            String fullness = c.getString(c.getColumnIndex("FULLNESS"));
+            int full = Integer.parseInt(fullness);
+
+            String fullness_description = "";
+
+            if (full >= 75) {
+                fullness_description = getActivity().getString(R.string.fullness_full);
+            }
+            else if (full >= 50) {
+                fullness_description = getActivity().getString(R.string.fullness_halffull);
+            }
+            // TODO: Add a fourth fullness state
+            else if (full < 50) {
+                fullness_description = getActivity().getString(R.string.fullness_empty);
+            }
+            else {
+                statistic_ok = false;
+            }
+
+            if (statistic_ok) {
+                String statistics_description_str = String.format(getActivity().getString(R.string.lc_statistics_description),
+                        fullness_description, fullness);
+                statistics.setText(statistics_description_str);
+            }
+            else
+                statistics.setText(R.string.lc_statistics_description_default);
+        }
+        db.close();
+        c.close();
     }
 
     private void loadBackdrop() {
