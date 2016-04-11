@@ -26,6 +26,8 @@ import com.sw_ss16.lc_app.content.LearningCenterContent;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
 import com.sw_ss16.lc_app.ui.base.BaseFragment;
 
+import java.util.Calendar;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -107,10 +109,14 @@ public class StudyRoomDetailFragment extends BaseFragment {
             Database db = new Database(getActivity().getApplicationContext());
             SQLiteDatabase sqldb = db.getReadableDatabase();
 
+            Calendar calendar = Calendar.getInstance();
+            // int current_hour = ;
+
             //TODO:Use WHERE-Query
+            String query_string = "ID = " + current_learning_center.id;
             String[] columns = new String[]{"ID", "LC_ID", "WEEKDAY", "HOUR", "FULLNESS"};
 
-            Cursor c = sqldb.query("statistics", columns, null, null, null, null, null);
+            Cursor c = sqldb.query("statistics", columns, query_string, null, null, null, null);
 
             c.moveToFirst();
 
