@@ -38,7 +38,7 @@ public class StudyRoomDetailTest extends ActivityInstrumentationTestCase2<ListAc
 
             // Look for text in study room detail activity
             mySolo.waitForActivity("StudyRoomDetailActivity");
-            boolean text_found = mySolo.searchText(getActivity().getString(R.string.article_detail_more_info));
+            boolean text_found = mySolo.searchText("Statistics");
             assertEquals("Required text not found", true, text_found);
 
             boolean already_fav = mySolo.getCurrentActivity().getResources().getDrawable(R.drawable.ic_remove_white_24dp).isVisible();

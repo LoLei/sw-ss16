@@ -6,8 +6,9 @@ import com.robotium.solo.Solo;
 import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Locale;
 
 /**
  * Starts from the ListActivity, but opens the StudyRoomDetailActivity
@@ -61,8 +62,12 @@ public class StatisticsTest extends ActivityInstrumentationTestCase2<ListActivit
             Calendar calendar = Calendar.getInstance();
             int hour = calendar.get(Calendar.HOUR);
             int weekday = calendar.get(Calendar.DAY_OF_WEEK);
-            boolean text_found = mySolo.searchText("Weekday: " + weekday) &&
-                    mySolo.searchText("Time: " + hour);
+            weekday--;
+            String display_day;
+            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
+            display_day = dayFormat.format(calendar.getTime());
+            boolean text_found = mySolo.searchText("for " + display_day) &&
+                    mySolo.searchText(Integer.toString(hour));
             assertEquals("Required text not found", true, text_found);
         }
     }
