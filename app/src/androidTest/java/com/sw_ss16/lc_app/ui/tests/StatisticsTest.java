@@ -6,6 +6,9 @@ import com.robotium.solo.Solo;
 import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Starts from the ListActivity, but opens the StudyRoomDetailActivity
  */
@@ -41,6 +44,25 @@ public class StatisticsTest extends ActivityInstrumentationTestCase2<ListActivit
             boolean text_found = mySolo.searchText(getActivity().getString(R.string.fullness_full)) ||
                     mySolo.searchText(getActivity().getString(R.string.fullness_halffull)) ||
                     mySolo.searchText(getActivity().getString(R.string.fullness_empty));
+            assertEquals("Required text not found", true, text_found);
+        }
+    }
+
+    public void testStudyRoomDetailStatisticsCurrentDate() {
+        mySolo.sleep(500);
+        // If there are any items in the list
+        // The second argument of searchText means it searches only for visible text (not hidden)
+        if (!mySolo.searchText(getActivity().getString(R.string.no_fav), true)) {
+            // Click on first list item
+            mySolo.clickInList(1);
+
+            // Look for text in study room detail activity
+            mySolo.waitForActivity("StudyRoomDetailActivity");
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR);
+            int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+            boolean text_found = mySolo.searchText("Weekday: " + weekday) &&
+                    mySolo.searchText("Time: " + hour);
             assertEquals("Required text not found", true, text_found);
         }
     }
