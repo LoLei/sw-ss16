@@ -64,5 +64,7 @@ public class SettingsActivity extends BaseActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_prefs);
         }
+
+
     }
 }
