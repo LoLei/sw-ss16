@@ -1,6 +1,8 @@
 package com.sw_ss16.lc_app.ui.tests;
 
+import android.graphics.Point;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.Display;
 
 import com.robotium.solo.Solo;
 import com.sw_ss16.lc_app.R;
@@ -42,10 +44,21 @@ public class StatisticsTest extends ActivityInstrumentationTestCase2<ListActivit
 
             // Look for text in study room detail activity
             mySolo.waitForActivity("StudyRoomDetailActivity");
+
+            // Scroll down
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int height = size.y;
+            int fromY = height/2 + height/3;
+            int toY = height/2 - height/3;
+            mySolo.drag(0, 0, fromY, toY, 1);
+
             boolean text_found = mySolo.searchText(getActivity().getString(R.string.fullness_full)) ||
                     mySolo.searchText(getActivity().getString(R.string.fullness_halffull)) ||
                     mySolo.searchText(getActivity().getString(R.string.fullness_empty));
             assertEquals("Required text not found", true, text_found);
+            // assertTrue(mySolo.waitForText(getActivity().getString(R.string.fullness_empty)));
         }
     }
 
