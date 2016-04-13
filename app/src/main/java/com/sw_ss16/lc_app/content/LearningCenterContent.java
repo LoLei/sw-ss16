@@ -35,7 +35,9 @@ public class LearningCenterContent {
         Database db = new Database(app_context);
         SQLiteDatabase sqldb = db.getReadableDatabase();
 
-        return DatabaseUtils.queryNumEntries(sqldb, "favstudyrooms");
+        long number_of_favorites = DatabaseUtils.queryNumEntries(sqldb, "favstudyrooms");
+        db.close();
+        return number_of_favorites;
     }
 
     public boolean getLearningCenterFavoriteStatus(int lc_id) {
@@ -49,6 +51,8 @@ public class LearningCenterContent {
             is_fav = true;
         }
 
+        db.close();
+
         return is_fav;
 
     }
@@ -61,13 +65,13 @@ public class LearningCenterContent {
         else if (getLearningCenterFavoriteStatus(lc_id)) {
             Database db = new Database(app_context);
             db.insertInDatabase("DELETE FROM favstudyrooms WHERE ID = " + lc_id + ";");
+            db.close();
         }
         else {
             Database db = new Database(app_context);
             db.insertInDatabase("INSERT INTO favstudyrooms VALUES (" + lc_id + ");");
+            db.close();
         }
-
-
     }
 
     public List<String> getListOfFavLcIds() {
@@ -86,6 +90,8 @@ public class LearningCenterContent {
             all_lc_ids.add(c.getString(c.getColumnIndex("ID")));
             c.moveToNext();
         }
+
+        db.close();
 
         return all_lc_ids;
     }
@@ -107,6 +113,8 @@ public class LearningCenterContent {
             c.moveToNext();
         }
 
+        db.close();
+
         return all_lc_ids;
     }
 
@@ -126,7 +134,7 @@ public class LearningCenterContent {
         c.moveToFirst();
         isfav.moveToFirst();
 
-        return new LearningCenter(
+        LearningCenter learning_center = new LearningCenter(
                 c.getString(c.getColumnIndex("ID")),
                 c.getString(c.getColumnIndex("NAME")),
                 c.getString(c.getColumnIndex("DESCRIPTION")),
@@ -135,6 +143,10 @@ public class LearningCenterContent {
                 c.getString(c.getColumnIndex("IMAGE_OUT")),
                 c.getString(c.getColumnIndex("CAPACITY"))
         );
+
+        db.close();
+        return learning_center;
     }
+
 
 }

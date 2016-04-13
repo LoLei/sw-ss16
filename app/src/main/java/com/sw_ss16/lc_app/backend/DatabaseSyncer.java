@@ -38,6 +38,7 @@ public class DatabaseSyncer {
         syncStudyRoomsIntoSQLiteDB(queue, db, context);
         syncStatisticsIntoSQLiteDB(queue, db);
         syncCurrentDataIntoSQLiteDB(queue, db);
+        db.close();
     }
 
     public void syncStudyRoomsIntoSQLiteDB(final RequestQueue queue, final Database db, final Context context) {
@@ -156,7 +157,6 @@ public class DatabaseSyncer {
                                 String weekday = jsonObject.getString("weekday");
                                 String hour = jsonObject.getString("hour");
                                 String fullness = jsonObject.getString("fullness");
-                                System.out.println(id + " " + lc_id + " " + weekday);
                                 db.insertInDatabase("INSERT INTO statistics (ID, LC_ID, WEEKDAY, HOUR, FULLNESS ) " +
                                         "SELECT " +
                                         id + "," +
