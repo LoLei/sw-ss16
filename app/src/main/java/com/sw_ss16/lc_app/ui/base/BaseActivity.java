@@ -73,7 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // TODO: Check if first startup, if yes
 
-        final Database db = new Database(getApplicationContext());
+        final Database database = new Database(getApplicationContext());
 
         // Volley DB Queue
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -94,7 +94,7 @@ public abstract class BaseActivity extends AppCompatActivity {
          if(firstrun || auto_update) {
             System.out.println("This App first started or has auto update activated -> full update");
             getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("firstrun", false).commit();
-            database_syncer.syncAllRemoteIntoSQLiteDB(queue, db, this);
+            database_syncer.syncAllRemoteIntoSQLiteDB(queue, database, this);
         }
          if(firstrun) {
              System.out.println("First start");
