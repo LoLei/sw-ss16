@@ -5,11 +5,6 @@ import android.os.Bundle;
 import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
 
-/**
- * Simple wrapper for {@link StudyRoomDetailFragment}
- * This wrapper is only used in single pan mode (= on smartphones)
- * Created by Andreas Schrade on 14.12.2015.
- */
 public class StudyRoomDetailActivity extends BaseActivity {
 
     @Override
@@ -17,7 +12,6 @@ public class StudyRoomDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        // Show the Up button in the action bar.
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

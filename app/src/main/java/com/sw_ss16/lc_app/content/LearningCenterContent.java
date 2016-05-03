@@ -10,23 +10,11 @@ import com.sw_ss16.lc_app.backend.Database;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Gets and retrieves Data from Database easily
- */
 public class LearningCenterContent {
 
-
-    // -------------------------------
-    // Members
-    // -------------------------------
     private Context app_context; //TODO give this at constructor, so it can be used in methots
 
 
-    // -------------------------------
-    // Methods
-    // -------------------------------
-
-    //
     public void setApplicationContext(Context app_context) {
         this.app_context = app_context;
     }

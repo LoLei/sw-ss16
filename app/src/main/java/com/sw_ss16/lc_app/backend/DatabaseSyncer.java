@@ -3,7 +3,6 @@ package com.sw_ss16.lc_app.backend;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
@@ -24,19 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by mrb on 08/04/16.
- */
 public class DatabaseSyncer {
-
-    // -------------------------------
-    // Members
-    // -------------------------------
-
-
-    // -------------------------------
-    // Methods
-    // -------------------------------
     public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final Database database, Context context) {
         syncStudyRoomsIntoSQLiteDB(queue, database, context);
         syncStatisticsIntoSQLiteDB(queue, database);
@@ -133,7 +120,6 @@ public class DatabaseSyncer {
 
 
                     } catch (ParseException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
 
@@ -157,9 +143,6 @@ public class DatabaseSyncer {
             }
         });
 
-
-
-        // Add the request to the RequestQueue.
 
         queue.add(jsonObjectRequest);
     }
@@ -199,7 +182,6 @@ public class DatabaseSyncer {
                 System.out.println("That didn't work!");
             }
         });
-        // Add the request to the RequestQueue.
         queue.add(jsonArrayRequest);
 
     }
@@ -240,7 +222,6 @@ public class DatabaseSyncer {
                 System.out.println("That didn't work!");
             }
         });
-        // Add the request to the RequestQueue.
         queue.add(jsonArrayRequest);
 
     }

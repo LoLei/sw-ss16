@@ -31,21 +31,10 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-/**
- * Shows the description detail page.
- * <p/>
- * Created by Andreas Schrade on 14.12.2015.
- */
 public class StudyRoomDetailFragment extends BaseFragment {
 
-    /**
-     * The argument represents the dummy item ID of this fragment.
-     */
     public static final String ARG_ITEM_ID = "item_id";
 
-    /**
-     * The dummy lc_address of this fragment.
-     */
     private LearningCenter current_learning_center;
 
     private LearningCenterContent lc_contentmanager = new LearningCenterContent();
@@ -73,7 +62,6 @@ public class StudyRoomDetailFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load item by using the passed item ID
             lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
             current_learning_center = lc_contentmanager.getLcObject(getArguments().getString(ARG_ITEM_ID));
         }
