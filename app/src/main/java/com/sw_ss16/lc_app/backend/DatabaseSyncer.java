@@ -2,8 +2,10 @@ package com.sw_ss16.lc_app.backend;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -11,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,6 +88,14 @@ public class DatabaseSyncer {
                         String formattedDate = df.format(c.getTime());
                         PreferenceManager.getDefaultSharedPreferences(context).edit().putString("date_last_update", formattedDate).commit();
 
+                        Toast.makeText(context, "New Update, Restarting now", Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(context, ListActivity.class);
+
+                        context.startActivity(intent);
+
+
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -99,16 +110,26 @@ public class DatabaseSyncer {
 
             @Override
             public void onResponse(JSONObject response) {
-                //System.out.println("response" + response.toString());
+                System.out.println("response" + response.toString());
+                boolean nodate = false;
                 try {
                     String date = response.getString("datetime");
                     String date2 = PreferenceManager.getDefaultSharedPreferences(context).getString("date_last_update", "");
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+                    System.out.println("Date: " + date + " Date2: " + date2);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    SimpleDateFormat dateFormat2 = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
                     Date convertedDate = new Date();
                     Date convertedDate2 = new Date();
                     try {
                         convertedDate = dateFormat.parse(date);
-                        convertedDate2 = dateFormat.parse(date2);
+                        if(date2.isEmpty())
+                        {
+                            nodate = true;
+                        }
+                        else {
+                            convertedDate2 = dateFormat2.parse(date2);
+                        }
+
 
 
                     } catch (ParseException e) {
@@ -116,9 +137,10 @@ public class DatabaseSyncer {
                         e.printStackTrace();
                     }
 
-                    if(convertedDate.after(convertedDate2)) {
+                    if(nodate || convertedDate.after(convertedDate2)) {
                         System.out.println("Remote DB after internal db, updating now");
                         queue.add(jsonArrayRequest);
+
                     }
 
 
