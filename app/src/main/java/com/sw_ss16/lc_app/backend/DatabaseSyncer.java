@@ -93,7 +93,6 @@ public class DatabaseSyncer {
                         context.startActivity(intent);
 
 
-
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -101,7 +100,6 @@ public class DatabaseSyncer {
                 System.out.println("Data retrieval failed");
             }
         });
-
 
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
@@ -120,8 +118,7 @@ public class DatabaseSyncer {
                     Date convertedDate2 = new Date();
                     try {
                         convertedDate = dateFormat.parse(date);
-                        if(date2.isEmpty())
-                        {
+                        if (date2.isEmpty()) {
                             nodate = true;
                         }
                         else {
@@ -129,13 +126,12 @@ public class DatabaseSyncer {
                         }
 
 
-
                     } catch (ParseException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
 
-                    if(nodate || convertedDate.after(convertedDate2)) {
+                    if (nodate || convertedDate.after(convertedDate2)) {
                         System.out.println("Remote DB after internal database, updating now");
                         queue.add(jsonArrayRequest);
 

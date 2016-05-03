@@ -90,22 +90,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         boolean auto_update = sharedPref.getBoolean("pref_settings_1", false);
 
-        
-         if(firstrun || auto_update) {
+
+        if (firstrun || auto_update) {
             System.out.println("This App first started or has auto update activated -> full update");
             getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("firstrun", false).commit();
             database_syncer.syncAllRemoteIntoSQLiteDB(queue, database, this);
         }
-         if(firstrun) {
-             System.out.println("First start");
-             Toast.makeText(this, "Please wait for Update", Toast.LENGTH_LONG).show();
-         }
+        if (firstrun) {
+            System.out.println("First start");
+            Toast.makeText(this, "Please wait for Update", Toast.LENGTH_LONG).show();
+        }
 
         else {
             System.out.println("Auto Update is deactivated");
         }
-
-
 
 
     }
