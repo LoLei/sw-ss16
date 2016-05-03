@@ -90,6 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         boolean auto_update = sharedPref.getBoolean("pref_settings_1", false);
 
+        
          if(firstrun || auto_update) {
             System.out.println("This App first started or has auto update activated -> full update");
             getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("firstrun", false).commit();
