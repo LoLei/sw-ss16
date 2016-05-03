@@ -34,7 +34,8 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        PreferenceManager.setDefaultValues(this, R.xml.settings_prefs, false);
+        PreferenceManager.setDefaultValues(this, R.xml.settings_prefs, true);
+
 
         //Check if no favorites
         lc_contentmanager.setApplicationContext(getApplicationContext());

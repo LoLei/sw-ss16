@@ -2,6 +2,7 @@ package com.sw_ss16.lc_app.ui.other;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,6 +64,7 @@ public class SettingsActivity extends BaseActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_prefs);
+
         }
 
 
