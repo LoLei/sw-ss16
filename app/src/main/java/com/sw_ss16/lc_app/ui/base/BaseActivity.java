@@ -83,6 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         // update current data more often than StudyRooms data
 
 
+
         boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -94,7 +95,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             database_syncer.syncAllRemoteIntoSQLiteDB(queue, db, this);
         }
          else if(auto_update) {
-            database_syncer.syncStudyRoomsIntoSQLiteDB(queue, db, this);
+             System.out.println("This App auto update");
+            database_syncer.syncAllRemoteIntoSQLiteDB(queue, db, this);
          }
         else {
             System.out.println("This App was started before");

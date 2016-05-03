@@ -128,6 +128,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
             display_hour -= 12;
         }
 
+        System.out.println("Current Day: " + current_day + "Current Hour: " + current_hour + "ID: " + current_learning_center.id);
         String display_day;
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
         display_day = dayFormat.format(calendar.getTime());
@@ -144,6 +145,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
         c.moveToFirst();
         boolean statistic_ok = true;
+        System.out.println("Cursor: " + c.getCount());
         if (current_learning_center.id.equals(c.getString(c.getColumnIndex("LC_ID")))) {
 
             String fullness = c.getString(c.getColumnIndex("FULLNESS"));

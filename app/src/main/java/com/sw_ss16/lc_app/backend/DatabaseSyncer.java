@@ -105,7 +105,8 @@ public class DatabaseSyncer {
                     String date = response.getString("datetime");
                     String date2 = PreferenceManager.getDefaultSharedPreferences(context).getString("date_last_update", "");
                     System.out.println("Date: " + date + " Date2: " + date2);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    SimpleDateFormat dateFormat2 = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
                     Date convertedDate = new Date();
                     Date convertedDate2 = new Date();
                     try {
@@ -115,7 +116,7 @@ public class DatabaseSyncer {
                             nodate = true;
                         }
                         else {
-                            convertedDate2 = dateFormat.parse(date2);
+                            convertedDate2 = dateFormat2.parse(date2);
                         }
 
 
@@ -128,6 +129,7 @@ public class DatabaseSyncer {
                     if(nodate || convertedDate.after(convertedDate2)) {
                         System.out.println("Remote DB after internal db, updating now");
                         queue.add(jsonArrayRequest);
+
                     }
 
 
