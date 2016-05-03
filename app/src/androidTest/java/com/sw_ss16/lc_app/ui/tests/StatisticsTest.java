@@ -42,8 +42,8 @@ public class StatisticsTest extends ActivityInstrumentationTestCase2<ListActivit
             Point size = new Point();
             display.getSize(size);
             int height = size.y;
-            int fromY = height/2 + height/3;
-            int toY = height/2 - height/3;
+            int fromY = height / 2 + height / 3;
+            int toY = height / 2 - height / 3;
             mySolo.drag(0, 0, fromY, toY, 1);
 
             boolean text_found = mySolo.searchText(getActivity().getString(R.string.fullness_full)) ||
