@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -83,21 +84,25 @@ public abstract class BaseActivity extends AppCompatActivity {
         // update current data more often than StudyRooms data
 
 
+
         boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         boolean auto_update = sharedPref.getBoolean("pref_settings_1", false);
 
-         if(firstrun) {
-            System.out.println("This App first started");
+        
+         if(firstrun || auto_update) {
+            System.out.println("This App first started or has auto update activated -> full update");
             getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("firstrun", false).commit();
             database_syncer.syncAllRemoteIntoSQLiteDB(queue, db, this);
         }
-         else if(auto_update) {
-            database_syncer.syncStudyRoomsIntoSQLiteDB(queue, db, this);
+         if(firstrun) {
+             System.out.println("First start");
+             Toast.makeText(this, "Please wait for Update", Toast.LENGTH_LONG).show();
          }
+
         else {
-            System.out.println("This App was started before");
+            System.out.println("Auto Update is deactivated");
         }
 
 
