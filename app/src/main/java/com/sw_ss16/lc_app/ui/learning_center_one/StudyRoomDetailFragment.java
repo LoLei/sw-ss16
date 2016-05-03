@@ -111,8 +111,8 @@ public class StudyRoomDetailFragment extends BaseFragment {
     }
 
     private void setStatisticsText() {
-        Database db = new Database(getActivity().getApplicationContext());
-        SQLiteDatabase sqldb = db.getReadableDatabase();
+        Database database = new Database(getActivity().getApplicationContext());
+        SQLiteDatabase sqldb = database.getReadableDatabase();
 
         Calendar calendar = Calendar.getInstance();
         int current_day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -175,7 +175,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
             else
                 statistics.setText(R.string.lc_statistics_description_default);
         }
-        db.close();
+        database.close();
         c.close();
     }
 
@@ -212,7 +212,6 @@ public class StudyRoomDetailFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                // your logic
                 return true;
         }
         return super.onOptionsItemSelected(item);
