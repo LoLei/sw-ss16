@@ -47,8 +47,6 @@ public class DatabaseSyncer {
     public void syncStudyRoomsIntoSQLiteDB(final RequestQueue queue, final Database database, final Context context) {
         String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
         String url2 = "http://danielgpoint.at/predict.php?what=last_updated";
-        boolean doupdate = false;
-
 
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -81,11 +79,11 @@ public class DatabaseSyncer {
                                 e.printStackTrace();
                             }
                         }
-                        Calendar c = Calendar.getInstance();
-                        System.out.println("Current time => " + c.getTime());
+                        Calendar calendar = Calendar.getInstance();
+                        System.out.println("Current time => " + calendar.getTime());
 
-                        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
-                        String formattedDate = df.format(c.getTime());
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+                        String formattedDate = simpleDateFormat.format(calendar.getTime());
                         PreferenceManager.getDefaultSharedPreferences(context).edit().putString("date_last_update", formattedDate).commit();
 
                         Toast.makeText(context, "New Update, Restarting now", Toast.LENGTH_LONG).show();
@@ -100,7 +98,7 @@ public class DatabaseSyncer {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("That didn't work!");
+                System.out.println("Data retrieval failed");
             }
         });
 
@@ -196,7 +194,7 @@ public class DatabaseSyncer {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("That didn't work!");
+                System.out.println("Data retrieval failed");
             }
         });
         // Add the request to the RequestQueue.
@@ -237,7 +235,7 @@ public class DatabaseSyncer {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("That didn't work!");
+                System.out.println("Data retrieval failed");
             }
         });
         // Add the request to the RequestQueue.

@@ -15,13 +15,13 @@ public class AllTests extends ActivityInstrumentationTestCase2<Activity> {
      * Add test classes in order of execution here
      */
     public static TestSuite suite() {
-        TestSuite t = new TestSuite();
-        t.addTestSuite(ListActivityTest.class);
-        t.addTestSuite(SettingsActivityTest.class);
-        t.addTestSuite(StudyRoomDetailTest.class);
-        t.addTestSuite(StatisticsTest.class);
+        TestSuite testSuite = new TestSuite();
+        testSuite.addTestSuite(ListActivityTest.class);
+        testSuite.addTestSuite(SettingsActivityTest.class);
+        testSuite.addTestSuite(StudyRoomDetailTest.class);
+        testSuite.addTestSuite(StatisticsTest.class);
 
-        return t;
+        return testSuite;
     }
 
     /**
