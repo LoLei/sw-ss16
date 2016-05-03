@@ -154,7 +154,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
 
             default:
-                // Start the detail activity in single pane mode.
                 Intent detailIntent = new Intent(this, StudyRoomDetailActivity.class);
                 detailIntent.putExtra(StudyRoomDetailFragment.ARG_ITEM_ID, Integer.toString(((int) menuItem.getNumericShortcut()) + 1));
                 startActivity(detailIntent);
