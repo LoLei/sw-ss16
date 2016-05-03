@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -94,6 +95,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("firstrun", false).commit();
             database_syncer.syncAllRemoteIntoSQLiteDB(queue, db, this);
         }
+         if(firstrun) {
+             System.out.println("First start");
+             Toast.makeText(this, "Please wait for Update", Toast.LENGTH_LONG).show();
+         }
 
         else {
             System.out.println("Auto Update is deactivated");

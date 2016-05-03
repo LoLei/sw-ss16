@@ -2,8 +2,10 @@ package com.sw_ss16.lc_app.backend;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -11,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,6 +87,14 @@ public class DatabaseSyncer {
                         SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
                         String formattedDate = df.format(c.getTime());
                         PreferenceManager.getDefaultSharedPreferences(context).edit().putString("date_last_update", formattedDate).commit();
+
+                        Toast.makeText(context, "New Update, Restarting now", Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(context, ListActivity.class);
+
+                        context.startActivity(intent);
+
+
 
                     }
                 }, new Response.ErrorListener() {
