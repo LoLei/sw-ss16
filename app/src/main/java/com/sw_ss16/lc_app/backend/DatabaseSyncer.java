@@ -37,18 +37,16 @@ public class DatabaseSyncer {
     // -------------------------------
     // Methods
     // -------------------------------
-    public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final Database db, Context context) {
-        syncStudyRoomsIntoSQLiteDB(queue, db, context);
-        syncStatisticsIntoSQLiteDB(queue, db);
-        syncCurrentDataIntoSQLiteDB(queue, db);
-        db.close();
+    public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final Database database, Context context) {
+        syncStudyRoomsIntoSQLiteDB(queue, database, context);
+        syncStatisticsIntoSQLiteDB(queue, database);
+        syncCurrentDataIntoSQLiteDB(queue, database);
+        database.close();
     }
 
-    public void syncStudyRoomsIntoSQLiteDB(final RequestQueue queue, final Database db, final Context context) {
+    public void syncStudyRoomsIntoSQLiteDB(final RequestQueue queue, final Database database, final Context context) {
         String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
         String url2 = "http://danielgpoint.at/predict.php?what=last_updated";
-        boolean doupdate = false;
-
 
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -66,7 +64,7 @@ public class DatabaseSyncer {
                                 String image_out = jsonObject.getString("image_out");
                                 System.out.println(id + " " + name + " " + address + " " + image_in + " " + image_out);
 
-                                db.insertInDatabase("INSERT INTO studyrooms (ID, NAME, DESCRIPTION, ADDRESS, IMAGE_IN, IMAGE_OUT, CAPACITY) " +
+                                database.insertInDatabase("INSERT INTO studyrooms (ID, NAME, DESCRIPTION, ADDRESS, IMAGE_IN, IMAGE_OUT, CAPACITY) " +
                                         "SELECT " +
                                         id + "," +
                                         "'" + name + "', " +
@@ -81,11 +79,11 @@ public class DatabaseSyncer {
                                 e.printStackTrace();
                             }
                         }
-                        Calendar c = Calendar.getInstance();
-                        System.out.println("Current time => " + c.getTime());
+                        Calendar calendar = Calendar.getInstance();
+                        System.out.println("Current time => " + calendar.getTime());
 
-                        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
-                        String formattedDate = df.format(c.getTime());
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+                        String formattedDate = simpleDateFormat.format(calendar.getTime());
                         PreferenceManager.getDefaultSharedPreferences(context).edit().putString("date_last_update", formattedDate).commit();
 
                         Toast.makeText(context, "New Update, Restarting now", Toast.LENGTH_LONG).show();
@@ -95,15 +93,13 @@ public class DatabaseSyncer {
                         context.startActivity(intent);
 
 
-
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("That didn't work!");
+                System.out.println("Data retrieval failed");
             }
         });
-
 
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
@@ -122,8 +118,7 @@ public class DatabaseSyncer {
                     Date convertedDate2 = new Date();
                     try {
                         convertedDate = dateFormat.parse(date);
-                        if(date2.isEmpty())
-                        {
+                        if (date2.isEmpty()) {
                             nodate = true;
                         }
                         else {
@@ -131,14 +126,13 @@ public class DatabaseSyncer {
                         }
 
 
-
                     } catch (ParseException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
 
-                    if(nodate || convertedDate.after(convertedDate2)) {
-                        System.out.println("Remote DB after internal db, updating now");
+                    if (nodate || convertedDate.after(convertedDate2)) {
+                        System.out.println("Remote DB after internal database, updating now");
                         queue.add(jsonArrayRequest);
 
                     }
@@ -164,7 +158,7 @@ public class DatabaseSyncer {
         queue.add(jsonObjectRequest);
     }
 
-    public void syncStatisticsIntoSQLiteDB(RequestQueue queue, final Database db) {
+    public void syncStatisticsIntoSQLiteDB(RequestQueue queue, final Database database) {
         String url = "http://danielgpoint.at/predict.php?what=stat&how_much=all";
 
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -179,7 +173,7 @@ public class DatabaseSyncer {
                                 String weekday = jsonObject.getString("weekday");
                                 String hour = jsonObject.getString("hour");
                                 String fullness = jsonObject.getString("fullness");
-                                db.insertInDatabase("INSERT INTO statistics (ID, LC_ID, WEEKDAY, HOUR, FULLNESS ) " +
+                                database.insertInDatabase("INSERT INTO statistics (ID, LC_ID, WEEKDAY, HOUR, FULLNESS ) " +
                                         "SELECT " +
                                         id + "," +
                                         "" + lc_id + ", " +
@@ -196,7 +190,7 @@ public class DatabaseSyncer {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("That didn't work!");
+                System.out.println("Data retrieval failed");
             }
         });
         // Add the request to the RequestQueue.
@@ -204,7 +198,7 @@ public class DatabaseSyncer {
 
     }
 
-    public void syncCurrentDataIntoSQLiteDB(RequestQueue queue, final Database db) {
+    public void syncCurrentDataIntoSQLiteDB(RequestQueue queue, final Database database) {
         String url = "http://danielgpoint.at/predict.php?what=curr&how_much=all";
 
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -220,7 +214,7 @@ public class DatabaseSyncer {
                                 String hour = jsonObject.getString("hour");
                                 String fullness = jsonObject.getString("fullness");
                                 System.out.println(id + " " + lc_id + " " + date);
-                                db.insertInDatabase("INSERT INTO current_data (ID, LC_ID, HOUR, FULLNESS, DATE) " +
+                                database.insertInDatabase("INSERT INTO current_data (ID, LC_ID, HOUR, FULLNESS, DATE) " +
                                         "SELECT " +
                                         id + "," +
                                         "" + lc_id + ", " +
@@ -237,7 +231,7 @@ public class DatabaseSyncer {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("That didn't work!");
+                System.out.println("Data retrieval failed");
             }
         });
         // Add the request to the RequestQueue.
