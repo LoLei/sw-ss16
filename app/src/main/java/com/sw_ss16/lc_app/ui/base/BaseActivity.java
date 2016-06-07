@@ -19,10 +19,10 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.sw_ss16.lc_app.R;
-import com.sw_ss16.lc_app.backend.Database;
-import com.sw_ss16.lc_app.backend.DatabaseSyncer;
+import com.sw_ss16.lc_app.backend.RawMaterialFreezer;
+import com.sw_ss16.lc_app.backend.ResourceFetcher;
 import com.sw_ss16.lc_app.content.LearningCenter;
-import com.sw_ss16.lc_app.content.LearningCenterContent;
+import com.sw_ss16.lc_app.content.LearningCenterDefroster;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailFragment;
@@ -58,9 +58,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar actionBarToolbar;
 
-    private DatabaseSyncer database_syncer = new DatabaseSyncer();
+    private ResourceFetcher database_syncer = new ResourceFetcher();
 
-    private LearningCenterContent lc_contentmanager = new LearningCenterContent();
+    private LearningCenterDefroster lc_contentmanager = new LearningCenterDefroster();
 
 
     // -------------------------------
@@ -73,7 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // TODO: Check if first startup, if yes
 
-        final Database db = new Database(getApplicationContext());
+        final RawMaterialFreezer db = new RawMaterialFreezer(getApplicationContext());
 
         // Volley DB Queue
         RequestQueue queue = Volley.newRequestQueue(this);

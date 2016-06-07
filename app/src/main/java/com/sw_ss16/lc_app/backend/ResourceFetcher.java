@@ -3,7 +3,6 @@ package com.sw_ss16.lc_app.backend;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
@@ -27,7 +26,7 @@ import java.util.Date;
 /**
  * Created by mrb on 08/04/16.
  */
-public class DatabaseSyncer {
+public class ResourceFetcher {
 
     // -------------------------------
     // Members
@@ -37,14 +36,14 @@ public class DatabaseSyncer {
     // -------------------------------
     // Methods
     // -------------------------------
-    public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final Database db, Context context) {
+    public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final RawMaterialFreezer db, Context context) {
         syncStudyRoomsIntoSQLiteDB(queue, db, context);
         syncStatisticsIntoSQLiteDB(queue, db);
         syncCurrentDataIntoSQLiteDB(queue, db);
         db.close();
     }
 
-    public void syncStudyRoomsIntoSQLiteDB(final RequestQueue queue, final Database db, final Context context) {
+    public void syncStudyRoomsIntoSQLiteDB(final RequestQueue queue, final RawMaterialFreezer db, final Context context) {
         String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
         String url2 = "http://danielgpoint.at/predict.php?what=last_updated";
         boolean doupdate = false;
@@ -164,7 +163,7 @@ public class DatabaseSyncer {
         queue.add(jsonObjectRequest);
     }
 
-    public void syncStatisticsIntoSQLiteDB(RequestQueue queue, final Database db) {
+    public void syncStatisticsIntoSQLiteDB(RequestQueue queue, final RawMaterialFreezer db) {
         String url = "http://danielgpoint.at/predict.php?what=stat&how_much=all";
 
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -204,7 +203,7 @@ public class DatabaseSyncer {
 
     }
 
-    public void syncCurrentDataIntoSQLiteDB(RequestQueue queue, final Database db) {
+    public void syncCurrentDataIntoSQLiteDB(RequestQueue queue, final RawMaterialFreezer db) {
         String url = "http://danielgpoint.at/predict.php?what=curr&how_much=all";
 
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,

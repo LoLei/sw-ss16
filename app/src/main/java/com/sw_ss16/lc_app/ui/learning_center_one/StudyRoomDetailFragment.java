@@ -18,9 +18,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sw_ss16.lc_app.R;
-import com.sw_ss16.lc_app.backend.Database;
+import com.sw_ss16.lc_app.backend.RawMaterialFreezer;
 import com.sw_ss16.lc_app.content.LearningCenter;
-import com.sw_ss16.lc_app.content.LearningCenterContent;
+import com.sw_ss16.lc_app.content.LearningCenterDefroster;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
 import com.sw_ss16.lc_app.ui.base.BaseFragment;
 
@@ -48,7 +48,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
      */
     private LearningCenter current_learning_center;
 
-    private LearningCenterContent lc_contentmanager = new LearningCenterContent();
+    private LearningCenterDefroster lc_contentmanager = new LearningCenterDefroster();
 
     @Bind(R.id.lc_description)
     TextView description;
@@ -111,7 +111,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
     }
 
     private void setStatisticsText() {
-        Database db = new Database(getActivity().getApplicationContext());
+        RawMaterialFreezer db = new RawMaterialFreezer(getActivity().getApplicationContext());
         SQLiteDatabase sqldb = db.getReadableDatabase();
 
         Calendar calendar = Calendar.getInstance();
