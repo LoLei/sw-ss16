@@ -6,9 +6,6 @@ import com.robotium.solo.Solo;
 import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 
-/**
- * Starts from the ListActivity, but opens the SettingsActivity
- */
 public class SettingsActivityTest extends ActivityInstrumentationTestCase2<ListActivity> {
 
     private Solo mySolo;

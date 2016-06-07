@@ -3,8 +3,7 @@ package com.sw_ss16.lc_app.util;
 import android.util.Log;
 
 /**
- * Created by Andreas Schrade on 14.12.2015.
- * NOTE: Not used at the moment
+ * Not used
  */
 public class LogUtil {
     private static final String LOG_PREFIX = "android_template";
@@ -95,9 +94,6 @@ public class LogUtil {
         }
     }
 
-    /**
-     * Utility class
-     */
     private LogUtil() {
     }
 }
