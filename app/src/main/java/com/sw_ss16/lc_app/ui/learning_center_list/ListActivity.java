@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.sw_ss16.lc_app.R;
-import com.sw_ss16.lc_app.content.LearningCenterContent;
+import com.sw_ss16.lc_app.content.LearningCenterDefroster;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailFragment;
@@ -27,7 +27,7 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
      */
     private boolean twoPaneMode;
 
-    private LearningCenterContent lc_contentmanager = new LearningCenterContent();
+    private LearningCenterDefroster lc_contentmanager = new LearningCenterDefroster();
 
 
     @Override

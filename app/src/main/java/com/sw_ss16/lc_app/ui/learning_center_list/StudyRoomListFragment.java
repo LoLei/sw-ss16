@@ -22,7 +22,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import com.sw_ss16.lc_app.R;
 import com.sw_ss16.lc_app.content.LearningCenter;
-import com.sw_ss16.lc_app.content.LearningCenterContent;
+import com.sw_ss16.lc_app.content.LearningCenterDefroster;
 
 /**
  * Shows a list of all available quotes.
@@ -33,7 +33,7 @@ public class StudyRoomListFragment extends ListFragment {
 
     private Callback callback = dummyCallback;
 
-    private LearningCenterContent lc_contentmanager = new LearningCenterContent();
+    private LearningCenterDefroster lc_contentmanager = new LearningCenterDefroster();
 
 
     /**

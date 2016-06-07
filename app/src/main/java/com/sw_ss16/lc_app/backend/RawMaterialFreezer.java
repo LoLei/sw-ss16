@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class Database extends SQLiteOpenHelper {
+public class RawMaterialFreezer extends SQLiteOpenHelper {
 
     // -------------------------------
     // Members
@@ -59,19 +59,20 @@ public class Database extends SQLiteOpenHelper {
     // -------------------------------
     // Methods
     // -------------------------------
-    public Database(Context context) {
+    public RawMaterialFreezer(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL(STUDYROOM_TABLE_CREATE);
-        database.execSQL(STATISTICS_TABLE_CREATE);
-        database.execSQL(CURRENTDATA_TABLE_CREATE);
-        database.execSQL(FAVSTUDYROOM_TABLE_CREATE);
-        database.execSQL(LAST_UPDATED_TABLE_CREATE);
 
-        System.out.println("[Database] Database created");
+      database.execSQL(STUDYROOM_TABLE_CREATE);
+      database.execSQL(STATISTICS_TABLE_CREATE);
+      database.execSQL(CURRENTDATA_TABLE_CREATE);
+      database.execSQL(FAVSTUDYROOM_TABLE_CREATE);
+      database.execSQL(LAST_UPDATED_TABLE_CREATE);
+
+      System.out.println("[Database] Database created");
     }
 
     @Override

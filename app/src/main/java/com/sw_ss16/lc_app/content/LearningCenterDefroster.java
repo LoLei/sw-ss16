@@ -5,15 +5,15 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.sw_ss16.lc_app.backend.Database;
+import com.sw_ss16.lc_app.backend.RawMaterialFreezer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Gets and retrieves Data from Database easily
+ * Gets and retrieves Data from RawMaterialFreezer easily
  */
-public class LearningCenterContent {
+public class LearningCenterDefroster {
 
 
     // -------------------------------
@@ -32,7 +32,7 @@ public class LearningCenterContent {
     }
 
     public long getNumberOfFavorites() {
-        Database database = new Database(app_context);
+        RawMaterialFreezer database = new RawMaterialFreezer(app_context);
         SQLiteDatabase sqLiteDatabase = database.getReadableDatabase();
 
         long number_of_favorites = DatabaseUtils.queryNumEntries(sqLiteDatabase, "favstudyrooms");
@@ -42,7 +42,7 @@ public class LearningCenterContent {
 
     public boolean getLearningCenterFavoriteStatus(int lc_id) {
 
-        Database database = new Database(app_context);
+        RawMaterialFreezer database = new RawMaterialFreezer(app_context);
         SQLiteDatabase sqLiteDatabase = database.getReadableDatabase();
 
         boolean is_fav = false;
@@ -63,12 +63,12 @@ public class LearningCenterContent {
             return;
         }
         else if (getLearningCenterFavoriteStatus(lc_id)) {
-            Database database = new Database(app_context);
+            RawMaterialFreezer database = new RawMaterialFreezer(app_context);
             database.insertInDatabase("DELETE FROM favstudyrooms WHERE ID = " + lc_id + ";");
             database.close();
         }
         else {
-            Database database = new Database(app_context);
+            RawMaterialFreezer database = new RawMaterialFreezer(app_context);
             database.insertInDatabase("INSERT INTO favstudyrooms VALUES (" + lc_id + ");");
             database.close();
         }
@@ -77,7 +77,7 @@ public class LearningCenterContent {
     public List<String> getListOfFavLcIds() {
         ArrayList<String> all_lc_ids = new ArrayList<>();
 
-        Database database = new Database(app_context);
+        RawMaterialFreezer database = new RawMaterialFreezer(app_context);
         SQLiteDatabase sqLiteDatabase = database.getReadableDatabase();
         String[] columns = new String[]{"ID"};
 
@@ -99,7 +99,7 @@ public class LearningCenterContent {
     public List<String> getListOfLcIds() {
         ArrayList<String> all_lc_ids = new ArrayList<>();
 
-        Database database = new Database(app_context);
+        RawMaterialFreezer database = new RawMaterialFreezer(app_context);
         SQLiteDatabase sqLiteDatabase = database.getReadableDatabase();
         String[] columns = new String[]{"ID"};
 
@@ -120,7 +120,7 @@ public class LearningCenterContent {
 
     public LearningCenter getLcObject(String id) {
 
-        Database database = new Database(app_context);
+        RawMaterialFreezer database = new RawMaterialFreezer(app_context);
         SQLiteDatabase sqLiteDatabase = database.getReadableDatabase();
 
         String[] columns = new String[]{"ID", "NAME", "DESCRIPTION", "ADDRESS", "IMAGE_IN", "IMAGE_OUT", "CAPACITY"};
