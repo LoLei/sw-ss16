@@ -1,6 +1,7 @@
 package com.sw_ss16.lc_app.ui.tests;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 import com.sw_ss16.lc_app.R;
@@ -34,7 +35,7 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
         mySolo.sleep(500);
 
         boolean text_found = mySolo.searchText(getActivity().getString(R.string.navigation_title));
-        assertEquals("Required text not found", true, text_found);
+        assertEquals("Required text 1 not found", true, text_found);
     }
 
     public void testStudyRoomDetailOpen() {
@@ -47,8 +48,14 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
 
             // Look for text in study room detail activity
             mySolo.waitForActivity("StudyRoomDetailActivity");
-            boolean text_found = mySolo.searchText(getActivity().getString(R.string.lc_statistics_title));
-            assertEquals("Required text not found", true, text_found);
+
+            TextView view = (TextView) mySolo.getView(R.id.lc_statistics_title);
+
+            System.out.println(view.getText());
+
+            boolean text_found = mySolo.searchText(view.getText().toString());
+            //System.out.println(getActivity().getString(R.string.lc_statistics_title));
+            assertEquals("Required text 2 not found", true, text_found);
         }
     }
 }
