@@ -20,9 +20,6 @@
         <activity android:name=".ui.learning_center_one.StudyRoomDetailActivity"
             android:label=""
             android:parentActivityName="com.sw_ss16.lc_app.ui.learning_center_list.ListActivity"/>
-        <activity android:name=".ui.other.ViewSamplesActivity"
-            android:label="Samples"
-            android:parentActivityName="com.sw_ss16.lc_app.ui.learning_center_list.ListActivity"/>
         <activity android:name=".ui.other.SettingsActivity"
             android:label="Settings"
             android:parentActivityName="com.sw_ss16.lc_app.ui.learning_center_list.ListActivity"/>
