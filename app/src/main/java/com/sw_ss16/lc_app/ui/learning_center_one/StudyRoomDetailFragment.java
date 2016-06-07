@@ -96,7 +96,6 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
 
         if (!((BaseActivity) getActivity()).providesActivityToolbar()) {
-            // No Toolbar present. Set include_toolbar:
             ((BaseActivity) getActivity()).setToolbar((Toolbar) rootView.findViewById(R.id.toolbar));
         }
 
@@ -111,8 +110,8 @@ public class StudyRoomDetailFragment extends BaseFragment {
     }
 
     private void setStatisticsText() {
-        RawMaterialFreezer db = new RawMaterialFreezer(getActivity().getApplicationContext());
-        SQLiteDatabase sqldb = db.getReadableDatabase();
+        RawMaterialFreezer database = new RawMaterialFreezer(getActivity().getApplicationContext());
+        SQLiteDatabase sqLiteDatabase = database.getReadableDatabase();
 
         Calendar calendar = Calendar.getInstance();
         int current_day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -141,14 +140,14 @@ public class StudyRoomDetailFragment extends BaseFragment {
                 " AND HOUR = " + current_hour;
         String[] columns = new String[]{"ID", "LC_ID", "WEEKDAY", "HOUR", "FULLNESS"};
 
-        Cursor c = sqldb.query("statistics", columns, query_string, null, null, null, null);
+        Cursor cursor = sqLiteDatabase.query("statistics", columns, query_string, null, null, null, null);
 
-        c.moveToFirst();
+        cursor.moveToFirst();
         boolean statistic_ok = true;
-        System.out.println("Cursor: " + c.getCount());
-        if (current_learning_center.id.equals(c.getString(c.getColumnIndex("LC_ID")))) {
+        System.out.println("Cursor: " + cursor.getCount());
+        if (current_learning_center.id.equals(cursor.getString(cursor.getColumnIndex("LC_ID")))) {
 
-            String fullness = c.getString(c.getColumnIndex("FULLNESS"));
+            String fullness = cursor.getString(cursor.getColumnIndex("FULLNESS"));
             int full = Integer.parseInt(fullness);
 
             String fullness_description = "";
@@ -175,8 +174,8 @@ public class StudyRoomDetailFragment extends BaseFragment {
             else
                 statistics.setText(R.string.lc_statistics_description_default);
         }
-        db.close();
-        c.close();
+        database.close();
+        cursor.close();
     }
 
     private void loadBackdrop() {
@@ -212,7 +211,6 @@ public class StudyRoomDetailFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                // your logic
                 return true;
         }
         return super.onOptionsItemSelected(item);

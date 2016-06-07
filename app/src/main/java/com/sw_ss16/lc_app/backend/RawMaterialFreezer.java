@@ -64,28 +64,26 @@ public class RawMaterialFreezer extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase database) {
 
-        //TODO this should only happen if db is not existent and we want to update it. maybe?
+      database.execSQL(STUDYROOM_TABLE_CREATE);
+      database.execSQL(STATISTICS_TABLE_CREATE);
+      database.execSQL(CURRENTDATA_TABLE_CREATE);
+      database.execSQL(FAVSTUDYROOM_TABLE_CREATE);
+      database.execSQL(LAST_UPDATED_TABLE_CREATE);
 
-        db.execSQL(STUDYROOM_TABLE_CREATE);
-        db.execSQL(STATISTICS_TABLE_CREATE);
-        db.execSQL(CURRENTDATA_TABLE_CREATE);
-        db.execSQL(FAVSTUDYROOM_TABLE_CREATE);
-        db.execSQL(LAST_UPDATED_TABLE_CREATE);
-
-        System.out.println("[RawMaterialFreezer] DB created");
+      System.out.println("[Database] Database created");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
 
     }
 
     public void insertInDatabase(String query) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(query);
-        db.close();
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.execSQL(query);
+        database.close();
     }
 
 }
