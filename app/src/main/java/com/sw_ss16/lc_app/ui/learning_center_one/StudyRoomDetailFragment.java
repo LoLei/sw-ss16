@@ -213,57 +213,96 @@ public class StudyRoomDetailFragment extends BaseFragment {
         String query_string = "LC_ID = " + current_learning_center.id +
                 " AND WEEKDAY = " + current_day +
                 " AND HOUR = " + current_hour;
+
+        int hour_one = current_hour + 1;
+        int hour_two = current_hour + 2;
+        int day_one = current_day;
+        int day_two = current_day;
+
+        if(hour_one == 24)
+        {
+            hour_one = 0;
+            day_one += 1;
+        }
+
+        else if(hour_two == 24)
+        {
+            hour_two = 0;
+            day_two += 1;
+        }
+
+        else if(hour_two == 25)
+        {
+            hour_two = 1;
+            day_two += 1;
+        }
+
+        if(day_one == 8)
+        {
+            day_one = 1;
+        }
+
+        if(day_two == 8)
+        {
+            day_two = 1;
+        }
+
+        String query_string_one_hour = "LC_ID = " + current_learning_center.id +
+                " AND WEEKDAY = " + day_one +
+                " AND HOUR = " + hour_one;
+
+        String query_string_two_hours = "LC_ID = " + current_learning_center.id +
+                " AND WEEKDAY = " + day_two +
+                " AND HOUR = " + hour_two;
+
         String[] columns = new String[]{"ID", "LC_ID", "WEEKDAY", "HOUR", "FULLNESS"};
 
         Cursor cursor = sqLiteDatabase.query("statistics", columns, query_string, null, null, null, null);
+        Cursor cursor_one_hour = sqLiteDatabase.query("statistics", columns, query_string_one_hour, null, null, null, null);
+        Cursor cursor_two_hours = sqLiteDatabase.query("statistics", columns, query_string_two_hours, null, null, null, null);
 
         cursor.moveToFirst();
-        boolean statistic_ok = true;
+        cursor_one_hour.moveToFirst();
+        cursor_two_hours.moveToFirst();
+
         System.out.println("Cursor: " + cursor.getCount());
         if (current_learning_center.id.equals(cursor.getString(cursor.getColumnIndex("LC_ID")))) {
 
-            float current_val = cursor.getColumnIndex("FULLNESS") * 0.1f;
-
-            bar_current.setLayoutParams(new LinearLayout.LayoutParams(0, 55, current_val));
-            bar_current_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 1-current_val));
-
-            bar_one_hour.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 0.5f));
-            bar_one_hour_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 0.5f));
-
-            bar_two_hours.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 0.0f));
-            bar_two_hours_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 1.0f));
-
-            /*
             String fullness = cursor.getString(cursor.getColumnIndex("FULLNESS"));
             int full = Integer.parseInt(fullness);
 
-            String fullness_description = "";
+            float current_val = full * 0.1f;
 
-            if (full >= 7) {
-                fullness_description = getActivity().getString(R.string.fullness_full);
-            }
-            else if (full >= 5) {
-                fullness_description = getActivity().getString(R.string.fullness_halffull);
-            }
-            // TODO: Add a fourth fullness state
-            else if (full < 5) {
-                fullness_description = getActivity().getString(R.string.fullness_empty);
-            }
-            else {
-                statistic_ok = false;
-            }
+            System.out.println("++++++ curren dbresult:" + cursor.getColumnIndex("FULLNESS") + " Current Val: " + current_val);
 
-            if (statistic_ok) {
-                String statistics_description_str = String.format(getActivity().getString(R.string.lc_statistics_description),
-                        fullness_description, full*10);
-                statistics.setText(statistics_description_str);
-            }
-            else
-                statistics.setText(R.string.lc_statistics_description_default);
-                */
+            bar_current.setLayoutParams(new LinearLayout.LayoutParams(0, 55, current_val));
+            bar_current_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 1-current_val));
+        }
+        if (current_learning_center.id.equals(cursor_one_hour.getString(cursor_one_hour.getColumnIndex("LC_ID")))) {
+
+            String fullness = cursor_one_hour.getString(cursor_one_hour.getColumnIndex("FULLNESS"));
+            int full = Integer.parseInt(fullness);
+
+            float current_val = full * 0.1f;
+
+            bar_one_hour.setLayoutParams(new LinearLayout.LayoutParams(0, 55, current_val));
+            bar_one_hour_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 1-current_val));
+
+        }
+        if (current_learning_center.id.equals(cursor_two_hours.getString(cursor_two_hours.getColumnIndex("LC_ID")))) {
+
+            String fullness = cursor_two_hours.getString(cursor_two_hours.getColumnIndex("FULLNESS"));
+            int full = Integer.parseInt(fullness);
+
+            float current_val = full * 0.1f;
+            
+            bar_two_hours.setLayoutParams(new LinearLayout.LayoutParams(0, 55, current_val));
+            bar_two_hours_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 1-current_val));
         }
         database.close();
         cursor.close();
+        cursor_one_hour.close();
+        cursor_two_hours.close();
 
     }
 
