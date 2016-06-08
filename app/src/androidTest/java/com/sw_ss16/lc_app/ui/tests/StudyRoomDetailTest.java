@@ -4,7 +4,12 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
 import com.sw_ss16.lc_app.R;
+import com.sw_ss16.lc_app.content.LearningCenter;
+import com.sw_ss16.lc_app.content.LearningCenterDefroster;
+import com.sw_ss16.lc_app.content.LearningCenterDefroster;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
+
+import java.util.List;
 
 /**
  * Starts from the ListActivity, but opens the StudyRoomDetailActivity
@@ -53,6 +58,35 @@ public class StudyRoomDetailTest extends ActivityInstrumentationTestCase2<ListAc
             }
 
             assertEquals("Required image not found", true, image_shown);
+        }
+        else {
+            mySolo.clickOnImageButton(0);
+
+            LearningCenterDefroster lc_contentmanager = new LearningCenterDefroster();
+            lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
+            List<String> listOfLcIds = lc_contentmanager.getListOfLcIds();
+
+            LearningCenter LC = lc_contentmanager.getLcObject(listOfLcIds.get(0));
+
+            System.out.println("Click on: " + LC.name);
+
+            //mySolo.clickOnMenuItem(LC.name.toString());
+            //mySolo.clickOnButton(LC.name.toString());
+            mySolo.clickOnText(LC.name.toString());
+            mySolo.sleep(500);
+
+            mySolo.clickOnView(mySolo.getView(R.id.fav_fab_btn));
+            boolean image_shown = false;
+            boolean already_fav = mySolo.getCurrentActivity().getResources().getDrawable(R.drawable.ic_remove_white_24dp).isVisible();
+            if (already_fav) {
+                image_shown = mySolo.getCurrentActivity().getResources().getDrawable(R.drawable.ic_add_white_24dp).isVisible();
+            }
+            else {
+                image_shown = mySolo.getCurrentActivity().getResources().getDrawable(R.drawable.ic_remove_white_24dp).isVisible();
+            }
+
+            assertEquals("Required image not found", true, image_shown);
+
         }
     }
 }
