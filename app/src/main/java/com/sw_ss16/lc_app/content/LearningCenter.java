@@ -6,9 +6,6 @@ package com.sw_ss16.lc_app.content;
 
 public class LearningCenter {
 
-    // -------------------------------
-    // Members
-    // -------------------------------
     public final String id;
     public final String name;
     public final String description;
@@ -17,9 +14,7 @@ public class LearningCenter {
     public final String image_out_url;
     public final String capacity;
 
-    // -------------------------------
-    // Methods
-    // -------------------------------
+
     public LearningCenter(String id, String name, String description, String address, String image_in_url,
                           String image_out_url, String capacity) {
         this.id = id;
