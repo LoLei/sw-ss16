@@ -11,7 +11,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 
 import org.json.JSONArray;
@@ -40,11 +39,7 @@ public class ResourceFetcher {
         try {
                 convertedDate_now = dateFormat_now.parse(dateFormat_now.format(this_time));
                 convertedDate_last_update = dateFormat_last_update.parse(date_last_update);
-
-
-
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         long diff = convertedDate_now.getTime() - convertedDate_last_update.getTime();
@@ -69,18 +64,30 @@ public class ResourceFetcher {
             context.startActivity(intent);
 
         }
-
-
       database.close();
     }
 
     public void syncAllRemoteIntoSQLiteDBNOW(RequestQueue queue, final RawMaterialFreezer database, Context context) {
 
-            syncStudyRoomsIntoSQLiteDB(queue, database, context);
-            syncStatisticsIntoSQLiteDB(queue, database);
-            syncCurrentDataIntoSQLiteDB(queue, database);
+        syncStudyRoomsIntoSQLiteDB(queue, database, context);
+        syncStatisticsIntoSQLiteDB(queue, database);
+        syncCurrentDataIntoSQLiteDB(queue, database);
 
+        Calendar calendar = Calendar.getInstance();
+        Date this_time = calendar.getTime();
 
+        SimpleDateFormat dateFormat_now = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+        Date convertedDate_now = new Date();
+        try {
+            convertedDate_now = dateFormat_now.parse(dateFormat_now.format(this_time));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+        String formattedDate = simpleDateFormat.format(convertedDate_now);
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString("date_last_update", formattedDate).commit();
 
         database.close();
     }
