@@ -33,6 +33,5 @@
     <string name="about_text1">Coded with</string>
     <string name="about_text2">by Daniel, Lorenz, Verena &amp; Sebastian</string>
     <string name="about_text3">in Graz</string>
-    <string name="title_activity_test">TestActivity</string>
-    <string name="title_activity_test2">TestActivity2</string>
+    <string name="title_activity_test2">About</string>
 </resources>
