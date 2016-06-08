@@ -4,11 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class Database extends SQLiteOpenHelper {
+public class RawMaterialFreezer extends SQLiteOpenHelper {
 
-    // -------------------------------
-    // Members
-    // -------------------------------
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Predictr_Database";
     private static final String STUDYROOM_TABLE_NAME = "studyrooms";
@@ -56,36 +53,31 @@ public class Database extends SQLiteOpenHelper {
                     "DATETIME" + " DATETIME " +
                     ");";
 
-    // -------------------------------
-    // Methods
-    // -------------------------------
-    public Database(Context context) {
+    public RawMaterialFreezer(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase database) {
 
-        //TODO this should only happen if db is not existent and we want to update it. maybe?
+      database.execSQL(STUDYROOM_TABLE_CREATE);
+      database.execSQL(STATISTICS_TABLE_CREATE);
+      database.execSQL(CURRENTDATA_TABLE_CREATE);
+      database.execSQL(FAVSTUDYROOM_TABLE_CREATE);
+      database.execSQL(LAST_UPDATED_TABLE_CREATE);
 
-        db.execSQL(STUDYROOM_TABLE_CREATE);
-        db.execSQL(STATISTICS_TABLE_CREATE);
-        db.execSQL(CURRENTDATA_TABLE_CREATE);
-        db.execSQL(FAVSTUDYROOM_TABLE_CREATE);
-        db.execSQL(LAST_UPDATED_TABLE_CREATE);
-
-        System.out.println("[Database] DB created");
+      System.out.println("[Database] Database created");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
 
     }
 
     public void insertInDatabase(String query) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(query);
-        db.close();
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.execSQL(query);
+        database.close();
     }
 
 }

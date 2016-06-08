@@ -19,10 +19,10 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.sw_ss16.lc_app.R;
-import com.sw_ss16.lc_app.backend.Database;
-import com.sw_ss16.lc_app.backend.DatabaseSyncer;
+import com.sw_ss16.lc_app.backend.RawMaterialFreezer;
+import com.sw_ss16.lc_app.backend.ResourceFetcher;
 import com.sw_ss16.lc_app.content.LearningCenter;
-import com.sw_ss16.lc_app.content.LearningCenterContent;
+import com.sw_ss16.lc_app.content.LearningCenterDefroster;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailFragment;
@@ -48,9 +48,6 @@ import static com.sw_ss16.lc_app.util.LogUtil.makeLogTag;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    // -------------------------------
-    // Members
-    // -------------------------------
     private static final String TAG = makeLogTag(BaseActivity.class);
 
     protected static final int NAV_DRAWER_ITEM_INVALID = -1;
@@ -58,14 +55,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar actionBarToolbar;
 
-    private DatabaseSyncer database_syncer = new DatabaseSyncer();
+    private ResourceFetcher database_syncer = new ResourceFetcher();
 
-    private LearningCenterContent lc_contentmanager = new LearningCenterContent();
+    private LearningCenterDefroster lc_contentmanager = new LearningCenterDefroster();
 
 
-    // -------------------------------
-    // Methods
-    // -------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,39 +67,31 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // TODO: Check if first startup, if yes
 
-        final Database db = new Database(getApplicationContext());
+        final RawMaterialFreezer database = new RawMaterialFreezer(getApplicationContext());
 
-        // Volley DB Queue
         RequestQueue queue = Volley.newRequestQueue(this);
 
-
-        // Pull updated data from the remote database, put into the local database
         // TODO: Do this not on every BaseActivity onCreate(), but like every two hours,
-        // update current data more often than StudyRooms data
-
-
 
         boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         boolean auto_update = sharedPref.getBoolean("pref_settings_1", false);
 
-        
-         if(firstrun || auto_update) {
+
+        if (firstrun || auto_update) {
             System.out.println("This App first started or has auto update activated -> full update");
             getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("firstrun", false).commit();
-            database_syncer.syncAllRemoteIntoSQLiteDB(queue, db, this);
+            database_syncer.syncAllRemoteIntoSQLiteDB(queue, database, this);
         }
-         if(firstrun) {
-             System.out.println("First start");
-             Toast.makeText(this, "Please wait for Update", Toast.LENGTH_LONG).show();
-         }
+        if (firstrun) {
+            System.out.println("First start");
+            Toast.makeText(this, "Please wait for Update", Toast.LENGTH_LONG).show();
+        }
 
         else {
             System.out.println("Auto Update is deactivated");
         }
-
-
 
 
     }
@@ -122,13 +108,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void setupNavDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawerLayout == null) {
-            // current activity does not have a drawer.
             return;
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
-            // Add all study rooms to navdrawer
             Menu m = navigationView.getMenu();
             SubMenu all_study_rooms = m.getItem(2).getSubMenu();
 
@@ -155,7 +139,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param navigationView the navigation view
      */
     private void setSelectedItem(NavigationView navigationView) {
-        // Which navigation item should be selected?
         int selectedItem = getSelfNavDrawerItem(); // subclass has to override this method
         navigationView.setCheckedItem(selectedItem);
     }
@@ -184,7 +167,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     private void onNavigationItemClicked(final MenuItem menuItem) {
         if (menuItem.getItemId() == getSelfNavDrawerItem()) {
-            // Already selected
             closeDrawer();
             return;
         }
@@ -203,32 +185,18 @@ public abstract class BaseActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ListActivity.class));
                 finish();
                 break;
-            /* case R.id.nav_samples:
-                startActivity(new Intent(this, ViewSamplesActivity.class));
-                break;*/
+
             case R.id.nav_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
 
             default:
-                // Start the detail activity in single pane mode.
                 Intent detailIntent = new Intent(this, StudyRoomDetailActivity.class);
                 detailIntent.putExtra(StudyRoomDetailFragment.ARG_ITEM_ID, Integer.toString(((int) menuItem.getNumericShortcut()) + 1));
                 startActivity(detailIntent);
                 break;
         }
-        /*
-        // TODO: Check for twopane mode -> old unused code, remove if not needed anymore
-        if (false) {
-            // Show the quote detail information by replacing the DetailFragment via transaction.
-            StudyRoomDetailFragment fragment = StudyRoomDetailFragment.newInstance(Character.toString(menuItem.getNumericShortcut()));
-            getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
-        }
 
-         else {
-
-        }
-        */
     }
 
     /**
@@ -278,7 +246,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     // -------------------------------
-    // Methods that happened to not be used
+    // Methods that happened to not be used (TODO: remove this)
     // -------------------------------
 
     /**
