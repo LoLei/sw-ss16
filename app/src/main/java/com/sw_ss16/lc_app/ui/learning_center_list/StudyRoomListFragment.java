@@ -62,11 +62,9 @@ public class StudyRoomListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        // notify callback about the selected list item
 
         lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
         callback.onItemSelected(lc_contentmanager.getLcObject(lc_contentmanager.getListOfFavLcIds().get(position)).id);
-        //callback.onItemSelected(FavoriteStudyRoomsContent.ITEMS.get(position).id);
     }
 
     /**
@@ -110,22 +108,18 @@ public class StudyRoomListFragment extends ListFragment {
             lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
 
             return lc_contentmanager.getListOfFavLcIds().size();
-
-            //return FavoriteStudyRoomsContent.ITEMS.size();
         }
 
         @Override
         public LearningCenter getItem(int position) {
             lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
             return lc_contentmanager.getLcObject(lc_contentmanager.getListOfFavLcIds().get(position));
-            //return FavoriteStudyRoomsContent.ITEMS.get(position);
         }
 
         @Override
         public long getItemId(int position) {
             lc_contentmanager.setApplicationContext(getActivity().getApplicationContext());
             return Long.parseLong(lc_contentmanager.getListOfFavLcIds().get(position));
-            //return FavoriteStudyRoomsContent.ITEMS.get(position).id.hashCode();
         }
 
         @Override

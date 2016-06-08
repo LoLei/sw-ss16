@@ -28,14 +28,6 @@ import java.util.Date;
  */
 public class ResourceFetcher {
 
-    // -------------------------------
-    // Members
-    // -------------------------------
-
-
-    // -------------------------------
-    // Methods
-    // -------------------------------
     public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final RawMaterialFreezer database, Context context) {
       syncStudyRoomsIntoSQLiteDB(queue, database, context);
       syncStatisticsIntoSQLiteDB(queue, database);
@@ -150,9 +142,6 @@ public class ResourceFetcher {
             }
         });
 
-
-
-        // Add the request to the RequestQueue.
 
         queue.add(jsonObjectRequest);
     }

@@ -48,9 +48,6 @@ import static com.sw_ss16.lc_app.util.LogUtil.makeLogTag;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    // -------------------------------
-    // Members
-    // -------------------------------
     private static final String TAG = makeLogTag(BaseActivity.class);
 
     protected static final int NAV_DRAWER_ITEM_INVALID = -1;
@@ -63,9 +60,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private LearningCenterDefroster lc_contentmanager = new LearningCenterDefroster();
 
 
-    // -------------------------------
-    // Methods
-    // -------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,15 +69,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         final RawMaterialFreezer database = new RawMaterialFreezer(getApplicationContext());
 
-        // Volley DB Queue
         RequestQueue queue = Volley.newRequestQueue(this);
 
-
-        // Pull updated data from the remote database, put into the local database
         // TODO: Do this not on every BaseActivity onCreate(), but like every two hours,
-        // update current data more often than StudyRooms data
-
-
 
         boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
 
@@ -120,13 +108,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void setupNavDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawerLayout == null) {
-            // current activity does not have a drawer.
             return;
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
-            // Add all study rooms to navdrawer
             Menu m = navigationView.getMenu();
             SubMenu all_study_rooms = m.getItem(2).getSubMenu();
 
@@ -153,7 +139,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param navigationView the navigation view
      */
     private void setSelectedItem(NavigationView navigationView) {
-        // Which navigation item should be selected?
         int selectedItem = getSelfNavDrawerItem(); // subclass has to override this method
         navigationView.setCheckedItem(selectedItem);
     }
@@ -182,7 +167,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     private void onNavigationItemClicked(final MenuItem menuItem) {
         if (menuItem.getItemId() == getSelfNavDrawerItem()) {
-            // Already selected
             closeDrawer();
             return;
         }
@@ -212,18 +196,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 startActivity(detailIntent);
                 break;
         }
-        /*
-        // TODO: Check for twopane mode -> old unused code, remove if not needed anymore
-        if (false) {
-            // Show the quote detail information by replacing the DetailFragment via transaction.
-            StudyRoomDetailFragment fragment = StudyRoomDetailFragment.newInstance(Character.toString(menuItem.getNumericShortcut()));
-            getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
-        }
 
-         else {
-
-        }
-        */
     }
 
     /**
@@ -273,7 +246,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     // -------------------------------
-    // Methods that happened to not be used
+    // Methods that happened to not be used (TODO: remove this)
     // -------------------------------
 
     /**
