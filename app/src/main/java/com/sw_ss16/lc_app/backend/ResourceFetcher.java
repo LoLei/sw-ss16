@@ -11,7 +11,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 
 import org.json.JSONArray;
@@ -29,11 +28,71 @@ import java.util.Date;
 public class ResourceFetcher {
 
     public void syncAllRemoteIntoSQLiteDB(RequestQueue queue, final RawMaterialFreezer database, Context context) {
-      syncStudyRoomsIntoSQLiteDB(queue, database, context);
-      syncStatisticsIntoSQLiteDB(queue, database);
-      syncCurrentDataIntoSQLiteDB(queue, database);
+        Calendar calendar = Calendar.getInstance();
+        String date_last_update = PreferenceManager.getDefaultSharedPreferences(context).getString("date_last_update", "");
+        Date this_time = calendar.getTime();
+
+        SimpleDateFormat dateFormat_now = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+        SimpleDateFormat dateFormat_last_update = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+        Date convertedDate_now = new Date();
+        Date convertedDate_last_update = new Date();
+        try {
+                convertedDate_now = dateFormat_now.parse(dateFormat_now.format(this_time));
+                convertedDate_last_update = dateFormat_last_update.parse(date_last_update);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long diff = convertedDate_now.getTime() - convertedDate_last_update.getTime();
+        diff = diff /1000/60;
+        System.out.println("Date_now: " + convertedDate_now + " Date_lastUpdate: " + date_last_update + "DIFF: " + diff);
+
+
+        if(diff >= 60){
+            syncStudyRoomsIntoSQLiteDB(queue, database, context);
+            syncStatisticsIntoSQLiteDB(queue, database);
+            syncCurrentDataIntoSQLiteDB(queue, database);
+
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+            String formattedDate = simpleDateFormat.format(convertedDate_now);
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString("date_last_update", formattedDate).commit();
+
+            Toast.makeText(context, "New Update, Restarting now", Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(context, ListActivity.class);
+
+            context.startActivity(intent);
+
+        }
       database.close();
     }
+
+    public void syncAllRemoteIntoSQLiteDBNOW(RequestQueue queue, final RawMaterialFreezer database, Context context) {
+
+        syncStudyRoomsIntoSQLiteDB(queue, database, context);
+        syncStatisticsIntoSQLiteDB(queue, database);
+        syncCurrentDataIntoSQLiteDB(queue, database);
+
+        Calendar calendar = Calendar.getInstance();
+        Date this_time = calendar.getTime();
+
+        SimpleDateFormat dateFormat_now = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+        Date convertedDate_now = new Date();
+        try {
+            convertedDate_now = dateFormat_now.parse(dateFormat_now.format(this_time));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+        String formattedDate = simpleDateFormat.format(convertedDate_now);
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString("date_last_update", formattedDate).commit();
+
+        database.close();
+    }
+
+
 
     public void syncStudyRoomsIntoSQLiteDB(final RequestQueue queue, final RawMaterialFreezer database, final Context context) {
         String url = "http://danielgpoint.at/predict.php?what=lc&how_much=all";
@@ -70,18 +129,7 @@ public class ResourceFetcher {
                                 e.printStackTrace();
                             }
                         }
-                        Calendar calendar = Calendar.getInstance();
-                        System.out.println("Current time => " + calendar.getTime());
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
-                        String formattedDate = simpleDateFormat.format(calendar.getTime());
-                        PreferenceManager.getDefaultSharedPreferences(context).edit().putString("date_last_update", formattedDate).commit();
-
-                        Toast.makeText(context, "New Update, Restarting now", Toast.LENGTH_LONG).show();
-
-                        Intent intent = new Intent(context, ListActivity.class);
-
-                        context.startActivity(intent);
 
 
                     }
@@ -92,46 +140,12 @@ public class ResourceFetcher {
             }
         });
 
-
+/*
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println("response" + response.toString());
-                boolean nodate = false;
-                try {
-                    String date = response.getString("datetime");
-                    String date2 = PreferenceManager.getDefaultSharedPreferences(context).getString("date_last_update", "");
-                    System.out.println("Date: " + date + " Date2: " + date2);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    SimpleDateFormat dateFormat2 = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
-                    Date convertedDate = new Date();
-                    Date convertedDate2 = new Date();
-                    try {
-                        convertedDate = dateFormat.parse(date);
-                        if (date2.isEmpty()) {
-                            nodate = true;
-                        }
-                        else {
-                            convertedDate2 = dateFormat2.parse(date2);
-                        }
 
-
-                    } catch (ParseException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                    if (nodate || convertedDate.after(convertedDate2)) {
-                        System.out.println("Remote DB after internal database, updating now");
-                        queue.add(jsonArrayRequest);
-
-                    }
-
-
-                } catch (JSONException err) {
-
-                }
             }
         }, new Response.ErrorListener() {
 
@@ -142,8 +156,8 @@ public class ResourceFetcher {
             }
         });
 
-
-        queue.add(jsonObjectRequest);
+*/
+        queue.add(jsonArrayRequest);
     }
 
     public void syncStatisticsIntoSQLiteDB(RequestQueue queue, final RawMaterialFreezer database) {
