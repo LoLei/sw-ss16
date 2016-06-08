@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -58,6 +60,24 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
     @Bind(R.id.lc_statistics)
     TextView statistics;
+
+    @Bind(R.id.lc_statistics_bar_1_bar)
+    TextView bar_current;
+
+    @Bind(R.id.lc_statistics_bar_2_bar)
+    TextView bar_one_hour;
+
+    @Bind(R.id.lc_statistics_bar_3_bar)
+    TextView bar_two_hours;
+
+    @Bind(R.id.lc_statistics_bar_1_bar_grey)
+    TextView bar_current_grey;
+
+    @Bind(R.id.lc_statistics_bar_2_bar_grey)
+    TextView bar_one_hour_grey;
+
+    @Bind(R.id.lc_statistics_bar_3_bar_grey)
+    TextView bar_two_hours_grey;
 
     @Bind(R.id.lc_address)
     TextView address;
@@ -105,6 +125,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
             address.setText(current_learning_center.address);
             description.setText(current_learning_center.description);
             setStatisticsText();
+            setBarchartValues();
         }
         return rootView;
     }
@@ -176,6 +197,113 @@ public class StudyRoomDetailFragment extends BaseFragment {
         }
         database.close();
         cursor.close();
+    }
+
+    private void setBarchartValues() {
+        RawMaterialFreezer database = new RawMaterialFreezer(getActivity().getApplicationContext());
+        SQLiteDatabase sqLiteDatabase = database.getReadableDatabase();
+
+        Calendar calendar = Calendar.getInstance();
+        int current_day = calendar.get(Calendar.DAY_OF_WEEK);
+        current_day--;
+        int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        System.out.println("Current Day: " + current_day + "Current Hour: " + current_hour + "ID: " + current_learning_center.id);
+
+        String query_string = "LC_ID = " + current_learning_center.id +
+                " AND WEEKDAY = " + current_day +
+                " AND HOUR = " + current_hour;
+
+        int hour_one = current_hour + 1;
+        int hour_two = current_hour + 2;
+        int day_one = current_day;
+        int day_two = current_day;
+
+        if(hour_one == 24)
+        {
+            hour_one = 0;
+            day_one += 1;
+        }
+
+        else if(hour_two == 24)
+        {
+            hour_two = 0;
+            day_two += 1;
+        }
+
+        else if(hour_two == 25)
+        {
+            hour_two = 1;
+            day_two += 1;
+        }
+
+        if(day_one == 8)
+        {
+            day_one = 1;
+        }
+
+        if(day_two == 8)
+        {
+            day_two = 1;
+        }
+
+        String query_string_one_hour = "LC_ID = " + current_learning_center.id +
+                " AND WEEKDAY = " + day_one +
+                " AND HOUR = " + hour_one;
+
+        String query_string_two_hours = "LC_ID = " + current_learning_center.id +
+                " AND WEEKDAY = " + day_two +
+                " AND HOUR = " + hour_two;
+
+        String[] columns = new String[]{"ID", "LC_ID", "WEEKDAY", "HOUR", "FULLNESS"};
+
+        Cursor cursor = sqLiteDatabase.query("statistics", columns, query_string, null, null, null, null);
+        Cursor cursor_one_hour = sqLiteDatabase.query("statistics", columns, query_string_one_hour, null, null, null, null);
+        Cursor cursor_two_hours = sqLiteDatabase.query("statistics", columns, query_string_two_hours, null, null, null, null);
+
+        cursor.moveToFirst();
+        cursor_one_hour.moveToFirst();
+        cursor_two_hours.moveToFirst();
+
+        System.out.println("Cursor: " + cursor.getCount());
+        if (current_learning_center.id.equals(cursor.getString(cursor.getColumnIndex("LC_ID")))) {
+
+            String fullness = cursor.getString(cursor.getColumnIndex("FULLNESS"));
+            int full = Integer.parseInt(fullness);
+
+            float current_val = full * 0.1f;
+
+            System.out.println("++++++ curren dbresult:" + cursor.getColumnIndex("FULLNESS") + " Current Val: " + current_val);
+
+            bar_current.setLayoutParams(new LinearLayout.LayoutParams(0, 55, current_val));
+            bar_current_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 1-current_val));
+        }
+        if (current_learning_center.id.equals(cursor_one_hour.getString(cursor_one_hour.getColumnIndex("LC_ID")))) {
+
+            String fullness = cursor_one_hour.getString(cursor_one_hour.getColumnIndex("FULLNESS"));
+            int full = Integer.parseInt(fullness);
+
+            float current_val = full * 0.1f;
+
+            bar_one_hour.setLayoutParams(new LinearLayout.LayoutParams(0, 55, current_val));
+            bar_one_hour_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 1-current_val));
+
+        }
+        if (current_learning_center.id.equals(cursor_two_hours.getString(cursor_two_hours.getColumnIndex("LC_ID")))) {
+
+            String fullness = cursor_two_hours.getString(cursor_two_hours.getColumnIndex("FULLNESS"));
+            int full = Integer.parseInt(fullness);
+
+            float current_val = full * 0.1f;
+            
+            bar_two_hours.setLayoutParams(new LinearLayout.LayoutParams(0, 55, current_val));
+            bar_two_hours_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 1-current_val));
+        }
+        database.close();
+        cursor.close();
+        cursor_one_hour.close();
+        cursor_two_hours.close();
+
     }
 
     private void loadBackdrop() {
