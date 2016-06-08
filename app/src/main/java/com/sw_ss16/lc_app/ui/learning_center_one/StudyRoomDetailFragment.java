@@ -152,14 +152,14 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
             String fullness_description = "";
 
-            if (full >= 75) {
+            if (full >= 7) {
                 fullness_description = getActivity().getString(R.string.fullness_full);
             }
-            else if (full >= 50) {
+            else if (full >= 5) {
                 fullness_description = getActivity().getString(R.string.fullness_halffull);
             }
             // TODO: Add a fourth fullness state
-            else if (full < 50) {
+            else if (full < 5) {
                 fullness_description = getActivity().getString(R.string.fullness_empty);
             }
             else {
@@ -168,7 +168,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
             if (statistic_ok) {
                 String statistics_description_str = String.format(getActivity().getString(R.string.lc_statistics_description),
-                        fullness_description, fullness);
+                        fullness_description, full*10);
                 statistics.setText(statistics_description_str);
             }
             else

@@ -186,9 +186,7 @@ public class StudyRoomListFragment extends ListFragment {
             String fullness = cursor.getString(cursor.getColumnIndex("FULLNESS"));
             int full = Integer.parseInt(fullness);
 
-            String fullness_description = "";
-
-            if (full >= 75) {
+            if (full >= 7) {
                 System.out.println("Set Color Full");
                 ((TextView) convertView.findViewById(R.id.article_fullness_color)).setBackgroundResource(R.color.red_full);
             } else {
