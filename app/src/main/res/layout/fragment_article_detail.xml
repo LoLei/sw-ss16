@@ -105,8 +105,123 @@
                         android:text="@string/lc_statistics_description" />
 
                 </LinearLayout>
-
             </android.support.v7.widget.CardView>
+
+
+
+            <!-- Barchart card starts here -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_margin"
+                android:layout_marginLeft="@dimen/card_margin"
+                android:layout_marginRight="@dimen/card_margin">
+
+                <LinearLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/lc_statistics_forecast_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lc_statistics_forecast_title"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <!-- Bar 1-->
+                    <TextView
+                        android:id="@+id/lc_statistics_bar_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lc_statistics_bar_1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/lc_statistics_bar_1_bar"
+                            android:layout_width="0dp"
+                            android:layout_weight=".70"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_forecast_current"
+                            android:text="@string/lc_statistics_bar_1_bar"
+                            android:layout_marginBottom="50px" />
+
+                        <TextView
+                            android:id="@+id/lc_statistics_bar_1_bar_grey"
+                            android:layout_width="0dp"
+                            android:layout_weight=".30"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_forecast_grey"
+                            android:text="@string/lc_statistics_bar_1_bar_grey"
+                            android:layout_marginBottom="50px" />
+                </LinearLayout>
+
+
+                <!-- Bar 2-->
+                <TextView
+                    android:id="@+id/lc_statistics_bar_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lc_statistics_bar_2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/lc_statistics_bar_2_bar"
+                        android:layout_width="0dp"
+                        android:layout_weight=".70"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_forecast_one"
+                        android:text="@string/lc_statistics_bar_2_bar"
+                        android:layout_marginBottom="50px" />
+
+                    <TextView
+                        android:id="@+id/lc_statistics_bar_2_bar_grey"
+                        android:layout_width="0dp"
+                        android:layout_weight=".30"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_forecast_grey"
+                        android:text="@string/lc_statistics_bar_2_bar_grey"
+                        android:layout_marginBottom="50px" />
+                </LinearLayout>
+
+
+                <!-- Bar 3-->
+                <TextView
+                    android:id="@+id/lc_statistics_bar_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lc_statistics_bar_3" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/lc_statistics_bar_3_bar"
+                        android:layout_width="0dp"
+                        android:layout_weight=".70"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_forecast_two"
+                        android:text="@string/lc_statistics_bar_3_bar"
+                        android:layout_marginBottom="50px" />
+
+                    <TextView
+                        android:id="@+id/lc_statistics_bar_3_bar_grey"
+                        android:layout_width="0dp"
+                        android:layout_weight=".30"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_forecast_grey"
+                        android:text="@string/lc_statistics_bar_3_bar_grey"
+                        android:layout_marginBottom="50px" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
 
         </LinearLayout>

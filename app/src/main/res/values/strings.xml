@@ -30,4 +30,23 @@
     <string name="fullness_halffull">Learning center is half full!</string>
     <string name="fullness_empty">Learning center is nearly empty!</string>
     <string name="lc_statistics_description_default">Can\'t fetch data</string>
+
+
+    <string name="lc_statistics_forecast_title">Occupancy-Rate Forecast</string>
+
+    <string name="lc_statistics_bar_1">Current:</string>
+    <string name="lc_statistics_bar_2">In one hour:</string>
+    <string name="lc_statistics_bar_3">In two hours:</string>
+
+
+    <string name="lc_statistics_bar_1_bar"></string>
+    <string name="lc_statistics_bar_1_bar_grey"></string>
+
+    <string name="lc_statistics_bar_2_bar"></string>
+    <string name="lc_statistics_bar_2_bar_grey"></string>
+
+    <string name="lc_statistics_bar_3_bar"></string>
+    <string name="lc_statistics_bar_3_bar_grey"></string>
+
+
 </resources>
