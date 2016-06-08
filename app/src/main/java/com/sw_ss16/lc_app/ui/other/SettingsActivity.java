@@ -1,9 +1,10 @@
 package com.sw_ss16.lc_app.ui.other;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,6 +71,7 @@ public class SettingsActivity extends BaseActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_prefs);
             addUpdateNowListener();
+            addAboutListener();
         }
 
         private void addUpdateNowListener() {
@@ -84,6 +86,20 @@ public class SettingsActivity extends BaseActivity {
                     ResourceFetcher database_syncer = new ResourceFetcher();
 
                     database_syncer.syncAllRemoteIntoSQLiteDBNOW(queue, database, getActivity().getApplicationContext());
+                    return true;
+                }
+            });
+        }
+
+        private void addAboutListener() {
+            Preference about = (Preference) findPreference("pref_settings_3");
+            about.setOnPreferenceClickListener(new OnPreferenceClickListener()
+            {
+                public boolean onPreferenceClick(Preference pref)
+                {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), AboutActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getActivity().getApplicationContext().startActivity(intent);
                     return true;
                 }
             });

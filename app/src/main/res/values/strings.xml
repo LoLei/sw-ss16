@@ -30,4 +30,8 @@
     <string name="fullness_halffull">Learning center is half full!</string>
     <string name="fullness_empty">Learning center is nearly empty!</string>
     <string name="lc_statistics_description_default">Can\'t fetch data</string>
+    <string name="about_text1">Coded with</string>
+    <string name="about_text2">by Daniel, Lorenz, Verena &amp; Sebastian</string>
+    <string name="about_text3">in Graz</string>
+    <string name="title_activity_test2">About</string>
 </resources>
