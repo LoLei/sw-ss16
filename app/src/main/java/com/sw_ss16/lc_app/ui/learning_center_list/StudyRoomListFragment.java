@@ -180,17 +180,15 @@ public class StudyRoomListFragment extends ListFragment {
 
         cursor.moveToFirst();
         boolean statistic_ok = true;
-        System.out.println("Cursor: " + cursor.getCount());
         if (cursor.getCount() > 0) {
 
             String fullness = cursor.getString(cursor.getColumnIndex("FULLNESS"));
             int full = Integer.parseInt(fullness);
 
             if (full >= 7) {
-                System.out.println("Set Color Full");
                 ((TextView) convertView.findViewById(R.id.article_fullness_color)).setBackgroundResource(R.color.red_full);
             } else {
-                System.out.println("Set Color NOT Full");
+
                 ((TextView) convertView.findViewById(R.id.article_fullness_color)).setBackgroundResource(R.color.green_empty);
             }
         }
