@@ -20,6 +20,7 @@ public class AllTests extends ActivityInstrumentationTestCase2<Activity> {
         testSuite.addTestSuite(SettingsActivityTest.class);
         testSuite.addTestSuite(StudyRoomDetailTest.class);
         testSuite.addTestSuite(StatisticsTest.class);
+        testSuite.addTestSuite(FavAddTest.class);
 
         return testSuite;
     }
