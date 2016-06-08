@@ -134,7 +134,8 @@
                         android:id="@+id/lc_statistics_bar_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/lc_statistics_bar_1" />
+                        android:text="@string/lc_statistics_bar_1"
+                        android:layout_marginTop="50px"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -146,16 +147,16 @@
                             android:layout_height="wrap_content"
                             android:background="@color/color_forecast_current"
                             android:text="@string/lc_statistics_bar_1_bar"
-                            android:layout_marginBottom="50px" />
+                             />
 
                         <TextView
                             android:id="@+id/lc_statistics_bar_1_bar_grey"
                             android:layout_width="0dp"
-                            android:layout_weight=".30"
+                            android:layout_weight="0.10"
                             android:layout_height="wrap_content"
                             android:background="@color/color_forecast_grey"
                             android:text="@string/lc_statistics_bar_1_bar_grey"
-                            android:layout_marginBottom="50px" />
+                             />
                 </LinearLayout>
 
 
@@ -164,7 +165,8 @@
                     android:id="@+id/lc_statistics_bar_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/lc_statistics_bar_2" />
+                    android:text="@string/lc_statistics_bar_2"
+                    android:layout_marginTop="50px"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -176,16 +178,16 @@
                         android:layout_height="wrap_content"
                         android:background="@color/color_forecast_one"
                         android:text="@string/lc_statistics_bar_2_bar"
-                        android:layout_marginBottom="50px" />
+                         />
 
                     <TextView
                         android:id="@+id/lc_statistics_bar_2_bar_grey"
                         android:layout_width="0dp"
-                        android:layout_weight=".30"
+                        android:layout_weight="0.10"
                         android:layout_height="wrap_content"
                         android:background="@color/color_forecast_grey"
                         android:text="@string/lc_statistics_bar_2_bar_grey"
-                        android:layout_marginBottom="50px" />
+                         />
                 </LinearLayout>
 
 
@@ -194,7 +196,8 @@
                     android:id="@+id/lc_statistics_bar_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/lc_statistics_bar_3" />
+                    android:text="@string/lc_statistics_bar_3"
+                    android:layout_marginTop="50px" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -206,16 +209,16 @@
                         android:layout_height="wrap_content"
                         android:background="@color/color_forecast_two"
                         android:text="@string/lc_statistics_bar_3_bar"
-                        android:layout_marginBottom="50px" />
+                         />
 
                     <TextView
                         android:id="@+id/lc_statistics_bar_3_bar_grey"
                         android:layout_width="0dp"
-                        android:layout_weight=".30"
+                        android:layout_weight=".10"
                         android:layout_height="wrap_content"
                         android:background="@color/color_forecast_grey"
                         android:text="@string/lc_statistics_bar_3_bar_grey"
-                        android:layout_marginBottom="50px" />
+                         />
                 </LinearLayout>
 
 

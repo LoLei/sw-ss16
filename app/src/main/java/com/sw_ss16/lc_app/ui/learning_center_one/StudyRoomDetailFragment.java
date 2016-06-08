@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -58,6 +60,24 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
     @Bind(R.id.lc_statistics)
     TextView statistics;
+
+    @Bind(R.id.lc_statistics_bar_1_bar)
+    TextView bar_current;
+
+    @Bind(R.id.lc_statistics_bar_2_bar)
+    TextView bar_one_hour;
+
+    @Bind(R.id.lc_statistics_bar_3_bar)
+    TextView bar_two_hours;
+
+    @Bind(R.id.lc_statistics_bar_1_bar_grey)
+    TextView bar_current_grey;
+
+    @Bind(R.id.lc_statistics_bar_2_bar_grey)
+    TextView bar_one_hour_grey;
+
+    @Bind(R.id.lc_statistics_bar_3_bar_grey)
+    TextView bar_two_hours_grey;
 
     @Bind(R.id.lc_address)
     TextView address;
@@ -105,6 +125,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
             address.setText(current_learning_center.address);
             description.setText(current_learning_center.description);
             setStatisticsText();
+            setBarchartValues();
         }
         return rootView;
     }
@@ -176,6 +197,74 @@ public class StudyRoomDetailFragment extends BaseFragment {
         }
         database.close();
         cursor.close();
+    }
+
+    private void setBarchartValues() {
+        RawMaterialFreezer database = new RawMaterialFreezer(getActivity().getApplicationContext());
+        SQLiteDatabase sqLiteDatabase = database.getReadableDatabase();
+
+        Calendar calendar = Calendar.getInstance();
+        int current_day = calendar.get(Calendar.DAY_OF_WEEK);
+        current_day--;
+        int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        System.out.println("Current Day: " + current_day + "Current Hour: " + current_hour + "ID: " + current_learning_center.id);
+
+        String query_string = "LC_ID = " + current_learning_center.id +
+                " AND WEEKDAY = " + current_day +
+                " AND HOUR = " + current_hour;
+        String[] columns = new String[]{"ID", "LC_ID", "WEEKDAY", "HOUR", "FULLNESS"};
+
+        Cursor cursor = sqLiteDatabase.query("statistics", columns, query_string, null, null, null, null);
+
+        cursor.moveToFirst();
+        boolean statistic_ok = true;
+        System.out.println("Cursor: " + cursor.getCount());
+        if (current_learning_center.id.equals(cursor.getString(cursor.getColumnIndex("LC_ID")))) {
+
+            float current_val = cursor.getColumnIndex("FULLNESS") * 0.1f;
+
+            bar_current.setLayoutParams(new LinearLayout.LayoutParams(0, 55, current_val));
+            bar_current_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 1-current_val));
+
+            bar_one_hour.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 0.5f));
+            bar_one_hour_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 0.5f));
+
+            bar_two_hours.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 0.0f));
+            bar_two_hours_grey.setLayoutParams(new LinearLayout.LayoutParams(0, 55, 1.0f));
+
+            /*
+            String fullness = cursor.getString(cursor.getColumnIndex("FULLNESS"));
+            int full = Integer.parseInt(fullness);
+
+            String fullness_description = "";
+
+            if (full >= 7) {
+                fullness_description = getActivity().getString(R.string.fullness_full);
+            }
+            else if (full >= 5) {
+                fullness_description = getActivity().getString(R.string.fullness_halffull);
+            }
+            // TODO: Add a fourth fullness state
+            else if (full < 5) {
+                fullness_description = getActivity().getString(R.string.fullness_empty);
+            }
+            else {
+                statistic_ok = false;
+            }
+
+            if (statistic_ok) {
+                String statistics_description_str = String.format(getActivity().getString(R.string.lc_statistics_description),
+                        fullness_description, full*10);
+                statistics.setText(statistics_description_str);
+            }
+            else
+                statistics.setText(R.string.lc_statistics_description_default);
+                */
+        }
+        database.close();
+        cursor.close();
+
     }
 
     private void loadBackdrop() {
