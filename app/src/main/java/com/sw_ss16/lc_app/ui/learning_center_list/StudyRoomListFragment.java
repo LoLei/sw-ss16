@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,8 +23,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import com.sw_ss16.lc_app.R;
+import com.sw_ss16.lc_app.backend.RawMaterialFreezer;
 import com.sw_ss16.lc_app.content.LearningCenter;
 import com.sw_ss16.lc_app.content.LearningCenterDefroster;
+
+import java.util.Calendar;
 
 /**
  * Shows a list of all available quotes.
@@ -131,6 +136,7 @@ public class StudyRoomListFragment extends ListFragment {
             final LearningCenter item = getItem(position);
             ((TextView) convertView.findViewById(R.id.article_title)).setText(item.name);
             ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.description);
+            setFullnessColor(convertView, item.id);
             final ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
             Glide.with(getActivity()).load(item.image_out_url).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
                 @Override
@@ -146,5 +152,48 @@ public class StudyRoomListFragment extends ListFragment {
     }
 
     public StudyRoomListFragment() {
+    }
+
+    public void setFullnessColor(View convertView, String id) {
+        RawMaterialFreezer database = new RawMaterialFreezer(getActivity().getApplicationContext());
+        SQLiteDatabase sqLiteDatabase = database.getReadableDatabase();
+        Calendar calendar = Calendar.getInstance();
+        int current_day = calendar.get(Calendar.DAY_OF_WEEK);
+        current_day--;
+        int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        int display_hour = current_hour;
+        String meridiem = "";
+        if (current_hour <= 12)
+            meridiem = "AM";
+        else if (current_hour > 12) {
+            meridiem = "PM";
+            display_hour -= 12;
+        }
+
+        String query_string = "LC_ID = " + id +
+                " AND WEEKDAY = " + current_day +
+                " AND HOUR = " + current_hour;
+        String[] columns = new String[]{"ID", "LC_ID", "WEEKDAY", "HOUR", "FULLNESS"};
+
+        Cursor cursor = sqLiteDatabase.query("statistics", columns, query_string, null, null, null, null);
+
+        cursor.moveToFirst();
+        boolean statistic_ok = true;
+        if (cursor.getCount() > 0) {
+
+            String fullness = cursor.getString(cursor.getColumnIndex("FULLNESS"));
+            int full = Integer.parseInt(fullness);
+
+            if (full >= 7) {
+                ((TextView) convertView.findViewById(R.id.article_fullness_color)).setBackgroundResource(R.color.red_full);
+            } else {
+
+                ((TextView) convertView.findViewById(R.id.article_fullness_color)).setBackgroundResource(R.color.green_empty);
+            }
+        }
+
+        database.close();
+        cursor.close();
     }
 }
