@@ -159,7 +159,7 @@ public class StudyRoomListFragment extends ListFragment {
         SQLiteDatabase sqLiteDatabase = database.getReadableDatabase();
         Calendar calendar = Calendar.getInstance();
         int current_day = calendar.get(Calendar.DAY_OF_WEEK);
-        current_day--;
+        // current_day--;
         int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
 
         int display_hour = current_hour;

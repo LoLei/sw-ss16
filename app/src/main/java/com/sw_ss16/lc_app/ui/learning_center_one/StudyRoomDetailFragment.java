@@ -136,7 +136,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
         Calendar calendar = Calendar.getInstance();
         int current_day = calendar.get(Calendar.DAY_OF_WEEK);
-        current_day--;
+        // current_day--;
         int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
 
         int display_hour = current_hour;
@@ -205,7 +205,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
         Calendar calendar = Calendar.getInstance();
         int current_day = calendar.get(Calendar.DAY_OF_WEEK);
-        current_day--;
+        // current_day--;
         int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
 
         System.out.println("Current Day: " + current_day + "Current Hour: " + current_hour + "ID: " + current_learning_center.id);
