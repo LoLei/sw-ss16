@@ -43,7 +43,7 @@ public class FavAddTest extends ActivityInstrumentationTestCase2<ListActivity> {
         List<String> listOfLcIds = lc_contentmanager.getListOfLcIds();
 
         Random rand = new Random();
-        int randNumb = rand.nextInt(3 - 1) + 1;
+        int randNumb = rand.nextInt(4 - 2) + 2;
 
         LearningCenter LC = lc_contentmanager.getLcObject(listOfLcIds.get(randNumb));
 

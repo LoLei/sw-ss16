@@ -34,7 +34,7 @@ public class ListActivityTest extends ActivityInstrumentationTestCase2<ListActiv
         mySolo.clickOnImageButton(0);
         mySolo.sleep(500);
 
-        boolean text_found = mySolo.searchText(getActivity().getString(R.string.navigation_title));
+        boolean text_found = mySolo.searchText(getActivity().getString(R.string.navigation_favorite_study_rooms));
         assertEquals("Required text 1 not found", true, text_found);
     }
 
