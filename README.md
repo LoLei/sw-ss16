@@ -9,6 +9,12 @@
 ## App Info
 Study Room Population Predicter
 
+## License
+* This project uses the [AGPL 3 license](https://github.com/LoLei/sw-ss16/blob/master/LICENSE.txt).
+* The UI template uses the [Apache 2 license](https://github.com/LoLei/sw-ss16/blob/master/LICENSE-used-by-template-and-volley.txt) and can be found [here](https://github.com/andreasschrade/android-design-template).
+* Volley uses the [Apache 2 license](https://github.com/LoLei/sw-ss16/blob/master/LICENSE-used-by-template-and-volley.txt) and can be found [here](https://android.googlesource.com/platform/frameworks/volley/).
+* Icons used from [Icons8](https://icons8.com/android-icons/) & [Google](https://design.google.com/icons/).
+
 ## Links
 * [TWiki](http://www.ist.tugraz.at/software2016/bin/view/Main/WebHome)
 * [Slack](https://sw-ss16.slack.com)
