@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -136,7 +135,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
         Calendar calendar = Calendar.getInstance();
         int current_day = calendar.get(Calendar.DAY_OF_WEEK);
-        current_day--;
+        // current_day--;
         int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
 
         int display_hour = current_hour;
@@ -163,6 +162,8 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
         Cursor cursor = sqLiteDatabase.query("statistics", columns, query_string, null, null, null, null);
 
+        System.out.println(query_string);
+
         cursor.moveToFirst();
         boolean statistic_ok = true;
         System.out.println("Cursor: " + cursor.getCount());
@@ -179,7 +180,6 @@ public class StudyRoomDetailFragment extends BaseFragment {
             else if (full >= 5) {
                 fullness_description = getActivity().getString(R.string.fullness_halffull);
             }
-            // TODO: Add a fourth fullness state
             else if (full < 5) {
                 fullness_description = getActivity().getString(R.string.fullness_empty);
             }
@@ -205,7 +205,7 @@ public class StudyRoomDetailFragment extends BaseFragment {
 
         Calendar calendar = Calendar.getInstance();
         int current_day = calendar.get(Calendar.DAY_OF_WEEK);
-        current_day--;
+        // current_day--;
         int current_hour = calendar.get(Calendar.HOUR_OF_DAY);
 
         System.out.println("Current Day: " + current_day + "Current Hour: " + current_hour + "ID: " + current_learning_center.id);
