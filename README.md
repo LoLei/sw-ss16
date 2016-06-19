@@ -9,6 +9,12 @@
 ## App Info
 Study Room Population Predicter
 
+## License
+* This project uses the [AGPL 3 license](https://github.com/LoLei/sw-ss16/blob/dev/LICENSE.txt).
+* The UI template used has the [Apache 2 license](https://github.com/LoLei/sw-ss16/blob/dev/LICENSE-used-by-template.txt).  
+  The UI template can be found [here](https://github.com/andreasschrade/android-design-template).
+* Icons used: [Icons 8](https://icons8.com/) & [Google](https://design.google.com/icons/index.html)
+
 ## Links
 * [TWiki](http://www.ist.tugraz.at/software2016/bin/view/Main/WebHome)
 * [Slack](https://sw-ss16.slack.com)

@@ -2,6 +2,7 @@ package com.sw_ss16.lc_app.ui.learning_center_list;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,30 +10,31 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.sw_ss16.lc_app.R;
-import com.sw_ss16.lc_app.content.LearningCenterContent;
+import com.sw_ss16.lc_app.content.LearningCenterDefroster;
 import com.sw_ss16.lc_app.ui.base.BaseActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailFragment;
 import com.sw_ss16.lc_app.util.LogUtil;
 
-/**
- * Lists all available quotes. This Activity supports a single pane (= smartphones) and a two pane mode (= large screens with >= 600dp width).
- *
- * Created by Andreas Schrade on 14.12.2015.
- */
 public class ListActivity extends BaseActivity implements StudyRoomListFragment.Callback {
     /**
      * Whether or not the activity is running on a device with a large screen
      */
     private boolean twoPaneMode;
 
-    private LearningCenterContent lc_contentmanager = new LearningCenterContent();
+    private LearningCenterDefroster lc_contentmanager = new LearningCenterDefroster();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        PreferenceManager.setDefaultValues(this, R.xml.settings_prefs, true);
+
+        lc_contentmanager.setApplicationContext(getApplicationContext());
+        if (lc_contentmanager.getNumberOfFavorites() == 0) {
+            findViewById(R.id.textView_no_fav).setVisibility(View.VISIBLE);
+        }
 
         //Check if no favorites
         lc_contentmanager.setApplicationContext(getApplicationContext());
@@ -44,7 +46,7 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
 
         if (isTwoPaneLayoutUsed()) {
             twoPaneMode = true;
-            LogUtil.logD("TEST","TWO POANE TASDFES");
+            LogUtil.logD("TEST", "TWO POANE TASDFES");
             enableActiveItemState();
         }
 
@@ -61,11 +63,10 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
     @Override
     public void onItemSelected(String id) {
         if (twoPaneMode) {
-            // Show the quote detail information by replacing the DetailFragment via transaction.
             StudyRoomDetailFragment fragment = StudyRoomDetailFragment.newInstance(id);
             getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
-        } else {
-            // Start the detail activity in single pane mode.
+        }
+        else {
             Intent detailIntent = new Intent(this, StudyRoomDetailActivity.class);
             detailIntent.putExtra(StudyRoomDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
@@ -79,10 +80,9 @@ public class ListActivity extends BaseActivity implements StudyRoomListFragment.
     }
 
     private void setupDetailFragment() {
-        //StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(FavoriteStudyRoomsContent.ITEMS.get(0).id);
 
         lc_contentmanager.setApplicationContext(getApplicationContext());
-        StudyRoomDetailFragment fragment =  StudyRoomDetailFragment.newInstance(lc_contentmanager.getListOfFavLcIds().get(0));
+        StudyRoomDetailFragment fragment = StudyRoomDetailFragment.newInstance(lc_contentmanager.getListOfFavLcIds().get(0));
 
         getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
     }

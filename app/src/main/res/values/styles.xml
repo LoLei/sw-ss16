@@ -16,7 +16,7 @@
         <item name="android:background">?attr/colorPrimary</item>
     </style>
 
-    <style name="ToolbarPopUp" parent ="ThemeOverlay.AppCompat.Light">
+    <style name="ToolbarPopUp" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@color/theme_window_background</item>
     </style>
 
@@ -40,6 +40,10 @@
         <item name="layout_scrollFlags">scroll|exitUntilCollapsed</item>
         <item name="contentScrim">?attr/colorPrimary</item>
     </style>
+
+    <style name="Theme.Main.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Main.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

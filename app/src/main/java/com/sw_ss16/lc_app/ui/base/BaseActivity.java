@@ -1,7 +1,9 @@
 package com.sw_ss16.lc_app.ui.base;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,19 +14,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.sw_ss16.lc_app.R;
-import com.sw_ss16.lc_app.backend.Database;
-import com.sw_ss16.lc_app.backend.DatabaseSyncer;
+import com.sw_ss16.lc_app.backend.RawMaterialFreezer;
+import com.sw_ss16.lc_app.backend.ResourceFetcher;
 import com.sw_ss16.lc_app.content.LearningCenter;
-import com.sw_ss16.lc_app.content.LearningCenterContent;
-import com.sw_ss16.lc_app.ui.other.SettingsActivity;
+import com.sw_ss16.lc_app.content.LearningCenterDefroster;
 import com.sw_ss16.lc_app.ui.learning_center_list.ListActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailActivity;
 import com.sw_ss16.lc_app.ui.learning_center_one.StudyRoomDetailFragment;
+import com.sw_ss16.lc_app.ui.other.SettingsActivity;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -41,14 +43,11 @@ import static com.sw_ss16.lc_app.util.LogUtil.makeLogTag;
  * The base class for all Activity classes.
  * This class creates and provides the navigation drawer and toolbar.
  * The navigation logic is handled in {@linkk BaseActivity#goToNavDrawerItem(int)}
- *
+ * <p/>
  * Created by Andreas Schrade on 14.12.2015.
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    // -------------------------------
-    // Members
-    // -------------------------------
     private static final String TAG = makeLogTag(BaseActivity.class);
 
     protected static final int NAV_DRAWER_ITEM_INVALID = -1;
@@ -56,30 +55,44 @@ public abstract class BaseActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar actionBarToolbar;
 
-    private DatabaseSyncer database_syncer = new DatabaseSyncer();
+    private ResourceFetcher database_syncer = new ResourceFetcher();
 
-    private LearningCenterContent lc_contentmanager = new LearningCenterContent();
+    private LearningCenterDefroster lc_contentmanager = new LearningCenterDefroster();
 
 
-    // -------------------------------
-    // Methods
-    // -------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // TODO: Check if first startup, if yes
 
-        final Database db = new Database(getApplicationContext());
+        final RawMaterialFreezer database = new RawMaterialFreezer(getApplicationContext());
 
-        // Volley DB Queue
         RequestQueue queue = Volley.newRequestQueue(this);
 
-
-        // Pull updated data from the remote database, put into the local database
         // TODO: Do this not on every BaseActivity onCreate(), but like every two hours,
-        // update current data more often than StudyRooms data
-        database_syncer.syncAllRemoteIntoSQLiteDB(queue, db);
+
+        boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean auto_update = sharedPref.getBoolean("pref_settings_1", false);
+
+
+        if (firstrun) {
+            System.out.println("First start");
+            Toast.makeText(this, "Please wait for Update", Toast.LENGTH_LONG).show();
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("firstrun", false).commit();
+            database_syncer.syncAllRemoteIntoSQLiteDBNOW(queue, database, this);
+        }
+        else if (auto_update) {
+            System.out.println("This App first started or has auto update activated -> full update");
+            database_syncer.syncAllRemoteIntoSQLiteDB(queue, database, this);
+        }
+
+        else {
+            System.out.println("Auto Update is deactivated");
+        }
     }
 
     @Override
@@ -94,21 +107,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void setupNavDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawerLayout == null) {
-            // current activity does not have a drawer.
             return;
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
-            // Add all study rooms to navdrawer
             Menu m = navigationView.getMenu();
             SubMenu all_study_rooms = m.getItem(2).getSubMenu();
 
             lc_contentmanager.setApplicationContext(getApplicationContext());
             List<String> lc_ids = lc_contentmanager.getListOfLcIds();
 
-            for (int i = 0; i < lc_ids.size(); i++)
-            {
+            for (int i = 0; i < lc_ids.size(); i++) {
                 LearningCenter curr_lc = lc_contentmanager.getLcObject(lc_ids.get(i));
                 all_study_rooms.add(curr_lc.name);
                 all_study_rooms.getItem(i).setIcon(R.drawable.ic_school_white_24dp);
@@ -124,16 +134,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Updated the checked item in the navigation drawer
+     *
      * @param navigationView the navigation view
      */
     private void setSelectedItem(NavigationView navigationView) {
-        // Which navigation item should be selected?
         int selectedItem = getSelfNavDrawerItem(); // subclass has to override this method
         navigationView.setCheckedItem(selectedItem);
     }
 
     /**
      * Creates the item click listener.
+     *
      * @param navigationView the navigation view
      */
     private void setupDrawerSelectListener(NavigationView navigationView) {
@@ -150,11 +161,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Handles the navigation item click.
+     *
      * @paramm itemId the clicked item
      */
     private void onNavigationItemClicked(final MenuItem menuItem) {
-        if(menuItem.getItemId() == getSelfNavDrawerItem()) {
-            // Already selected
+        if (menuItem.getItemId() == getSelfNavDrawerItem()) {
             closeDrawer();
             return;
         }
@@ -164,6 +175,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Handles the navigation item click and starts the corresponding activity.
+     *
      * @paramm item the selected navigation item
      */
     private void goToNavDrawerItem(MenuItem menuItem) {
@@ -172,36 +184,23 @@ public abstract class BaseActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ListActivity.class));
                 finish();
                 break;
-            /* case R.id.nav_samples:
-                startActivity(new Intent(this, ViewSamplesActivity.class));
-                break;*/
+
             case R.id.nav_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
 
             default:
-                // Start the detail activity in single pane mode.
                 Intent detailIntent = new Intent(this, StudyRoomDetailActivity.class);
                 detailIntent.putExtra(StudyRoomDetailFragment.ARG_ITEM_ID, Integer.toString(((int) menuItem.getNumericShortcut()) + 1));
                 startActivity(detailIntent);
                 break;
         }
-        /*
-        // TODO: Check for twopane mode -> old unused code, remove if not needed anymore
-        if (false) {
-            // Show the quote detail information by replacing the DetailFragment via transaction.
-            StudyRoomDetailFragment fragment = StudyRoomDetailFragment.newInstance(Character.toString(menuItem.getNumericShortcut()));
-            getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
-        }
 
-         else {
-
-        }
-        */
     }
 
     /**
      * Provides the action bar instance.
+     *
      * @return the action bar.
      */
     protected ActionBar getActionBarToolbar() {
@@ -224,14 +223,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void openDrawer() {
-        if(drawerLayout == null)
+        if (drawerLayout == null)
             return;
 
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
     protected void closeDrawer() {
-        if(drawerLayout == null)
+        if (drawerLayout == null)
             return;
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -246,11 +245,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     // -------------------------------
-    // Methods that happened to not be used
+    // Methods that happened to not be used (TODO: remove this)
     // -------------------------------
 
     /**
      * http://stackoverflow.com/a/7331698/4129221
+     *
      * @param url the location of the image on the server
      * @return the byte array generated from the URL
      */

@@ -1,32 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sw_ss16.lc_app">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/predictr"
         android:label="@string/app_name"
         android:theme="@style/Theme.Main">
-
-        <activity android:name="com.sw_ss16.lc_app.ui.learning_center_list.ListActivity">
+        <activity android:name=".ui.learning_center_list.ListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.learning_center_one.StudyRoomDetailActivity"
+        <activity
+            android:name=".ui.learning_center_one.StudyRoomDetailActivity"
             android:label=""
-            android:parentActivityName="com.sw_ss16.lc_app.ui.learning_center_list.ListActivity"/>
-        <activity android:name=".ui.other.ViewSamplesActivity"
-            android:label="Samples"
-            android:parentActivityName="com.sw_ss16.lc_app.ui.learning_center_list.ListActivity"/>
-        <activity android:name=".ui.other.SettingsActivity"
+            android:parentActivityName=".ui.learning_center_list.ListActivity" />
+        <activity
+            android:name=".ui.other.SettingsActivity"
             android:label="Settings"
-            android:parentActivityName="com.sw_ss16.lc_app.ui.learning_center_list.ListActivity"/>
-
+            android:parentActivityName=".ui.learning_center_list.ListActivity" />
+        <activity
+            android:name=".ui.other.AboutActivity"
+            android:label="@string/title_activity_test2"
+            android:parentActivityName=".ui.other.SettingsActivity"
+            android:theme="@style/Theme.Main">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sw_ss16.lc_app.ui.other.SettingsActivity" />
+        </activity>
     </application>
 
 </manifest>

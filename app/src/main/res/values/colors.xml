@@ -8,4 +8,13 @@
 
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
+
+    <color name="red_full">#D50000</color>
+    <color name="green_empty">#00C853</color>
+
+    <color name="color_forecast_current">#29b6f6</color>
+    <color name="color_forecast_one">#4fc3f7</color>
+    <color name="color_forecast_two">#81d4fa</color>
+    <color name="color_forecast_grey">#e0e0e0</color>
+
 </resources>

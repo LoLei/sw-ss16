@@ -46,4 +46,12 @@
             android:maxLines="1"
             android:singleLine="true"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/article_fullness_color"
+        android:layout_width="10dp"
+        android:layout_marginRight="8dp"
+        android:layout_height="@dimen/list_item_article_thumbnail"
+        android:background="#000" />
+
 </LinearLayout>
